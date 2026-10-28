@@ -6,6 +6,15 @@
 <meta name="theme-color" content="#0e0e10">
 <meta name="description" content="Loja OSS Kimonos: kimonos, faixas, fight wear, rashguards, camisas, bonés, bermudas, moletons e mochilas. Consulte modelos e disponibilidade no WhatsApp oficial.">
 <title>Loja | OSS Kimonos</title>
+<link rel="icon" href="/assets/oss-logo.png" type="image/png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="OSS Kimonos">
+<meta property="og:title" content="Loja OSS Kimonos | Kimonos, faixas e lifestyle">
+<meta property="og:description" content="Explore as categorias oficiais da OSS Kimonos e consulte os produtos disponíveis.">
+<meta property="og:image" content="https://oss-kimonos-site.onrender.com/assets/banner-oss-tres-modelos.png">
+<meta name="twitter:card" content="summary_large_image">
+
 <style>
 :root{color-scheme:dark;--bg:#0d0d0f;--surface:#18181a;--line:#343234;--ink:#f4f2ed;--muted:#aaa8a6;--accent:#c4a477}
 *{box-sizing:border-box}
@@ -97,16 +106,38 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 @media(max-width:900px){.photo-placeholder{height:240px}}
 @media(max-width:620px){.photo-placeholder{height:clamp(155px,45vw,210px)}.price{font-size:16px}}
 @media(max-width:360px){.photo-placeholder{height:250px}}
+
+:focus-visible{outline:3px solid #edc88a;outline-offset:3px}
+#catalogo{scroll-margin-top:86px}
+.skip-link{position:fixed;top:-70px;left:12px;z-index:100;padding:12px 16px;background:var(--accent);color:#111;font-weight:800;border-radius:4px}
+.skip-link:focus{top:12px}
+.mobile-actions{display:none}
+@media(max-width:620px){
+ .nav{flex-direction:row;gap:8px;justify-content:space-between;align-items:center}
+ .brand img{width:clamp(104px,31vw,144px);height:auto;max-height:56px}
+ .nav>nav{display:none}
+ .mobile-actions{display:flex;align-items:center;gap:8px}
+ .mobile-home{font-size:12px;color:var(--accent);font-weight:800;padding:9px 12px;border:1px solid var(--accent);border-radius:5px}
+ .mobile-nav{position:relative}
+ .mobile-nav summary{min-height:42px;display:flex;align-items:center;cursor:pointer;list-style:none;border:1px solid #555;color:#eee;border-radius:5px;padding:8px 12px;font-size:12px;font-weight:800}
+ .mobile-nav summary::-webkit-details-marker{display:none}
+ .mobile-nav[open] summary{border-color:var(--accent);color:var(--accent)}
+ .mobile-nav-links{position:absolute;right:0;top:calc(100% + 8px);z-index:30;width:min(270px,calc(100vw - 26px));background:#1b1a1b;border:1px solid #51483d;border-radius:8px;padding:9px;box-shadow:0 14px 30px #000b}
+ .mobile-nav-links a{display:block;min-height:44px;padding:12px 14px;border-radius:4px;font-size:14px}
+ .mobile-nav-links a:hover{background:#302922}
+}
+@media(max-width:340px){.mobile-actions{gap:5px}.mobile-home,.mobile-nav summary{padding:8px;font-size:11px}.brand img{width:100px}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header>
  <div class="nav">
   <a href="/" class="brand" aria-label="OSS Kimonos - Página inicial"><img src="/assets/oss-logo.png" alt="Logo oficial OSS Kimonos" width="156" height="62"></a>
-  <nav aria-label="Menu principal"><a href="/">Início</a><a href="/loja.html" aria-current="page">Loja</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a></nav>
+  <nav aria-label="Menu principal"><a href="/">Início</a><a href="/loja.html" aria-current="page">Loja</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a></nav><div class="mobile-actions"><a class="mobile-home" href="/">Início</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="/">Início</a><a href="/loja.html">Loja</a><a href="/#colecao">Coleção</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div>
  </div>
 </header>
-<main>
+<main id="conteudo">
  <section class="hero">
   <div class="container">
    <p class="eyebrow">OSS Kimonos · Loja</p>
@@ -297,6 +328,12 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
      showCategory(activeKey,false);
    })
    .catch(()=>{ /* A navegação e a consulta pelo WhatsApp permanecem funcionando. */ });
+ const navMenu=document.querySelector(".mobile-nav");
+ if(navMenu){
+   navMenu.querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>navMenu.open=false));
+   document.addEventListener("keydown",e=>{if(e.key==="Escape")navMenu.open=false});
+   document.addEventListener("click",e=>{if(navMenu.open&&!navMenu.contains(e.target))navMenu.open=false});
+ }
 })();
 </script>
 </body></html>
