@@ -182,16 +182,28 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  const formatter=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
  let publishedProducts=[];
  let activeKey="kimonos";
+ let activeCatalogEndpoint="/catalogo.json";
  function create(tag,klass,content){
    const el=document.createElement(tag);
    if(klass)el.className=klass;
    if(content!==undefined)el.textContent=String(content);
    return el;
  }
+ function ossSafeImageUrl(value){
+   if(typeof value!=="string"||value.length>500)return false;
+   if(/^\/assets\/[A-Za-z0-9_./-]+\.(?:png|jpe?g|webp)$/i.test(value)&&!value.includes(".."))return true;
+   try {
+     const actual=new URL(value);
+     const endpoint=new URL(activeCatalogEndpoint,location.origin);
+     return endpoint.origin!==location.origin && actual.protocol==="https:" &&
+       actual.origin===endpoint.origin &&
+       /\/uploads\/[a-f0-9]{32}\.(?:jpg|png|webp)$/i.test(actual.pathname);
+   }catch(e){return false;}
+ }
  function addProductCard(product){
    const card=create("article","card");
    const imagePath=typeof product.imagem==="string"?product.imagem:"";
-   if(/^\/assets\/[A-Za-z0-9_./-]+\.(?:png|jpe?g|webp)$/i.test(imagePath)&&!imagePath.includes("..")){
+   if(ossSafeImageUrl(imagePath)){
      const img=create("img","photo");
      img.src=imagePath;
      img.alt=product.nome;
@@ -262,7 +274,18 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  addEventListener("popstate",()=>showCategory(readUrlCategory(),false));
  addEventListener("hashchange",()=>showCategory(readUrlCategory(),false));
  showCategory(readUrlCategory(),false);
- fetch("/catalogo.json",{cache:"no-store"})
+ fetch("/integracao-host.json",{cache:"no-store"})
+   .then(response=>response.ok?response.json():null)
+   .catch(()=>null)
+   .then(settings=>{
+     const candidate=settings&&typeof settings.api_catalogo==="string"?settings.api_catalogo.trim():"";
+     if(candidate){
+       const parsed=new URL(candidate);
+       if(parsed.protocol!=="https:"||!parsed.pathname.endsWith("/api/catalogo.php"))throw Error("Endpoint da Host não é HTTPS válido.");
+       activeCatalogEndpoint=candidate;
+     }
+     return fetch(activeCatalogEndpoint,{cache:"no-store",mode:"cors"});
+   })
    .then(response=>{if(!response.ok)throw Error("Catálogo indisponível");return response.json()})
    .then(data=>{
      if(!data||!Array.isArray(data.produtos))throw Error("Formato inválido");
