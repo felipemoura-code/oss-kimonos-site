@@ -1,0 +1,56 @@
+name: Separar fotografias das categorias OSS (execucao unica)
+on:
+  push:
+    paths:
+      - '.github/workflows/separar-fotos-categorias.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  separar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Instalar Pillow
+        run: python -m pip install "Pillow==11.3.0"
+      - name: Gerar oito fotos independentes sem produto vizinho
+        run: |
+          python - <<'PY'
+          from PIL import Image, ImageEnhance, ImageFilter
+          from pathlib import Path
+          source = Path('assets/oss-referencias-fotograficas.webp')
+          names = [
+            'faixas', 'fight-wear', 'rashguard', 'camisas',
+            'bones', 'bermuda', 'moletom', 'mochilas'
+          ]
+          with Image.open(source) as original:
+            sheet = original.convert('RGB')
+          w,h = sheet.size
+          if w % 4 or h % 2 or w < 400 or h < 300:
+            raise RuntimeError('Imagem de origem nao possui grade valida de quatro por dois')
+          tw, th = w // 4, h // 2
+          for idx, name in enumerate(names):
+            col,row = idx%4, idx//4
+            left,top = col*tw, row*th
+            tile = sheet.crop((left+1,top+1,left+tw-1,top+th-1))
+            tile = ImageEnhance.Brightness(tile).enhance(1.11)
+            tile = ImageEnhance.Contrast(tile).enhance(1.06)
+            tile = tile.resize((min(540,tile.width*3),min(810,tile.height*3)),Image.Resampling.LANCZOS)
+            tile = tile.filter(ImageFilter.UnsharpMask(radius=1.2,percent=55,threshold=3))
+            out = Path('assets')/('oss-ref-'+name+'.webp')
+            tile.save(out,'WEBP',quality=85,method=6)
+            print(f'{name} => {out}, {out.stat().st_size} bytes')
+          PY
+      - name: Publicar apenas imagens isoladas
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/oss-ref-*.webp
+          git rm .github/workflows/separar-fotos-categorias.yml
+          git commit -m "Split OSS reference photo sheet into eight independent category images"
+          git push
