@@ -149,6 +149,25 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 }
 
 .official-photo-tag{font-size:10px;line-height:1.35;letter-spacing:.05em;text-transform:uppercase;font-weight:800;color:#d9c19a;margin-bottom:8px}
+
+#ajuda{scroll-margin-top:90px}
+.shop-help{padding-top:64px;padding-bottom:74px;border-top:1px solid #322f2e}
+.shop-help-head{max-width:680px;margin-bottom:24px}
+.shop-help-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:26px;align-items:start}
+.shop-steps{display:grid;gap:12px}
+.shop-step{display:flex;gap:15px;padding:18px;background:#1a191b;border:1px solid #353132;border-radius:6px}
+.shop-step strong{color:var(--accent);font-size:22px;line-height:1}
+.shop-step h3{font-size:15px;margin:0 0 5px}
+.shop-step p{font-size:13px;color:#bcb8b1;margin:0}
+.shop-faq{border:1px solid #373334;border-radius:6px;overflow:hidden}
+.shop-faq details+details{border-top:1px solid #373334}
+.shop-faq summary{cursor:pointer;padding:17px 42px 17px 17px;position:relative;font-weight:700;font-size:14px;list-style:none}
+.shop-faq summary::-webkit-details-marker{display:none}
+.shop-faq summary:after{content:"+";position:absolute;right:18px;color:var(--accent);font-size:21px;top:12px}
+.shop-faq details[open] summary:after{content:"−"}
+.shop-faq summary:hover{background:#222022}
+.shop-faq details p{font-size:13px;color:#c6c0ba;margin:0;padding:0 17px 18px;line-height:1.6}
+@media(max-width:760px){.shop-help{padding-top:45px;padding-bottom:55px}.shop-help-grid{grid-template-columns:1fr;gap:18px}.shop-step{padding:14px}.shop-faq summary{padding:15px 36px 15px 15px}}
 </style>
 </head>
 <body>
@@ -156,7 +175,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 <header>
  <div class="nav">
   <a href="/" class="brand" aria-label="OSS Kimonos - Página inicial"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="156" height="62"></a>
-  <nav aria-label="Menu principal"><a href="/">Início</a><a href="/loja.html" aria-current="page">Loja</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a></nav><div class="mobile-actions"><a class="mobile-home" href="/">Início</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="/">Início</a><a href="/loja.html">Loja</a><a href="/#colecao">Coleção</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div>
+  <nav aria-label="Menu principal"><a href="/">Início</a><a href="/loja.html" aria-current="page">Loja</a><a href="#ajuda">Como pedir</a><a href="/#sobre">Sobre</a><a href="#contato">Contato</a></nav><div class="mobile-actions"><a class="mobile-home" href="/">Início</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="/">Início</a><a href="/loja.html">Loja</a><a href="#ajuda">Como pedir</a><a href="/#colecao">Coleção</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div>
  </div>
 </header>
 <main id="conteudo">
@@ -219,9 +238,24 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
   </section>
   <p class="notice">As categorias não garantem estoque. Consulte disponibilidade, tamanhos e preços diretamente com a OSS. Os produtos ainda estão sendo cadastrados individualmente.</p>
  </section>
+ <section class="container shop-help" id="ajuda" aria-labelledby="shop-help-title">
+   <div class="shop-help-head"><p class="eyebrow">Informações importantes</p><h2 id="shop-help-title">Como funciona a consulta?</h2>
+   <p class="helptext">Escolha uma categoria, converse com a OSS e confirme os detalhes antes de fazer o pedido.</p></div>
+   <div class="shop-help-grid">
+    <div class="shop-steps"><div class="shop-step"><strong>01</strong><div><h3>Explore os produtos</h3><p>Veja os kimonos nas fotos oficiais ou selecione uma das outras categorias.</p></div></div>
+    <div class="shop-step"><strong>02</strong><div><h3>Envie sua consulta</h3><p>Toque no botão do produto ou da categoria para falar pelo WhatsApp oficial.</p></div></div>
+    <div class="shop-step"><strong>03</strong><div><h3>Confirme com a equipe</h3><p>Pergunte sobre modelo, tamanhos, preço, disponibilidade, envio e condições do pedido.</p></div></div></div>
+    <div class="shop-faq">
+     <details><summary>Os preços e tamanhos estão no site?</summary><p>Ainda não há uma tabela completa de preços e tamanhos confirmados. A equipe informa as opções atuais pelo WhatsApp.</p></details>
+     <details><summary>Os produtos das imagens estão disponíveis?</summary><p>As fotos originais mostram peças da OSS, mas não confirmam estoque ou disponibilidade do modelo exato. Consulte antes de fazer o pedido.</p></details>
+     <details><summary>Como saber o prazo e o valor do envio?</summary><p>Informe à equipe o produto desejado e seu CEP para consultar as opções de entrega, frete e prazo aplicáveis ao pedido.</p></details>
+     <details><summary>Como tratar dúvidas sobre troca ou devolução?</summary><p>Fale com a equipe pelo WhatsApp para receber orientações sobre seu caso e os direitos aplicáveis à compra.</p></details>
+    </div>
+   </div>
+ </section>
  <section class="cta" id="contato"><div class="container"><div><h2>Ficou com alguma dúvida?</h2><p>Atendimento OSS Kimonos · WhatsApp (19) 99712-1912.</p></div><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos." target="_blank" rel="noopener noreferrer">Fale com a OSS</a></div></section>
 </main>
-<footer><div class="container foot"><a href="/" aria-label="Voltar à página inicial"><img src="/assets/oss-logo.webp" alt="OSS Kimonos" width="130" height="55"></a><span>© OSS Kimonos. Todos os direitos reservados.</span><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram oficial</a></div></footer>
+<footer><div class="container foot"><a href="/" aria-label="Voltar à página inicial"><img src="/assets/oss-logo.webp" alt="OSS Kimonos" width="130" height="55"></a><span>© OSS Kimonos. Todos os direitos reservados.</span><a href="#ajuda">Como pedir</a><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram oficial</a></div></footer>
 <script>
 (function () {
  "use strict";
