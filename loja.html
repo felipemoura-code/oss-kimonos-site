@@ -147,6 +147,8 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  .reference-info{width:100%;padding:10px 7px 14px}
  .reference-info .button{min-width:0;width:100%;margin-top:8px}
 }
+
+.official-photo-tag{font-size:10px;line-height:1.35;letter-spacing:.05em;text-transform:uppercase;font-weight:800;color:#d9c19a;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -280,6 +282,8 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
      card.appendChild(create("div","photo-placeholder","Foto do produto em atualização"));
    }
    const body=create("div","cardcontent");
+   const photoReference=product.tipo_registro==="foto_oficial_consulta";
+   if(photoReference)body.appendChild(create("div","official-photo-tag","Foto original OSS · modelo sob consulta"));
    body.appendChild(create("h4","",product.nome));
    const price=Number(product.preco_brl);
    if(product.preco_confirmado===true&&Number.isFinite(price)&&price>0){
@@ -294,8 +298,10 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    if(typeof product.descricao==="string"&&product.descricao.trim()){
      body.appendChild(create("p","",product.descricao.trim().slice(0,190)));
    }
-   const contact=create("a","button","Consultar este produto");
-   const msg="Olá, vim pela loja OSS Kimonos e gostaria de consultar o produto "+product.nome+" (código "+product.id+").";
+   const contact=create("a","button",photoReference?"Consultar este kimono":"Consultar este produto");
+   const msg=photoReference
+     ?"Olá! Vi a foto oficial do "+product.nome+" na loja OSS Kimonos. Poderiam confirmar o modelo, tamanhos, preço e disponibilidade?"
+     :"Olá, vim pela loja OSS Kimonos e gostaria de consultar o produto "+product.nome+" (código "+product.id+").";
    contact.href="https://wa.me/5519997121912?text="+encodeURIComponent(msg);
    contact.target="_blank";
    contact.rel="noopener noreferrer";
@@ -314,7 +320,10 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    panelOther.hidden=hasProducts||key==="kimonos";
    if(hasProducts){
      productTitle.textContent=categories[key];
-     productCount.textContent=products.length+" "+(products.length===1?"produto":"produtos");
+     const allPhotos=products.every(p=>p.tipo_registro==="foto_oficial_consulta");
+     productCount.textContent=allPhotos
+       ?products.length+" "+(products.length===1?"foto oficial":"fotos oficiais")
+       :products.length+" "+(products.length===1?"produto":"produtos");
      productCards.replaceChildren(...products.map(addProductCard));
    }else{
      productCards.replaceChildren();
