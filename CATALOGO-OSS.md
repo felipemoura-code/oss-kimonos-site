@@ -35,6 +35,14 @@ Regras:
 6. Ao atualizar `catalogo.json` no GitHub, o Render fará um novo deploy automaticamente. Não é necessário editar o HTML.
 7. Não adicione credenciais, senhas, dados de clientes ou tokens ao catálogo público.
 
+### Referências fotográficas oficiais (sem dados comerciais confirmados)
+
+O catálogo contém três entradas `tipo_registro: "foto_oficial_consulta"` com fotografias originais OSS: kimono branco, kimono preto e linha feminina. São **referências de produtos que aparecem nas fotos**, não SKUs, modelos, preços, tamanhos ou estoque verificados. Os códigos iniciados em `FOTO-OSS-` são identificadores internos criados para a consulta, **não códigos de produto reais**.
+
+Essas entradas usam `status: "publicado"` exclusivamente para exibir as fotos na vitrine, sempre com aviso de modelo sob consulta, `preco_confirmado: false` e sem dados de estoque. Antes de trocar por anúncios de produto individual, confirme nome comercial, código, foto, tamanhos, preço e disponibilidade com a OSS.
+
+Outras categorias continuam com ilustrações neutras — nunca reutilize fotos de lojas homônimas OSS ou de concorrentes sem comprovação da origem.
+
 ### Estrutura de navegação
 
 A Loja exibe nove categorias em um seletor compacto. Se uma categoria possuir produtos publicados no JSON, esses itens aparecem em cards com foto, informações confirmadas e contato direto. Sem itens publicados, ela mostra a consulta de disponibilidade, sem inventar estoque.
