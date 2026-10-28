@@ -68,21 +68,26 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
-test('fotos independentes para oito categorias, sem cortes do mosaico', () => {
-  const referenceCategories = categories.filter(key => key !== 'kimonos');
-  assert.match(store, /class="single reference-panel"/);
-  assert.match(store, /id="reference-photo-image" class="reference-photo"/);
-  assert.match(store, /Imagem de referência gerada/);
-  assert.match(store, /Não é foto de produto da OSS/);
-  assert.match(store, /const referenceImages=/);
-  assert.match(store, /object-fit:contain/);
-  assert.doesNotMatch(store, /referencePositions/);
-  assert.doesNotMatch(store, /oss-referencias-fotograficas\.webp/);
-  for (const key of referenceCategories) {
-    const photo = 'oss-ref-' + key + '.webp';
-    assert.ok(existsSync('assets/' + photo), photo + ' não existe');
-    assert.ok(store.includes('"' + key + '":"' + photo + '"'), 'Foto ausente para ' + key);
+test('pagina inicial usa carrossel de nove categorias, sem fotografias inventadas', () => {
+  assert.match(home, /id="category-track"/);
+  assert.match(home, /id="category-prev"/);
+  assert.match(home, /id="category-next"/);
+  assert.match(home, /track\.scrollBy/);
+  assert.equal((home.match(/class="category-tile"/g) || []).length, 9);
+  for (const key of categories) {
+    assert.ok(home.includes('href="/loja.html#' + key + '"'), 'Categoria sem link: ' + key);
   }
+  assert.doesNotMatch(home, /class="product"/);
+  assert.match(home, /scroll-snap-type:x mandatory/);
+});
+
+test('categorias sem fotos reais mostram apenas consulta; kimonos preservam originais', () => {
+  assert.match(store, /class="category-enquiry"/);
+  assert.match(store, /id="other-description"/);
+  assert.match(store, /Ainda não temos fotos oficiais/);
+  assert.doesNotMatch(store, /reference-photo-image/);
+  assert.doesNotMatch(store, /referenceImages/);
+  assert.doesNotMatch(store, /oss-ref-[a-z-]+\.webp/);
   assert.equal(catalog.produtos.length, 3);
   assert.equal(new Set(catalog.produtos.map(p => p.id)).size, 3);
   for (const product of catalog.produtos) {
