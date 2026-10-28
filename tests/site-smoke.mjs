@@ -95,6 +95,38 @@ test('referencias ilustrativas sao originais e nao inventam produtos', () => {
   assert.match(store, /foto oficial/);
 });
 
+
+test('orientacao de compra acessivel e verdadeira nas duas paginas', () => {
+  assert.match(home, /id="como-comprar"/);
+  assert.match(home, /id="steps-title"/);
+  assert.match(home, /não realiza cobrança ou reserva automática/);
+  assert.match(home, /href="#como-comprar"/);
+  assert.match(store, /id="ajuda"/);
+  assert.equal((store.match(/<details><summary>/g) || []).length, 4);
+  assert.match(store, /Qual o prazo|prazo e o valor do envio/);
+  assert.match(store, /Não é foto de um produto da OSS/);
+  assert.match(store, /Fotos oficiais, modelos e valores serão adicionados/);
+});
+
+test('SEO basico e paginas publicas corretamente listadas', () => {
+  const sitemap = text('sitemap.xml');
+  const robots = text('robots.txt');
+  for (const page of [home, store]) {
+    assert.match(page, /property="og:title"/);
+    assert.match(page, /property="og:description"/);
+    assert.match(page, /property="og:image"/);
+    assert.match(page, /rel="icon"/);
+  }
+  assert.match(sitemap, /https:\/\/oss-kimonos-site\.onrender\.com\/loja\.html/);
+  assert.match(sitemap, /<urlset/);
+  assert.match(robots, /Sitemap: https:\/\/oss-kimonos-site\.onrender\.com\/sitemap\.xml/);
+});
+
+test('menus de tablet respeitam tamanhos intermediarios', () => {
+  assert.match(home, /min-width:751px\) and \(max-width:980px/);
+  assert.match(store, /min-width:621px\) and \(max-width:850px/);
+});
+
 test('imagens HTML usam descricao alternativa', () => {
   for (const page of [home, store]) {
     for (const match of page.matchAll(/<img\b[^>]*>/g)) {
