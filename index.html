@@ -320,6 +320,7 @@ if(track&&prev&&next&&toggle&&position&&progress){
   {id:'FOTO-OSS-KIMONO-FEMININO',categoria:'kimonos',nome:'Kimono OSS — linha feminina',imagem:'/assets/modelo-branco-feminino.webp',tipo_registro:'foto_oficial_consulta'}
  ];
  let displayedProducts=knownOfficialPhotos;
+ let catalogLoaded=false;
  let selectedCategory=null;
  let lastSelectedCard=null;
  const newEl=(tag,className,textValue)=>{
@@ -359,7 +360,7 @@ if(track&&prev&&next&&toggle&&position&&progress){
   if(!details||!Object.prototype.hasOwnProperty.call(categoryNames,key))return;
   const name=categoryNames[key];
   const products=displayedProducts.filter(p=>p&&p.status==='publicado'&&p.categoria===key&&typeof p.nome==='string'&&p.nome.trim());
-  const showFallback=key==='kimonos'&&products.length===0;
+  const showFallback=key==='kimonos'&&!catalogLoaded&&products.length===0;
   const list=showFallback?knownOfficialPhotos:products;
   detailTitle.textContent=name;
   detailDescription.textContent=list.length
@@ -397,6 +398,7 @@ if(track&&prev&&next&&toggle&&position&&progress){
  }).then(data=>{
   if(!data||!Array.isArray(data.produtos))return;
   displayedProducts=data.produtos.filter(p=>p&&p.status==='publicado'&&typeof p.nome==='string'&&p.nome.trim()&&Object.prototype.hasOwnProperty.call(categoryNames,p.categoria));
+  catalogLoaded=true;
   if(selectedCategory)drawDetails(selectedCategory);
  }).catch(()=>{ /* Mostra as fotos OSS ja conhecidas quando o catalogo nao carrega. */ });
 
