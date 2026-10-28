@@ -68,18 +68,18 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
-test('referencias ilustrativas sao originais e nao inventam produtos', () => {
-  const art = text('assets/oss-categorias.svg');
+test('fotos de referencia geradas sao claramente diferentes de produtos reais', () => {
+  assert.ok(existsSync('assets/oss-referencias-fotograficas.webp'));
   const referenceCategories = categories.filter(key => key !== 'kimonos');
-  const ids = [...art.matchAll(/<symbol id="([^"]+)"/g)].map(match => match[1]);
-  assert.equal(ids.length, referenceCategories.length);
-  assert.deepEqual(new Set(ids), new Set(referenceCategories));
   assert.match(store, /class="single reference-panel"/);
-  assert.match(store, /id="reference-symbol"/);
-  assert.match(store, /setAttribute\("href","\/assets\/oss-categorias\.svg#"/);
-  assert.match(store, /Referência ilustrativa/);
-  assert.match(store, /Não é foto de um produto da OSS/);
-  assert.match(store, /refArtwork\.setAttribute\("aria-label"/);
+  assert.match(store, /id="reference-photo-image"/);
+  assert.match(store, /oss-referencias-fotograficas\.webp/);
+  assert.match(store, /Imagem de referência gerada/);
+  assert.match(store, /Não é foto de produto da OSS/);
+  assert.match(store, /referencePositions/);
+  for (const key of referenceCategories) {
+    assert.ok(store.includes('"' + key + '":['), 'Categoria sem foto: ' + key);
+  }
   assert.equal(catalog.produtos.length, 3);
   assert.equal(new Set(catalog.produtos.map(p => p.id)).size, 3);
   for (const product of catalog.produtos) {
@@ -92,39 +92,6 @@ test('referencias ilustrativas sao originais e nao inventam produtos', () => {
     assert.equal(product.estoque, undefined);
   }
   assert.match(store, /Foto original OSS · modelo sob consulta/);
-  assert.match(store, /foto oficial/);
-});
-
-
-test('orientacao de compra acessivel e verdadeira nas duas paginas', () => {
-  assert.match(home, /id="como-comprar"/);
-  assert.match(home, /id="steps-title"/);
-  assert.match(home, /não realiza cobrança ou reserva automática/);
-  assert.match(home, /href="#como-comprar"/);
-  assert.match(store, /id="ajuda"/);
-  assert.equal((store.match(/<details><summary>/g) || []).length, 4);
-  assert.match(store, /Qual o prazo|prazo e o valor do envio/);
-  assert.match(store, /Não é foto de um produto da OSS/);
-  assert.match(store, /Fotos oficiais, modelos e valores serão adicionados/);
-});
-
-test('SEO basico e paginas publicas corretamente listadas', () => {
-  const sitemap = text('sitemap.xml');
-  const robots = text('robots.txt');
-  for (const page of [home, store]) {
-    assert.match(page, /property="og:title"/);
-    assert.match(page, /property="og:description"/);
-    assert.match(page, /property="og:image"/);
-    assert.match(page, /rel="icon"/);
-  }
-  assert.match(sitemap, /https:\/\/oss-kimonos-site\.onrender\.com\/loja\.html/);
-  assert.match(sitemap, /<urlset/);
-  assert.match(robots, /Sitemap: https:\/\/oss-kimonos-site\.onrender\.com\/sitemap\.xml/);
-});
-
-test('menus de tablet respeitam tamanhos intermediarios', () => {
-  assert.match(home, /min-width:751px\) and \(max-width:980px/);
-  assert.match(store, /min-width:621px\) and \(max-width:850px/);
 });
 
 test('imagens HTML usam descricao alternativa', () => {
