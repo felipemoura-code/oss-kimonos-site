@@ -68,17 +68,20 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
-test('fotos de referencia geradas sao claramente diferentes de produtos reais', () => {
-  assert.ok(existsSync('assets/oss-referencias-fotograficas.webp'));
+test('fotos independentes para oito categorias, sem cortes do mosaico', () => {
   const referenceCategories = categories.filter(key => key !== 'kimonos');
   assert.match(store, /class="single reference-panel"/);
-  assert.match(store, /id="reference-photo-image"/);
-  assert.match(store, /oss-referencias-fotograficas\.webp/);
+  assert.match(store, /id="reference-photo-image" class="reference-photo"/);
   assert.match(store, /Imagem de referência gerada/);
   assert.match(store, /Não é foto de produto da OSS/);
-  assert.match(store, /referencePositions/);
+  assert.match(store, /const referenceImages=/);
+  assert.match(store, /object-fit:contain/);
+  assert.doesNotMatch(store, /referencePositions/);
+  assert.doesNotMatch(store, /oss-referencias-fotograficas\.webp/);
   for (const key of referenceCategories) {
-    assert.ok(store.includes('"' + key + '":['), 'Categoria sem foto: ' + key);
+    const photo = 'oss-ref-' + key + '.webp';
+    assert.ok(existsSync('assets/' + photo), photo + ' não existe');
+    assert.ok(store.includes('"' + key + '":"' + photo + '"'), 'Foto ausente para ' + key);
   }
   assert.equal(catalog.produtos.length, 3);
   assert.equal(new Set(catalog.produtos.map(p => p.id)).size, 3);
