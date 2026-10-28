@@ -87,16 +87,64 @@
  .mobile-nav-links a{display:block;padding:12px 14px;min-height:44px;color:#eee;border-radius:4px;font-size:14px}
  .mobile-nav-links a:hover,.mobile-nav-links a:focus-visible{background:#2e2923;color:#edc88a}
 }
+
+/* Carrossel de categorias sem imagens artificiais e sem dados de produtos inventados */
+.carousel-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:-6px 0 15px}
+.carousel-hint{font-size:12px;color:#bcb6ad}
+.carousel-controls{display:flex;gap:9px}
+.carousel-arrow{width:43px;height:43px;border:1px solid #5f5444;background:#1a191a;color:#e8c79a;border-radius:5px;font-size:28px;font-weight:400;line-height:1;cursor:pointer;transition:background .15s,border-color .15s}
+.carousel-arrow:hover:not(:disabled){background:#302920;border-color:var(--gold)}
+.carousel-arrow:disabled{opacity:.34;cursor:default}
+.category-carousel{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:0;padding:4px 0 13px;scrollbar-color:#655746 #171717;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.category-tile{flex:0 0 calc((100% - 30px)/3);min-width:0;min-height:212px;border:1px solid #423b33;border-radius:7px;background:linear-gradient(145deg,#262321,#141416 75%);padding:22px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;scroll-snap-align:start;position:relative;transition:border-color .16s,background .16s,transform .16s}
+.category-tile:hover,.category-tile:focus-visible{border-color:var(--gold);background:linear-gradient(145deg,#32291f,#191819 80%);transform:translateY(-2px)}
+.tile-index{font-size:11px;letter-spacing:.2em;color:#ad9270;font-weight:800}
+.category-tile strong{font-size:clamp(23px,2.55vw,33px);letter-spacing:-.03em;line-height:1.1;color:#f4f2ee}
+.tile-arrow{position:absolute;right:20px;bottom:18px;font-size:26px;color:var(--gold)}
+.carousel-footer{text-align:center;margin-top:27px}
+@media(max-width:750px){
+ .category-carousel{gap:10px}
+ .category-tile{flex-basis:calc((100% - 10px)/2);min-height:165px;padding:16px}
+ .category-tile strong{font-size:clamp(20px,5.1vw,28px);padding-right:12px}
+ .carousel-arrow{width:40px;height:40px}
+ .carousel-hint{font-size:11px}
+ .tile-arrow{right:12px;bottom:13px;font-size:23px}
+}
+@media(max-width:440px){
+ .category-tile{flex-basis:82%;min-height:171px;padding:19px}
+ .category-tile strong{font-size:29px}
+}
+@media(prefers-reduced-motion:reduce){.category-tile{transition:none}}
 </style></head><body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header><div class="nav"><a class="mark" href="#inicio" aria-label="OSS Kimonos início"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="172" height="60" style="display:block;width:clamp(128px,15vw,172px);height:auto;max-height:68px;object-fit:contain" /></a><nav aria-label="Navegação principal"><a class="store-link" href="/loja.html" aria-label="Abrir a loja OSS Kimonos nesta página">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a class="btn nav-cta" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener">Fale conosco</a></nav><div class="mobile-actions"><a class="mobile-store" href="/loja.html">Loja</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="#inicio">Início</a><a href="/loja.html">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div></div></header>
 <main id="conteudo"><section class="hero" id="inicio"><div class="hero-content"><div class="eyebrow">OSS Kimonos • Jiu-Jitsu</div><h1>FEITO PARA<br>QUEM VIVE<br>O TATAME.</h1><p>O espírito do Jiu-Jitsu vai além do treino. Conheça a OSS Kimonos e acompanhe nossas novidades.</p><div class="actions"><a href="/loja.html" class="btn">Explorar produtos</a><a href="https://www.instagram.com/osskimonos/" class="btn outline" target="_blank" rel="noopener">Nosso Instagram</a></div></div></section>
 <section class="bar" aria-label="Destaques"><div class="bar-inner"><div>Tradição no tatame</div><div>Atitude em cada treino</div><div>Espírito de equipe</div></div></section>
-<section class="wrap" id="colecao"><div class="heading"><div><div class="eyebrow">Explore o universo OSS</div><h2>Encontre seu estilo.</h2></div><p class="muted">Fotos reais da OSS. Modelos, tamanhos, preços e disponibilidade são confirmados pelo atendimento.</p></div><div class="cards">
-<article class="product"><div class="visual"><img src="/assets/kimono-branco-detalhe.webp" alt="Foto original OSS Kimonos: kimono claro" loading="lazy" decoding="async" width="560" height="400"></div><div class="info"><h3>Kimonos claros</h3><p>Consulte modelos, tamanhos e disponibilidade.</p><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20informa%C3%A7%C3%B5es%20sobre%20kimonos%20claros" target="_blank" rel="noopener">Consultar no WhatsApp →</a></div></article>
-<article class="product"><div class="visual"><img src="/assets/hero-modelo-preto.webp" alt="Foto original OSS Kimonos: atleta com kimono preto" loading="lazy" decoding="async" width="560" height="400"></div><div class="info"><h3>Kimonos pretos</h3><p>Consulte modelos, tamanhos e disponibilidade.</p><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20informa%C3%A7%C3%B5es%20sobre%20kimonos%20pretos" target="_blank" rel="noopener">Consultar no WhatsApp →</a></div></article>
-<article class="product"><div class="visual"><img src="/assets/modelo-branco-feminino.webp" alt="Foto original OSS Kimonos: linha feminina" loading="lazy" decoding="async" width="560" height="400"></div><div class="info"><h3>Linha feminina</h3><p>Consulte modelos, tamanhos e disponibilidade.</p><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20informa%C3%A7%C3%B5es%20sobre%20a%20linha%20feminina" target="_blank" rel="noopener">Consultar no WhatsApp →</a></div></article>
-</div><div style="margin-top:28px;text-align:center"><a href="/loja.html" class="btn">Ver todas as categorias da Loja</a></div></section>
+<section class="wrap" id="colecao" aria-labelledby="categories-heading">
+ <div class="heading">
+  <div><div class="eyebrow">Explore a Loja OSS</div><h2 id="categories-heading">Todas as categorias.</h2></div>
+  <p class="muted">Escolha uma categoria para consultar os produtos diretamente com a OSS.</p>
+ </div>
+ <div class="carousel-header">
+  <span class="carousel-hint">Deslize para conhecer todas as categorias</span>
+  <div class="carousel-controls">
+   <button type="button" id="category-prev" class="carousel-arrow" aria-label="Mostrar categorias anteriores" disabled>‹</button>
+   <button type="button" id="category-next" class="carousel-arrow" aria-label="Mostrar próximas categorias">›</button>
+  </div>
+ </div>
+ <div class="category-carousel" id="category-track" role="region" aria-roledescription="carrossel" aria-label="Todas as nove categorias da OSS Kimonos" tabindex="0">
+<a class="category-tile" href="/loja.html#kimonos" aria-label="Ver categoria Kimonos na Loja"><span class="tile-index" aria-hidden="true">01</span><strong>Kimonos</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#faixas" aria-label="Ver categoria Faixas na Loja"><span class="tile-index" aria-hidden="true">02</span><strong>Faixas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#fight-wear" aria-label="Ver categoria Fight Wear na Loja"><span class="tile-index" aria-hidden="true">03</span><strong>Fight Wear</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#rashguard" aria-label="Ver categoria Rashguard na Loja"><span class="tile-index" aria-hidden="true">04</span><strong>Rashguard</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#camisas" aria-label="Ver categoria Camisas na Loja"><span class="tile-index" aria-hidden="true">05</span><strong>Camisas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#bones" aria-label="Ver categoria Bonés na Loja"><span class="tile-index" aria-hidden="true">06</span><strong>Bonés</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#bermuda" aria-label="Ver categoria Bermuda na Loja"><span class="tile-index" aria-hidden="true">07</span><strong>Bermuda</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#moletom" aria-label="Ver categoria Moletom na Loja"><span class="tile-index" aria-hidden="true">08</span><strong>Moletom</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#mochilas" aria-label="Ver categoria Mochilas na Loja"><span class="tile-index" aria-hidden="true">09</span><strong>Mochilas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+ </div>
+ <div class="carousel-footer"><a href="/loja.html" class="btn">Ver Loja completa</a></div>
+</section>
 <section class="steps-section" id="como-comprar" aria-labelledby="steps-title">
 <div class="wrap">
   <div class="eyebrow">Atendimento direto</div><h2 id="steps-title">Como consultar e comprar</h2>
@@ -119,5 +167,25 @@ if(mobileMenu){
  mobileMenu.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>mobileMenu.open=false));
  document.addEventListener('keydown',event=>{if(event.key==='Escape')mobileMenu.open=false});
  document.addEventListener('click',event=>{if(mobileMenu.open&&!mobileMenu.contains(event.target))mobileMenu.open=false});
+}
+const track=document.getElementById('category-track');
+const prev=document.getElementById('category-prev');
+const next=document.getElementById('category-next');
+if(track&&prev&&next){
+ const updateArrows=()=>{
+  prev.disabled=track.scrollLeft<=2;
+  next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
+ };
+ const scroll=(direction)=>{
+  const card=track.querySelector('.category-tile');
+  const distance=card?card.getBoundingClientRect().width+15:track.clientWidth;
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  track.scrollBy({left:distance*direction,behavior:reduce?'auto':'smooth'});
+ };
+ prev.addEventListener('click',()=>scroll(-1));
+ next.addEventListener('click',()=>scroll(1));
+ track.addEventListener('scroll',updateArrows,{passive:true});
+ window.addEventListener('resize',updateArrows);
+ updateArrows();
 }
 </script></body></html>
