@@ -162,6 +162,53 @@
  .category-tile,.tile-arrow,.carousel-progress>span{transition:none!important}
  .category-carousel{scroll-behavior:auto}
 }
+
+/* Preview inline da coleção: clique no card sem trocar de página */
+button.category-tile{font:inherit;cursor:pointer;text-align:left;width:auto}
+button.category-tile strong{display:block}
+button.category-tile[aria-expanded="true"]{border-color:#dec093;box-shadow:0 0 0 1px #dec09340,0 15px 38px #0007;background:radial-gradient(ellipse at 90% 10%,#70553765,transparent 60%),linear-gradient(145deg,#342b22,#121314 85%)}
+.category-details{margin-top:30px;padding:31px;background:linear-gradient(135deg,#221e1b,#101112 73%);border:1px solid #765c3d;border-radius:10px;box-shadow:0 19px 42px #0005;scroll-margin-top:98px}
+.category-details[hidden],.detail-empty[hidden]{display:none!important}
+.detail-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:22px;border-bottom:1px solid #4b4035;padding-bottom:22px;margin-bottom:22px}
+.detail-eyebrow{color:#dab786;font-size:10px;letter-spacing:.17em;font-weight:900}
+.detail-heading h3{font-size:clamp(30px,4.3vw,48px);letter-spacing:-.045em;line-height:1.08;margin:9px 0 6px}
+.detail-heading p{font-size:14px;color:#c9c3ba;max-width:640px;margin:0}
+.detail-close{display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #6b5845;background:#302821;color:#f5deb9;padding:11px 14px;font:inherit;font-size:12px;font-weight:800;border-radius:5px;cursor:pointer;flex-shrink:0;min-height:44px}
+.detail-close:hover{background:#4a3827}
+.detail-close span{font-size:20px;line-height:1}
+.detail-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.detail-items:empty{display:none}
+.detail-item{border:1px solid #463d35;background:#1b1a1b;border-radius:6px;overflow:hidden;min-width:0;display:flex;flex-direction:column}
+.detail-item-photo{display:block;width:100%;height:245px;object-fit:contain;object-position:center;background:#242326}
+.detail-item-info{display:flex;flex-direction:column;gap:9px;padding:16px;flex:1}
+.detail-item-note{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#d9bc94;font-weight:850}
+.detail-item-info h4{font-size:18px;margin:0;line-height:1.2}
+.detail-item-info p{color:#bcb6ae;font-size:12px;margin:0;line-height:1.5}
+.detail-item-info a{display:flex;justify-content:center;align-items:center;margin-top:auto;min-height:42px;border:1px solid #b99b75;color:#efcd9b;border-radius:4px;padding:9px;font-size:12px;font-weight:800;text-align:center}
+.detail-item-info a:hover{background:#c4a477;color:#151310}
+.detail-empty{padding:24px;border:1px solid #3c3430;border-radius:6px;background:#1b1a1a}
+.detail-empty-heading{font-size:20px;font-weight:800}
+.detail-empty p{color:#c8c0b5;font-size:14px;max-width:650px;margin:12px 0 20px}
+.detail-disclaimer{font-size:12px;color:#aaa198;line-height:1.6;margin:18px 0 0}
+@media(max-width:750px){
+ .category-details{padding:19px 14px;margin-top:21px}
+ .detail-heading{gap:11px}
+ .detail-heading h3{font-size:31px}
+ .detail-close{padding:9px 12px}
+ .detail-items{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .detail-item-photo{height:190px}
+ .detail-item-info{padding:11px;gap:7px}
+ .detail-item-info h4{font-size:15px}
+ .detail-item-info a{font-size:11px}
+}
+@media(max-width:450px){
+ .detail-items{grid-template-columns:1fr}
+ .detail-item{display:grid;grid-template-columns:40% 60%;min-height:190px}
+ .detail-item-photo{height:100%;min-height:190px}
+ .detail-item-info{padding:12px}
+ .detail-item-info h4{font-size:16px}
+ .detail-close{font-size:11px}
+}
 </style></head><body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header><div class="nav"><a class="mark" href="#inicio" aria-label="OSS Kimonos início"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="172" height="60" style="display:block;width:clamp(128px,15vw,172px);height:auto;max-height:68px;object-fit:contain" /></a><nav aria-label="Navegação principal"><a class="store-link" href="/loja.html" aria-label="Abrir a loja OSS Kimonos nesta página">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a class="btn nav-cta" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener">Fale conosco</a></nav><div class="mobile-actions"><a class="mobile-store" href="/loja.html">Loja</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="#inicio">Início</a><a href="/loja.html">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div></div></header>
@@ -181,15 +228,15 @@
   </div>
  </div>
  <div class="category-carousel" id="category-track" role="region" aria-roledescription="carrossel" aria-label="Todas as nove categorias da OSS Kimonos" tabindex="0">
-<a class="category-tile" href="/loja.html#kimonos" aria-label="Ver categoria Kimonos na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">01 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Kimonos</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#faixas" aria-label="Ver categoria Faixas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">02 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Faixas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#fight-wear" aria-label="Ver categoria Fight Wear na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">03 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Fight Wear</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#rashguard" aria-label="Ver categoria Rashguard na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">04 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Rashguard</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#camisas" aria-label="Ver categoria Camisas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">05 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Camisas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#bones" aria-label="Ver categoria Bonés na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">06 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bonés</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#bermuda" aria-label="Ver categoria Bermuda na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">07 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bermuda</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#moletom" aria-label="Ver categoria Moletom na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">08 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Moletom</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
-<a class="category-tile" href="/loja.html#mochilas" aria-label="Ver categoria Mochilas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">09 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Mochilas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<button class="category-tile" type="button" data-category="kimonos" aria-label="Mostrar Kimonos nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">01 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Kimonos</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="faixas" aria-label="Mostrar Faixas nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">02 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Faixas</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="fight-wear" aria-label="Mostrar Fight Wear nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">03 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Fight Wear</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="rashguard" aria-label="Mostrar Rashguard nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">04 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Rashguard</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="camisas" aria-label="Mostrar Camisas nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">05 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Camisas</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="bones" aria-label="Mostrar Bonés nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">06 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bonés</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="bermuda" aria-label="Mostrar Bermuda nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">07 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bermuda</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="moletom" aria-label="Mostrar Moletom nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">08 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Moletom</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
+<button class="category-tile" type="button" data-category="mochilas" aria-label="Mostrar Mochilas nesta página" aria-controls="category-details" aria-expanded="false"><span class="tile-top"><span class="tile-index" aria-hidden="true">09 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Mochilas</strong><span class="tile-arrow" aria-hidden="true">↗</span></button>
  </div>
  <div class="carousel-bottom">
   <div class="carousel-progress-group" aria-hidden="true">
@@ -198,6 +245,22 @@
   </div>
   <a href="/loja.html" class="btn">Explorar toda a Loja</a>
  </div>
+ <section class="category-details" id="category-details" hidden aria-labelledby="detail-title" tabindex="-1">
+  <div class="detail-heading">
+   <div><div class="detail-eyebrow">COLEÇÃO OSS · VISUALIZAÇÃO RÁPIDA</div>
+    <h3 id="detail-title">Kimonos</h3>
+    <p id="detail-description">Conheça as referências da categoria sem sair desta página.</p>
+   </div>
+   <button type="button" class="detail-close" id="detail-close" aria-label="Fechar detalhes da categoria">Fechar <span aria-hidden="true">×</span></button>
+  </div>
+  <div class="detail-items" id="detail-items"></div>
+  <div class="detail-empty" id="detail-empty" hidden>
+   <div class="detail-empty-heading">Esta coleção está sendo preparada.</div>
+   <p>Os produtos e as fotos oficiais desta categoria ainda não foram cadastrados. Você pode consultar os modelos disponíveis com a equipe.</p>
+   <a id="detail-contact" class="btn" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
+  </div>
+  <p class="detail-disclaimer">Fotos e categorias não confirmam estoque. Consulte tamanhos, valores e disponibilidade com a OSS antes do pedido.</p>
+ </section>
 </section>
 <section class="steps-section" id="como-comprar" aria-labelledby="steps-title">
 <div class="wrap">
@@ -238,6 +301,105 @@ if(track&&prev&&next&&toggle&&position&&progress){
  let direction=1;
  let timer=null;
  const interval=3900;
+
+ const details=document.getElementById('category-details');
+ const detailTitle=document.getElementById('detail-title');
+ const detailDescription=document.getElementById('detail-description');
+ const detailItems=document.getElementById('detail-items');
+ const detailEmpty=document.getElementById('detail-empty');
+ const detailContact=document.getElementById('detail-contact');
+ const detailClose=document.getElementById('detail-close');
+ const categoryNames={
+  'kimonos':'Kimonos','faixas':'Faixas','fight-wear':'Fight Wear',
+  'rashguard':'Rashguard','camisas':'Camisas','bones':'Bonés',
+  'bermuda':'Bermuda','moletom':'Moletom','mochilas':'Mochilas'
+ };
+ const knownOfficialPhotos=[
+  {id:'FOTO-OSS-KIMONO-BRANCO',categoria:'kimonos',nome:'Kimono OSS branco',imagem:'/assets/kimono-branco-detalhe.webp',tipo_registro:'foto_oficial_consulta'},
+  {id:'FOTO-OSS-KIMONO-PRETO',categoria:'kimonos',nome:'Kimono OSS preto',imagem:'/assets/hero-modelo-preto.webp',tipo_registro:'foto_oficial_consulta'},
+  {id:'FOTO-OSS-KIMONO-FEMININO',categoria:'kimonos',nome:'Kimono OSS — linha feminina',imagem:'/assets/modelo-branco-feminino.webp',tipo_registro:'foto_oficial_consulta'}
+ ];
+ let displayedProducts=knownOfficialPhotos;
+ let selectedCategory=null;
+ let lastSelectedCard=null;
+ const newEl=(tag,className,textValue)=>{
+  const element=document.createElement(tag);
+  if(className)element.className=className;
+  if(textValue!==undefined)element.textContent=textValue;
+  return element;
+ };
+ const makeProductCard=product=>{
+  const item=newEl('article','detail-item');
+  const image=typeof product.imagem==='string'?product.imagem:'';
+  if(/^\/assets\/[A-Za-z0-9_-]+\.(png|jpe?g|webp)$/i.test(image)){
+   const photo=newEl('img','detail-item-photo');
+   photo.src=image;
+   photo.alt='Foto da OSS: '+product.nome;
+   photo.loading='lazy';
+   photo.decoding='async';
+   photo.addEventListener('error',()=>photo.remove(),{once:true});
+   item.appendChild(photo);
+  }
+  const info=newEl('div','detail-item-info');
+  info.appendChild(newEl('span','detail-item-note',product.tipo_registro==='foto_oficial_consulta'?'Foto oficial · modelo sob consulta':'Produto da OSS'));
+  info.appendChild(newEl('h4','',product.nome));
+  const price=Number(product.preco_brl);
+  const hasPrice=product.preco_confirmado===true&&Number.isFinite(price)&&price>0;
+  info.appendChild(newEl('p','',hasPrice?price.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}):'Preço e tamanhos sob consulta'));
+  const contact=newEl('a','', 'Consultar pelo WhatsApp');
+  const msg='Olá! Vi '+product.nome+' na loja OSS Kimonos e gostaria de confirmar modelos, tamanhos, preço e disponibilidade.';
+  contact.href='https://wa.me/5519997121912?text='+encodeURIComponent(msg);
+  contact.target='_blank';
+  contact.rel='noopener noreferrer';
+  info.appendChild(contact);
+  item.appendChild(info);
+  return item;
+ };
+ const drawDetails=key=>{
+  if(!details||!Object.prototype.hasOwnProperty.call(categoryNames,key))return;
+  const name=categoryNames[key];
+  const products=displayedProducts.filter(p=>p&&p.status==='publicado'&&p.categoria===key&&typeof p.nome==='string'&&p.nome.trim());
+  const showFallback=key==='kimonos'&&products.length===0;
+  const list=showFallback?knownOfficialPhotos:products;
+  detailTitle.textContent=name;
+  detailDescription.textContent=list.length
+   ?'Veja as referências da OSS e consulte os detalhes sem sair da página.'
+   :'Ainda não há itens individuais e fotos oficiais cadastrados para esta categoria.';
+  detailItems.replaceChildren(...list.map(makeProductCard));
+  detailEmpty.hidden=list.length>0;
+  detailContact.href='https://wa.me/5519997121912?text='+encodeURIComponent('Olá! Quero informações sobre a categoria '+name+' da OSS Kimonos. Quais modelos, tamanhos e preços estão disponíveis?');
+ };
+ const closeDetails=(restoreFocus=false)=>{
+  selectedCategory=null;
+  details.hidden=true;
+  for(const card of cards)card.setAttribute('aria-expanded','false');
+  if(restoreFocus&&lastSelectedCard)lastSelectedCard.focus({preventScroll:true});
+  refresh();
+ };
+ const selectCategory=(key,card)=>{
+  if(!Object.prototype.hasOwnProperty.call(categoryNames,key))return;
+  if(selectedCategory===key&&!details.hidden){closeDetails(true);return;}
+  selectedCategory=key;
+  lastSelectedCard=card;
+  for(const element of cards)element.setAttribute('aria-expanded',String(element===card));
+  drawDetails(key);
+  details.hidden=false;
+  refresh();
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  details.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+ };
+ for(const card of cards)card.addEventListener('click',()=>selectCategory(card.dataset.category,card));
+ detailClose.addEventListener('click',()=>closeDetails(true));
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!details.hidden)closeDetails(true);});
+ fetch('/catalogo.json',{cache:'no-store'}).then(response=>{
+  if(!response.ok)throw Error('Catálogo não encontrado');
+  return response.json();
+ }).then(data=>{
+  if(!data||!Array.isArray(data.produtos))return;
+  displayedProducts=data.produtos.filter(p=>p&&p.status==='publicado'&&typeof p.nome==='string'&&p.nome.trim()&&Object.prototype.hasOwnProperty.call(categoryNames,p.categoria));
+  if(selectedCategory)drawDetails(selectedCategory);
+ }).catch(()=>{ /* Mostra as fotos OSS ja conhecidas quando o catalogo nao carrega. */ });
+
  const metric=()=>{
   const first=cards[0];
   if(!first)return {step:track.clientWidth,max:0};
@@ -271,7 +433,7 @@ if(track&&prev&&next&&toggle&&position&&progress){
   else if(x<=3)direction=1;
   go(direction);
  };
- const canPlay=()=>playing&&inView&&!hovered&&!focusInside&&!document.hidden;
+ const canPlay=()=>playing&&inView&&!hovered&&!focusInside&&selectedCategory===null&&!document.hidden;
  const refresh=()=>{
   if(timer!==null){clearInterval(timer);timer=null;}
   if(canPlay())timer=setInterval(advance,interval);
