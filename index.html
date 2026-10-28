@@ -88,33 +88,80 @@
  .mobile-nav-links a:hover,.mobile-nav-links a:focus-visible{background:#2e2923;color:#edc88a}
 }
 
-/* Carrossel de categorias sem imagens artificiais e sem dados de produtos inventados */
-.carousel-header{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:-6px 0 15px}
-.carousel-hint{font-size:12px;color:#bcb6ad}
-.carousel-controls{display:flex;gap:9px}
-.carousel-arrow{width:43px;height:43px;border:1px solid #5f5444;background:#1a191a;color:#e8c79a;border-radius:5px;font-size:28px;font-weight:400;line-height:1;cursor:pointer;transition:background .15s,border-color .15s}
-.carousel-arrow:hover:not(:disabled){background:#302920;border-color:var(--gold)}
-.carousel-arrow:disabled{opacity:.34;cursor:default}
-.category-carousel{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:0;padding:4px 0 13px;scrollbar-color:#655746 #171717;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
-.category-tile{flex:0 0 calc((100% - 30px)/3);min-width:0;min-height:212px;border:1px solid #423b33;border-radius:7px;background:linear-gradient(145deg,#262321,#141416 75%);padding:22px;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-start;scroll-snap-align:start;position:relative;transition:border-color .16s,background .16s,transform .16s}
-.category-tile:hover,.category-tile:focus-visible{border-color:var(--gold);background:linear-gradient(145deg,#32291f,#191819 80%);transform:translateY(-2px)}
-.tile-index{font-size:11px;letter-spacing:.2em;color:#ad9270;font-weight:800}
-.category-tile strong{font-size:clamp(23px,2.55vw,33px);letter-spacing:-.03em;line-height:1.1;color:#f4f2ee}
-.tile-arrow{position:absolute;right:20px;bottom:18px;font-size:26px;color:var(--gold)}
-.carousel-footer{text-align:center;margin-top:27px}
+/* Carrossel OSS premium: só categorias reais; autoplay com controle acessível */
+#colecao{padding-top:76px;padding-bottom:86px}
+#colecao .heading{align-items:end;margin-bottom:30px}
+#colecao .heading h2{font-size:clamp(37px,5.6vw,66px);letter-spacing:-.055em;margin:9px 0}
+#colecao .heading .muted{max-width:325px;font-size:14px}
+.gold-stop{color:var(--gold)}
+.carousel-header{display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 0 18px}
+.carousel-intro{display:flex;flex-direction:column;gap:7px}
+.carousel-kicker{font-size:11px;font-weight:800;letter-spacing:.16em;color:#d8b786;display:flex;align-items:center;gap:8px}
+.carousel-live-dot{width:7px;height:7px;border-radius:50%;background:#dcb988;display:inline-block;box-shadow:0 0 0 4px #dcb98819}
+.carousel-hint{font-size:12px;color:#bcb7b0}
+.carousel-controls{display:flex;gap:8px;align-items:center}
+.carousel-arrow,.carousel-toggle{height:43px;border:1px solid #544a3d;background:#211e1c;color:#e5c69b;border-radius:5px;cursor:pointer;transition:background .15s,border-color .15s;display:inline-flex;align-items:center;justify-content:center}
+.carousel-arrow{width:44px;font-size:27px;line-height:1}
+.carousel-toggle{gap:8px;padding:0 14px;font-weight:700;font-size:12px;min-width:94px}
+.carousel-arrow:hover:not(:disabled),.carousel-toggle:hover{background:#362c23;border-color:var(--gold)}
+.carousel-arrow:disabled{opacity:.35;cursor:default}
+.carousel-toggle[aria-pressed="true"]{background:#413122;color:#f7d7a9}
+.category-carousel{display:flex;gap:15px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:0;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;padding:7px 0 16px}
+.category-carousel::-webkit-scrollbar{display:none}
+.category-tile{flex:0 0 calc((100% - 30px)/3);min-width:0;min-height:276px;scroll-snap-align:start;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;align-items:stretch;padding:23px 23px 25px;border:1px solid #514338;border-radius:10px;background:radial-gradient(ellipse at 89% 7%,#5241327b 0%,transparent 52%),linear-gradient(145deg,#272321,#111213 85%);box-shadow:inset 0 1px #ffffff11,0 14px 32px #0003;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.category-tile:nth-child(3n+2){background:radial-gradient(ellipse at 85% 13%,#42382d91,transparent 58%),linear-gradient(145deg,#252323,#0f1011 86%)}
+.category-tile:nth-child(3n){background:radial-gradient(ellipse at 92% 12%,#59463488,transparent 57%),linear-gradient(145deg,#29231f,#0e0f11 88%)}
+.category-tile:before{content:"";position:absolute;right:-76px;top:-97px;width:300px;height:300px;border:1px solid #d8b18022;border-radius:50%;box-shadow:0 0 0 39px #bf956b06,0 0 0 79px #bf956b04;pointer-events:none;z-index:-1}
+.category-tile:after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#c6a173,#e0c39a,transparent);opacity:.55;transition:opacity .25s}
+.category-tile:hover,.category-tile:focus-visible{transform:translateY(-4px);border-color:#c3a075;box-shadow:0 16px 38px #0009,inset 0 1px #ffffff1a}
+.category-tile:hover:after,.category-tile:focus-visible:after{opacity:1}
+.tile-top{display:flex;justify-content:space-between;align-items:center;gap:8px;position:relative;z-index:1}
+.tile-index{font-size:11px;letter-spacing:.15em;font-weight:800;color:#dfbe91}
+.tile-brand{font-size:9px;letter-spacing:.13em;color:#bbac9a;font-weight:700}
+.tile-mark{position:absolute;right:-9px;top:64px;font-size:clamp(100px,13vw,176px);font-weight:900;letter-spacing:-.14em;font-style:italic;line-height:1;color:#e8bd8111;user-select:none;pointer-events:none;white-space:nowrap;transform:skew(-9deg);z-index:-1}
+.category-tile strong{font-size:clamp(28px,3.25vw,47px);line-height:1.02;letter-spacing:-.055em;max-width:90%;margin-top:auto;padding-bottom:8px;color:#fff;font-weight:850;text-shadow:0 2px 6px #0004;position:relative;z-index:1}
+.tile-arrow{align-self:flex-end;display:flex;justify-content:center;align-items:center;width:42px;height:42px;border:1px solid #d8b38256;border-radius:50%;font-size:23px;color:#e2bd8c;line-height:1;transition:background .2s;position:relative;z-index:1}
+.category-tile:hover .tile-arrow,.category-tile:focus-visible .tile-arrow{background:#c4a477;color:#17120c}
+.carousel-bottom{display:flex;align-items:center;justify-content:space-between;gap:22px;margin-top:14px}
+.carousel-progress-group{display:flex;align-items:center;gap:16px;flex:1;max-width:520px}
+.carousel-position{color:#cab18d;font-size:12px;letter-spacing:.08em;font-weight:800;white-space:nowrap;min-width:91px;font-variant-numeric:tabular-nums}
+.carousel-progress{width:100%;height:3px;background:#3e3833;border-radius:8px;overflow:hidden}
+.carousel-progress>span{height:100%;width:33.3%;display:block;background:linear-gradient(90deg,#b48e61,#e7c495);transition:width .35s ease;border-radius:8px}
+.carousel-bottom>.btn{flex-shrink:0}
 @media(max-width:750px){
- .category-carousel{gap:10px}
- .category-tile{flex-basis:calc((100% - 10px)/2);min-height:165px;padding:16px}
- .category-tile strong{font-size:clamp(20px,5.1vw,28px);padding-right:12px}
- .carousel-arrow{width:40px;height:40px}
+ #colecao{padding-top:54px;padding-bottom:62px}
+ #colecao .heading{margin-bottom:20px}
+ .carousel-header{gap:12px}
  .carousel-hint{font-size:11px}
- .tile-arrow{right:12px;bottom:13px;font-size:23px}
+ .category-carousel{gap:10px}
+ .category-tile{flex-basis:calc((100% - 10px)/2);min-height:226px;padding:17px}
+ .category-tile strong{font-size:clamp(24px,5.8vw,36px)}
+ .tile-mark{font-size:90px;top:64px}
+ .tile-brand{font-size:8px}
+ .carousel-arrow{width:40px;height:40px}
+ .carousel-toggle{height:40px;padding:0 10px;min-width:79px;font-size:11px}
+ .carousel-bottom{flex-direction:column;align-items:stretch}
+ .carousel-progress-group{max-width:none;width:100%}
+ .carousel-bottom>.btn{width:100%;max-width:380px;margin:0 auto}
+}
+@media(max-width:540px){
+ .carousel-header{align-items:end}
+ .carousel-hint{max-width:225px;line-height:1.4}
+ .carousel-kicker{letter-spacing:.06em;font-size:10px}
+ .carousel-controls{flex-wrap:wrap;justify-content:flex-end;gap:5px}
+ .carousel-toggle{width:100%;height:30px;font-size:10px}
+ .carousel-arrow{height:34px;width:36px}
 }
 @media(max-width:440px){
- .category-tile{flex-basis:82%;min-height:171px;padding:19px}
- .category-tile strong{font-size:29px}
+ .category-tile{flex-basis:86%;min-height:236px;padding:20px}
+ .category-tile strong{font-size:42px;word-break:normal}
+ .tile-mark{font-size:128px;top:65px}
+ .carousel-position{min-width:87px}
 }
-@media(prefers-reduced-motion:reduce){.category-tile{transition:none}}
+@media(prefers-reduced-motion:reduce){
+ .category-tile,.tile-arrow,.carousel-progress>span{transition:none!important}
+ .category-carousel{scroll-behavior:auto}
+}
 </style></head><body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header><div class="nav"><a class="mark" href="#inicio" aria-label="OSS Kimonos início"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="172" height="60" style="display:block;width:clamp(128px,15vw,172px);height:auto;max-height:68px;object-fit:contain" /></a><nav aria-label="Navegação principal"><a class="store-link" href="/loja.html" aria-label="Abrir a loja OSS Kimonos nesta página">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a class="btn nav-cta" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener">Fale conosco</a></nav><div class="mobile-actions"><a class="mobile-store" href="/loja.html">Loja</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="#inicio">Início</a><a href="/loja.html">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div></div></header>
@@ -122,28 +169,35 @@
 <section class="bar" aria-label="Destaques"><div class="bar-inner"><div>Tradição no tatame</div><div>Atitude em cada treino</div><div>Espírito de equipe</div></div></section>
 <section class="wrap" id="colecao" aria-labelledby="categories-heading">
  <div class="heading">
-  <div><div class="eyebrow">Explore a Loja OSS</div><h2 id="categories-heading">Todas as categorias.</h2></div>
+  <div><div class="eyebrow">Coleção OSS / Explore</div><h2 id="categories-heading">Escolha seu estilo<span class="gold-stop">.</span></h2></div>
   <p class="muted">Escolha uma categoria para consultar os produtos diretamente com a OSS.</p>
  </div>
  <div class="carousel-header">
-  <span class="carousel-hint">Deslize para conhecer todas as categorias</span>
+  <div class="carousel-intro"><span class="carousel-kicker"><span class="carousel-live-dot" aria-hidden="true"></span> 09 CATEGORIAS · OSS KIMONOS</span><span class="carousel-hint">Avanço automático. Deslize ou use as setas para explorar.</span></div>
   <div class="carousel-controls">
    <button type="button" id="category-prev" class="carousel-arrow" aria-label="Mostrar categorias anteriores" disabled>‹</button>
    <button type="button" id="category-next" class="carousel-arrow" aria-label="Mostrar próximas categorias">›</button>
+   <button type="button" id="category-toggle" class="carousel-toggle" aria-label="Pausar rotação automática" aria-pressed="false"><span aria-hidden="true">Ⅱ</span> Pausar</button>
   </div>
  </div>
  <div class="category-carousel" id="category-track" role="region" aria-roledescription="carrossel" aria-label="Todas as nove categorias da OSS Kimonos" tabindex="0">
-<a class="category-tile" href="/loja.html#kimonos" aria-label="Ver categoria Kimonos na Loja"><span class="tile-index" aria-hidden="true">01</span><strong>Kimonos</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#faixas" aria-label="Ver categoria Faixas na Loja"><span class="tile-index" aria-hidden="true">02</span><strong>Faixas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#fight-wear" aria-label="Ver categoria Fight Wear na Loja"><span class="tile-index" aria-hidden="true">03</span><strong>Fight Wear</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#rashguard" aria-label="Ver categoria Rashguard na Loja"><span class="tile-index" aria-hidden="true">04</span><strong>Rashguard</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#camisas" aria-label="Ver categoria Camisas na Loja"><span class="tile-index" aria-hidden="true">05</span><strong>Camisas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#bones" aria-label="Ver categoria Bonés na Loja"><span class="tile-index" aria-hidden="true">06</span><strong>Bonés</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#bermuda" aria-label="Ver categoria Bermuda na Loja"><span class="tile-index" aria-hidden="true">07</span><strong>Bermuda</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#moletom" aria-label="Ver categoria Moletom na Loja"><span class="tile-index" aria-hidden="true">08</span><strong>Moletom</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
-<a class="category-tile" href="/loja.html#mochilas" aria-label="Ver categoria Mochilas na Loja"><span class="tile-index" aria-hidden="true">09</span><strong>Mochilas</strong><span class="tile-arrow" aria-hidden="true">→</span></a>
+<a class="category-tile" href="/loja.html#kimonos" aria-label="Ver categoria Kimonos na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">01 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Kimonos</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#faixas" aria-label="Ver categoria Faixas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">02 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Faixas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#fight-wear" aria-label="Ver categoria Fight Wear na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">03 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Fight Wear</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#rashguard" aria-label="Ver categoria Rashguard na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">04 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Rashguard</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#camisas" aria-label="Ver categoria Camisas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">05 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Camisas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#bones" aria-label="Ver categoria Bonés na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">06 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bonés</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#bermuda" aria-label="Ver categoria Bermuda na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">07 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Bermuda</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#moletom" aria-label="Ver categoria Moletom na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">08 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Moletom</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
+<a class="category-tile" href="/loja.html#mochilas" aria-label="Ver categoria Mochilas na Loja"><span class="tile-top"><span class="tile-index" aria-hidden="true">09 / 09</span><span class="tile-brand" aria-hidden="true">OSS KIMONOS</span></span><span class="tile-mark" aria-hidden="true">OSS</span><strong>Mochilas</strong><span class="tile-arrow" aria-hidden="true">↗</span></a>
  </div>
- <div class="carousel-footer"><a href="/loja.html" class="btn">Ver Loja completa</a></div>
+ <div class="carousel-bottom">
+  <div class="carousel-progress-group" aria-hidden="true">
+   <span id="category-position" class="carousel-position">01 — 03 / 09</span>
+   <div class="carousel-progress"><span id="category-progress"></span></div>
+  </div>
+  <a href="/loja.html" class="btn">Explorar toda a Loja</a>
+ </div>
 </section>
 <section class="steps-section" id="como-comprar" aria-labelledby="steps-title">
 <div class="wrap">
@@ -171,21 +225,80 @@ if(mobileMenu){
 const track=document.getElementById('category-track');
 const prev=document.getElementById('category-prev');
 const next=document.getElementById('category-next');
-if(track&&prev&&next){
- const updateArrows=()=>{
-  prev.disabled=track.scrollLeft<=2;
-  next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-3;
+const toggle=document.getElementById('category-toggle');
+const position=document.getElementById('category-position');
+const progress=document.getElementById('category-progress');
+if(track&&prev&&next&&toggle&&position&&progress){
+ const cards=Array.from(track.querySelectorAll('.category-tile'));
+ const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+ let playing=!reduced.matches;
+ let inView=false;
+ let hovered=false;
+ let focusInside=false;
+ let direction=1;
+ let timer=null;
+ const interval=3900;
+ const metric=()=>{
+  const first=cards[0];
+  if(!first)return {step:track.clientWidth,max:0};
+  const gap=parseFloat(getComputedStyle(track).columnGap)||0;
+  return {step:first.getBoundingClientRect().width+gap,max:Math.max(0,track.scrollWidth-track.clientWidth)};
  };
- const scroll=(direction)=>{
-  const card=track.querySelector('.category-tile');
-  const distance=card?card.getBoundingClientRect().width+15:track.clientWidth;
-  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  track.scrollBy({left:distance*direction,behavior:reduce?'auto':'smooth'});
+ const update=()=>{
+  const {step,max}=metric();
+  const at=track.scrollLeft;
+  prev.disabled=at<=3;
+  next.disabled=at>=max-3;
+  const visible=Math.min(cards.length,Math.max(1,Math.round((track.clientWidth+1)/step)));
+  const start=Math.min(cards.length-1,Math.max(0,Math.round(at/step)));
+  const end=Math.min(cards.length,start+visible);
+  const fmt=n=>String(n).padStart(2,'0');
+  position.textContent=fmt(start+1)+' — '+fmt(end)+' / '+fmt(cards.length);
+  progress.style.width=(end/cards.length*100)+'%';
  };
- prev.addEventListener('click',()=>scroll(-1));
- next.addEventListener('click',()=>scroll(1));
- track.addEventListener('scroll',updateArrows,{passive:true});
- window.addEventListener('resize',updateArrows);
- updateArrows();
+ const go=(dir)=>{
+  const {step,max}=metric();
+  const x=track.scrollLeft;
+  if(max<1)return;
+  const target=Math.max(0,Math.min(max,Math.round(x/step)*step+dir*step));
+  track.scrollTo({left:target,behavior:reduced.matches?'auto':'smooth'});
+ };
+ const advance=()=>{
+  const {step,max}=metric();
+  if(max<step/2)return;
+  const x=track.scrollLeft;
+  if(x>=max-3)direction=-1;
+  else if(x<=3)direction=1;
+  go(direction);
+ };
+ const canPlay=()=>playing&&inView&&!hovered&&!focusInside&&!document.hidden;
+ const refresh=()=>{
+  if(timer!==null){clearInterval(timer);timer=null;}
+  if(canPlay())timer=setInterval(advance,interval);
+ };
+ const updateToggle=()=>{
+  toggle.innerHTML=playing?'<span aria-hidden="true">Ⅱ</span> Pausar':'<span aria-hidden="true">▶</span> Reproduzir';
+  toggle.setAttribute('aria-label',playing?'Pausar rotação automática':'Iniciar rotação automática');
+  toggle.setAttribute('aria-pressed',String(!playing));
+ };
+ prev.addEventListener('click',()=>{direction=-1;go(-1);refresh();});
+ next.addEventListener('click',()=>{direction=1;go(1);refresh();});
+ toggle.addEventListener('click',()=>{playing=!playing;updateToggle();refresh();});
+ track.addEventListener('scroll',update,{passive:true});
+ track.addEventListener('pointerenter',()=>{hovered=true;refresh();});
+ track.addEventListener('pointerleave',()=>{hovered=false;refresh();});
+ track.addEventListener('focusin',()=>{focusInside=true;refresh();});
+ track.addEventListener('focusout',e=>{if(!track.contains(e.relatedTarget)){focusInside=false;refresh();}});
+ track.addEventListener('touchstart',()=>{hovered=true;refresh();},{passive:true});
+ track.addEventListener('touchend',()=>{hovered=false;refresh();},{passive:true});
+ document.addEventListener('visibilitychange',refresh);
+ window.addEventListener('resize',()=>{update();refresh();});
+ if('IntersectionObserver' in window){
+  const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;refresh();},{threshold:0.25});
+  observer.observe(track);
+ }else{inView=true;}
+ updateToggle();
+ update();
+ refresh();
 }
 </script></body></html>
