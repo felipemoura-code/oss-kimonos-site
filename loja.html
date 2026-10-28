@@ -91,6 +91,12 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 }
 @media(max-width:360px){.cards{grid-template-columns:1fr}.photo{height:250px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+.price{font-size:19px;font-weight:800;color:#edcf9f;margin:0 0 7px}
+.sizes{color:#b9b6b0;font-size:12px;margin-bottom:12px}
+.photo-placeholder{height:275px;background:linear-gradient(130deg,#2d2925,#161618);display:grid;place-items:center;color:#a6a19b;font-size:12px;text-align:center;padding:16px}
+@media(max-width:900px){.photo-placeholder{height:240px}}
+@media(max-width:620px){.photo-placeholder{height:clamp(155px,45vw,210px)}.price{font-size:16px}}
+@media(max-width:360px){.photo-placeholder{height:250px}}
 </style>
 </head>
 <body>
@@ -138,10 +144,14 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
     </article>
    </div>
   </section>
+  <section id="products-panel" aria-live="polite" hidden>
+   <div class="sectionhead"><div><p class="eyebrow">Catálogo oficial</p><h3 id="products-title">Produtos OSS</h3></div><span class="badge" id="products-count"></span></div>
+   <div class="cards" id="products-cards"></div>
+  </section>
   <section id="other-panel" aria-live="polite" hidden>
    <div class="sectionhead"><div><p class="eyebrow">Categoria</p><h3 id="selected-category">Faixas</h3></div></div>
    <div class="single">
-     <div><p class="eyebrow">Catálogo OSS Kimonos</p><h3 id="other-heading">Faixas</h3><p id="other-description">Consulte os modelos e opções dessa categoria diretamente com nossa equipe. Fotos e preços individuais ainda não foram cadastrados no site.</p></div>
+     <div><p class="eyebrow">Catálogo OSS Kimonos</p><h3 id="other-heading">Faixas</h3><p id="other-description">Ainda não há itens individuais publicados nesta categoria. Consulte com a equipe quais modelos estão disponíveis.</p></div>
      <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar produtos</a>
    </div>
   </section>
@@ -152,34 +162,118 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 <footer><div class="container foot"><a href="/" aria-label="Voltar à página inicial"><img src="/assets/oss-logo.png" alt="OSS Kimonos" width="130" height="55"></a><span>© OSS Kimonos. Todos os direitos reservados.</span><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram oficial</a></div></footer>
 <script>
 (function () {
+ "use strict";
  const categories = {
-   "kimonos":"Kimonos","faixas":"Faixas","fight-wear":"Fight Wear",
-   "rashguard":"Rashguard","camisas":"Camisas","bones":"Bonés",
-   "bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"
+  "kimonos":"Kimonos","faixas":"Faixas","fight-wear":"Fight Wear",
+  "rashguard":"Rashguard","camisas":"Camisas","bones":"Bonés",
+  "bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"
  };
- const buttons = Array.from(document.querySelectorAll(".category"));
+ const buttons=Array.from(document.querySelectorAll(".category"));
  const panelKimonos=document.getElementById("kimonos-panel");
  const panelOther=document.getElementById("other-panel");
+ const productsPanel=document.getElementById("products-panel");
+ const productCards=document.getElementById("products-cards");
+ const productTitle=document.getElementById("products-title");
+ const productCount=document.getElementById("products-count");
  const title=document.getElementById("selected-category");
  const heading=document.getElementById("other-heading");
  const whatsapp=document.getElementById("other-whatsapp");
- function showCategory(key) {
-   if (!Object.prototype.hasOwnProperty.call(categories,key)) return;
-   for (const button of buttons) button.setAttribute("aria-pressed",String(button.dataset.key===key));
-   const isKimonos = key==="kimonos";
-   panelKimonos.hidden=!isKimonos;
-   panelOther.hidden=isKimonos;
-   if (!isKimonos){
+ const description=document.getElementById("other-description");
+ const formatter=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
+ let publishedProducts=[];
+ let activeKey="kimonos";
+ function create(tag,klass,content){
+   const el=document.createElement(tag);
+   if(klass)el.className=klass;
+   if(content!==undefined)el.textContent=String(content);
+   return el;
+ }
+ function addProductCard(product){
+   const card=create("article","card");
+   const imagePath=typeof product.imagem==="string"?product.imagem:"";
+   if(/^\/assets\/[A-Za-z0-9_./-]+\.(?:png|jpe?g|webp)$/i.test(imagePath)&&!imagePath.includes("..")){
+     const img=create("img","photo");
+     img.src=imagePath;
+     img.alt=product.nome;
+     img.loading="lazy";
+     img.decoding="async";
+     img.addEventListener("error",()=>{
+       const fallback=create("div","photo-placeholder","Foto do produto indisponível");
+       img.replaceWith(fallback);
+     },{once:true});
+     card.appendChild(img);
+   }else{
+     card.appendChild(create("div","photo-placeholder","Foto do produto em atualização"));
+   }
+   const body=create("div","cardcontent");
+   body.appendChild(create("h4","",product.nome));
+   const price=Number(product.preco_brl);
+   if(product.preco_confirmado===true&&Number.isFinite(price)&&price>0){
+     body.appendChild(create("div","price",formatter.format(price)));
+   }else{
+     body.appendChild(create("p","","Preço sob consulta"));
+   }
+   if(Array.isArray(product.tamanhos)&&product.tamanhos.length){
+     const sizes=product.tamanhos.filter(s=>typeof s==="string"&&s.length<30).slice(0,12);
+     if(sizes.length)body.appendChild(create("div","sizes","Tamanhos: "+sizes.join(", ")));
+   }
+   if(typeof product.descricao==="string"&&product.descricao.trim()){
+     body.appendChild(create("p","",product.descricao.trim().slice(0,190)));
+   }
+   const contact=create("a","button","Consultar este produto");
+   const msg="Olá, vim pela loja OSS Kimonos e gostaria de consultar o produto "+product.nome+" (código "+product.id+").";
+   contact.href="https://wa.me/5519997121912?text="+encodeURIComponent(msg);
+   contact.target="_blank";
+   contact.rel="noopener noreferrer";
+   body.appendChild(contact);
+   card.appendChild(body);
+   return card;
+ }
+ function showCategory(key,writeHistory){
+   if(!Object.prototype.hasOwnProperty.call(categories,key))return;
+   activeKey=key;
+   for(const button of buttons)button.setAttribute("aria-pressed",String(button.dataset.key===key));
+   const products=publishedProducts.filter(p=>p.categoria===key);
+   const hasProducts=products.length>0;
+   panelKimonos.hidden=hasProducts||key!=="kimonos";
+   productsPanel.hidden=!hasProducts;
+   panelOther.hidden=hasProducts||key==="kimonos";
+   if(hasProducts){
+     productTitle.textContent=categories[key];
+     productCount.textContent=products.length+" "+(products.length===1?"produto":"produtos");
+     productCards.replaceChildren(...products.map(addProductCard));
+   }else{
+     productCards.replaceChildren();
+   }
+   if(key!=="kimonos"&&!hasProducts){
      const label=categories[key];
      title.textContent=label;
      heading.textContent=label;
-     const msg="Olá, vim pela loja OSS Kimonos e gostaria de consultar os produtos da categoria "+label+". Quais modelos estão disponíveis?";
-     whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent(msg);
+     description.textContent="Ainda não há produtos individuais publicados na categoria "+label+". Consulte com a equipe quais opções estão disponíveis.";
+     whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent("Olá, vim pela loja OSS Kimonos e gostaria de consultar a categoria "+label+". Quais produtos estão disponíveis?");
    }
+   if(writeHistory&&location.hash!=="#"+key)history.pushState(null,"","#"+key);
  }
- for (const button of buttons) button.addEventListener("click",()=>showCategory(button.dataset.key));
- const fromHash=decodeURIComponent(location.hash.substring(1)).toLowerCase();
- if (Object.prototype.hasOwnProperty.call(categories,fromHash)) showCategory(fromHash);
+ function readUrlCategory(){
+   const key=decodeURIComponent(location.hash.slice(1)).toLowerCase();
+   return Object.prototype.hasOwnProperty.call(categories,key)?key:"kimonos";
+ }
+ buttons.forEach(button=>button.addEventListener("click",()=>showCategory(button.dataset.key,true)));
+ addEventListener("popstate",()=>showCategory(readUrlCategory(),false));
+ addEventListener("hashchange",()=>showCategory(readUrlCategory(),false));
+ showCategory(readUrlCategory(),false);
+ fetch("/catalogo.json",{cache:"no-store"})
+   .then(response=>{if(!response.ok)throw Error("Catálogo indisponível");return response.json()})
+   .then(data=>{
+     if(!data||!Array.isArray(data.produtos))throw Error("Formato inválido");
+     publishedProducts=data.produtos.filter(p=>
+       p&&p.status==="publicado"&&typeof p.id==="string"&&p.id.length>0&&
+       typeof p.nome==="string"&&p.nome.trim().length>0&&
+       Object.prototype.hasOwnProperty.call(categories,p.categoria)
+     );
+     showCategory(activeKey,false);
+   })
+   .catch(()=>{ /* A navegação e a consulta pelo WhatsApp permanecem funcionando. */ });
 })();
 </script>
 </body></html>
