@@ -1,4 +1,38 @@
 {
   "versao": 1,
-  "produtos": []
+  "produtos": [
+    {
+      "id": "FOTO-OSS-KIMONO-BRANCO",
+      "categoria": "kimonos",
+      "nome": "Kimono OSS branco",
+      "descricao": "Foto original OSS. Modelo específico, tamanhos, preço e disponibilidade sujeitos à confirmação com a equipe.",
+      "imagem": "/assets/kimono-branco-detalhe.webp",
+      "preco_confirmado": false,
+      "tamanhos": [],
+      "tipo_registro": "foto_oficial_consulta",
+      "status": "publicado"
+    },
+    {
+      "id": "FOTO-OSS-KIMONO-PRETO",
+      "categoria": "kimonos",
+      "nome": "Kimono OSS preto",
+      "descricao": "Foto original OSS. Modelo específico, tamanhos, preço e disponibilidade sujeitos à confirmação com a equipe.",
+      "imagem": "/assets/hero-modelo-preto.webp",
+      "preco_confirmado": false,
+      "tamanhos": [],
+      "tipo_registro": "foto_oficial_consulta",
+      "status": "publicado"
+    },
+    {
+      "id": "FOTO-OSS-KIMONO-FEMININO",
+      "categoria": "kimonos",
+      "nome": "Kimono OSS — linha feminina",
+      "descricao": "Foto original OSS da linha feminina. Modelo específico, tamanhos, preço e disponibilidade sujeitos à confirmação com a equipe.",
+      "imagem": "/assets/modelo-branco-feminino.webp",
+      "preco_confirmado": false,
+      "tamanhos": [],
+      "tipo_registro": "foto_oficial_consulta",
+      "status": "publicado"
+    }
+  ]
 }
