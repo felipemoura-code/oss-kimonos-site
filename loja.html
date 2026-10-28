@@ -130,11 +130,9 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 
 /* Referencias originais e neutras: sem fotografias de outras marcas */
 .reference-panel{padding:16px;gap:28px;align-items:stretch;min-height:270px}
-.reference-art{flex:0 0 41%;min-height:300px;border:1px solid #47413c;border-radius:5px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 45% 35%,#373334,#19191b 70%)}
+.reference-art{flex:0 0 41%;min-height:328px;border:1px solid #47413c;border-radius:5px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 45% 35%,#373334,#19191b 70%)}
 .reference-art:before{content:"";position:absolute;inset:18px;border:1px solid #ffffff10;pointer-events:none}
-.reference-art svg{display:block;width:min(92%,300px);height:285px;filter:drop-shadow(0 18px 12px #0005)}
-.reference-art .reference-photo{overflow:hidden;max-width:100%;}
-.reference-art .reference-photo image{image-rendering:auto;}
+.reference-art .reference-photo{display:block;width:100%;max-width:380px;height:300px;object-fit:contain;object-position:center;filter:drop-shadow(0 12px 13px #0006);padding:8px 12px 27px;box-sizing:border-box;}
 .reference-label{position:absolute;bottom:12px;left:10px;right:10px;font-size:10px;letter-spacing:.1em;font-weight:800;text-transform:uppercase;text-align:center;color:#c3b9a9}
 .reference-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:10px 4px}
 .reference-info .eyebrow{font-size:10px}
@@ -145,7 +143,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 @media(max-width:620px){
  .reference-panel{display:flex;flex-direction:column;gap:14px;padding:10px}
  .reference-art{flex:auto;width:100%;height:285px;min-height:285px}
- .reference-art svg{height:275px}
+ .reference-art .reference-photo{height:275px;max-width:100%}
  .reference-info{width:100%;padding:10px 7px 14px}
  .reference-info .button{min-width:0;width:100%;margin-top:8px}
 }
@@ -240,7 +238,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    <div class="sectionhead"><div><p class="eyebrow">Categoria</p><h3 id="selected-category">Faixas</h3></div></div>
    <div class="single reference-panel">
      <div class="reference-art" id="reference-art" role="img" aria-label="Simulação fotográfica de faixas de jiu-jitsu. Imagem gerada, não é foto de produto da OSS.">
-       <svg class="reference-photo" viewBox="0 0 150 225" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false"><image id="reference-photo-image" href="/assets/oss-referencias-fotograficas.webp" x="0" y="0" width="600" height="450"></image></svg>
+       <img id="reference-photo-image" class="reference-photo" src="/assets/oss-ref-faixas.webp" width="438" height="669" loading="lazy" decoding="async" alt="Faixas de jiu-jitsu em fotografia de referência gerada, sem marcas">
        <span class="reference-label">Imagem de referência gerada</span>
      </div>
      <div class="reference-info">
@@ -292,9 +290,11 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  const whatsapp=document.getElementById("other-whatsapp");
  const refArtwork=document.getElementById("reference-art");
  const refPhoto=document.getElementById("reference-photo-image");
- const referencePositions={
-  "faixas":[0,0],"fight-wear":[-150,0],"rashguard":[-300,0],"camisas":[-450,0],
-  "bones":[0,-225],"bermuda":[-150,-225],"moletom":[-300,-225],"mochilas":[-450,-225]
+ const referenceImages={
+  "faixas":"oss-ref-faixas.webp","fight-wear":"oss-ref-fight-wear.webp",
+  "rashguard":"oss-ref-rashguard.webp","camisas":"oss-ref-camisas.webp",
+  "bones":"oss-ref-bones.webp","bermuda":"oss-ref-bermuda.webp",
+  "moletom":"oss-ref-moletom.webp","mochilas":"oss-ref-mochilas.webp"
  };
  const description=document.getElementById("other-description");
  const formatter=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
@@ -386,8 +386,8 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
      const label=categories[key];
      title.textContent=label;
      heading.textContent=label;
-     const pos=referencePositions[key];
-     if(pos){refPhoto.setAttribute("x",String(pos[0]));refPhoto.setAttribute("y",String(pos[1]));}
+     const photo=referenceImages[key];
+     if(photo){refPhoto.src="/assets/"+photo;refPhoto.alt="Fotografia de referência gerada para "+label+". Sem marcas, não corresponde a um produto OSS.";}
      refArtwork.setAttribute("aria-label","Imagem fotográfica gerada para ilustrar a categoria "+label+". Não é foto de produto da OSS.");
      description.textContent="Imagem fotográfica de referência para "+label+", gerada sem marcas. Não é foto de produto da OSS e não indica estoque disponível.";
      whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent("Olá, vim pela loja OSS Kimonos e gostaria de saber se há itens da categoria "+label+" disponíveis. Quais modelos, tamanhos e preços vocês têm?");
