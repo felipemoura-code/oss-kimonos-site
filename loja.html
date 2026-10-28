@@ -1,53 +1,185 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101011"><title>Loja | OSS Kimonos</title><meta name="description" content="Loja OSS Kimonos. Consulte os produtos disponíveis e solicite informações pelo WhatsApp oficial."><style>
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0e0e10;color:#f6f4f0;font:15px/1.5 Arial,Helvetica,sans-serif}a{color:inherit;text-decoration:none}header{background:#111;border-bottom:1px solid #333;position:sticky;top:0;z-index:5}.nav{max-width:1140px;margin:auto;padding:18px 24px;display:flex;justify-content:space-between;align-items:center;gap:20px}.logo{font-size:21px;font-weight:900;letter-spacing:.1em}nav{display:flex;align-items:center;gap:24px;font-size:14px}nav a:hover{color:#cfb389}.active{color:#cfb389}.button{display:inline-block;padding:13px 22px;background:#c4a477;color:#131313;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border:1px solid #c4a477;border-radius:3px}.button:hover{background:#e2c69a}.hero{background:radial-gradient(ellipse at right,#33302d,#111 60%);border-bottom:1px solid #343434}.container{max-width:1140px;margin:auto;padding:0 24px}.hero .container{padding-top:95px;padding-bottom:85px}.eyebrow{color:#c4a477;font-size:11px;letter-spacing:.24em;font-weight:800;text-transform:uppercase}h1{font-size:clamp(45px,7vw,85px);line-height:1.05;letter-spacing:-.05em;margin:12px 0 16px}h2{font-size:clamp(28px,4vw,45px);letter-spacing:-.04em}.muted{color:#b9b6b1}.catalog{padding-top:70px;padding-bottom:95px}.note{padding:16px 20px;border:1px solid #514638;background:#26221c;color:#e5d1b1;margin:30px 0 35px;border-radius:5px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{border:1px solid #343436;background:#19191b;overflow:hidden}.art{height:250px;background:linear-gradient(130deg,#292a2b,#111);display:grid;place-items:center;position:relative}.art:before{content:"";height:180px;width:145px;background:linear-gradient(130deg,#e5e1da,#888);clip-path:polygon(18% 0,82% 0,100% 28%,81% 48%,75% 100%,25% 100%,19% 48%,0 28%);transform:rotate(-7deg)}.card:nth-child(2) .art:before{background:linear-gradient(130deg,#555,#090909)}.card:nth-child(3) .art:before{background:linear-gradient(130deg,#46566d,#0e1b33)}.art small{position:absolute;bottom:12px;right:15px;color:#bbb;font-size:10px;letter-spacing:.1em}.body{padding:23px}.body h3{font-size:21px;margin:0 0 7px}.body p{color:#b8b6b2;margin:0 0 18px;font-size:14px}.body .button{width:100%;text-align:center}.bottom{background:#c4a477;color:#1b1510;padding:45px 0}.bottom .container{display:flex;justify-content:space-between;align-items:center;gap:20px}.bottom .button{background:#111;color:#fff;border-color:#111}footer{padding:32px 24px;border-top:1px solid #333;color:#aaa}footer .container{display:flex;justify-content:space-between;gap:20px} @media(max-width:760px){.nav{align-items:flex-start}.nav nav{gap:13px;flex-wrap:wrap;justify-content:flex-end}.hero .container{padding-top:65px;padding-bottom:60px}.catalog{padding-top:45px;padding-bottom:65px}.grid{grid-template-columns:1fr}.bottom .container,footer .container{display:block}.bottom .button{margin-top:12px}}
-.art:before{display:none}.card:nth-child(1) .art{background:center/cover url("/assets/kimono-branco-detalhe.png")}.card:nth-child(2) .art{background:center/cover url("/assets/hero-modelo-preto.png")}.card:nth-child(3) .art{background:center/cover url("/assets/modelo-branco-feminino.png")}.hero{background:linear-gradient(90deg,#0e0e10e8,#0e0e1055),center/cover url("/assets/banner-oss-tres-modelos.png")}.pending-art{background:linear-gradient(140deg,#262321,#101012)!important;border-bottom:1px solid #38322d}.pending-art span{text-align:center;font-size:12px;letter-spacing:.15em;color:#9f937e;line-height:1.8}.pending-art:before{display:none}.catalog .grid{row-gap:24px}
-/* Ajustes de usabilidade para celulares: fotos completas e catalogo compacto */
-@media (max-width: 760px) {
-  header { position: sticky; top: 0; }
-  .nav { display: flex; flex-direction: column; align-items: stretch; gap: 10px; padding: 12px 15px 8px; }
-  .logo { text-align: center; font-size: 19px; line-height: 1.2; }
-  .nav nav { width: 100%; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 5px; justify-content: stretch; }
-  .nav nav a { text-align: center; padding: 8px 2px; font-size: 12px; border-bottom: 2px solid transparent; }
-  .nav nav a.active { border-color: #c4a477; }
-  .container { padding-left: 14px; padding-right: 14px; }
-  .hero .container { padding-top: 46px; padding-bottom: 38px; }
-  .hero h1 { font-size: clamp(33px, 8.5vw, 45px); }
-  .hero .muted { font-size: 13px; max-width: 370px; }
-  .catalog { padding-top: 32px; padding-bottom: 48px; }
-  .catalog h2 { font-size: 30px; margin: 8px 0; }
-  .catalog > p.muted { font-size: 13px; margin: 8px 0; }
-  .note { font-size: 12px; line-height: 1.5; padding: 12px; margin: 16px 0 22px; }
-  .catalog .grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 11px; }
-  .catalog .card { display: flex; flex-direction: column; min-width: 0; border-radius: 5px; }
-  .catalog .card .art { height: clamp(140px, 42vw, 200px); min-height: 0; background-size: contain !important; background-position: center center !important; background-repeat: no-repeat !important; background-color: #222124 !important; }
-  .catalog .card .art small { display: none; }
-  .catalog .card .pending-art { background: linear-gradient(140deg,#272421,#151516) !important; }
-  .catalog .card .pending-art span { font-size: 10px; padding: 6px; }
-  .catalog .body { padding: 12px 10px 13px; flex: 1; display: flex; flex-direction: column; }
-  .catalog .body h3 { font-size: 16px; line-height: 1.28; margin: 0 0 5px; min-height: 40px; }
-  .catalog .body p { font-size: 12px; line-height: 1.38; margin: 0 0 12px; }
-  .catalog .body .button { margin-top: auto; width: 100%; min-height: 39px; display: flex; align-items: center; justify-content: center; font-size: 10px; letter-spacing: 0; padding: 9px 5px; line-height: 1.25; }
-  .bottom { padding: 27px 0; }
-  .bottom h2 { font-size: 26px; }
-  .bottom p { font-size: 13px; }
-  footer { padding: 20px 0; }
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0e0e10">
+<meta name="description" content="Loja OSS Kimonos: kimonos, faixas, fight wear, rashguards, camisas, bonés, bermudas, moletons e mochilas. Consulte modelos e disponibilidade no WhatsApp oficial.">
+<title>Loja | OSS Kimonos</title>
+<style>
+:root{color-scheme:dark;--bg:#0d0d0f;--surface:#18181a;--line:#343234;--ink:#f4f2ed;--muted:#aaa8a6;--accent:#c4a477}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:3px solid #f2c987;outline-offset:3px}
+[hidden]{display:none!important}
+header{position:sticky;top:0;z-index:9;background:#101011f0;backdrop-filter:blur(12px);border-bottom:1px solid #2c2b2b}
+.container{max-width:1150px;margin:auto;padding:0 24px}
+.nav{max-width:1150px;margin:auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;min-width:0}
+.brand img{width:156px;height:62px;object-fit:contain;display:block}
+nav{display:flex;align-items:center;gap:26px;font-size:13px}
+nav a{padding:10px 0;white-space:nowrap}
+nav a[aria-current="page"],nav a:hover{color:var(--accent)}
+.hero{padding:70px 0 58px;border-bottom:1px solid #262527;background:radial-gradient(ellipse at 92% 10%,#363027 0%,transparent 48%),linear-gradient(125deg,#111113,#1b1919)}
+.eyebrow{margin:0;color:var(--accent);font-size:11px;text-transform:uppercase;font-weight:800;letter-spacing:.20em}
+h1{font-size:clamp(40px,6vw,74px);line-height:1.08;letter-spacing:-.05em;margin:14px 0 16px;font-weight:850}
+.hero p:not(.eyebrow){max-width:660px;color:#c6c2bd;margin:0;font-size:16px}
+.catalog{padding-top:42px;padding-bottom:82px}
+.catalog-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+h2{font-size:clamp(25px,3.5vw,37px);letter-spacing:-.035em;margin:5px 0 10px;line-height:1.15}
+.helptext{font-size:13px;color:var(--muted);margin:0}
+.categories{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:8px;margin:23px 0 28px}
+.category{background:#1a1a1b;border:1px solid #383536;border-radius:5px;min-height:55px;padding:8px 7px;text-align:center;color:#dedbd5;font-size:12px;line-height:1.3;font-weight:700;transition:background .15s,border-color .15s,color .15s}
+.category:hover{border-color:#b59a75}
+.category[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#14110d}
+.sectionhead{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;border-top:1px solid #302e30;padding-top:28px;margin-bottom:22px}
+.sectionhead h3{font-size:26px;margin:4px 0;letter-spacing:-.035em}
+.badge{border:1px solid #4d483f;color:#c5b59d;border-radius:4px;padding:6px 10px;font-size:11px;white-space:nowrap}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+.card{background:#1a1a1c;border:1px solid #343335;border-radius:5px;overflow:hidden;display:flex;flex-direction:column}
+.photo{width:100%;height:275px;object-fit:contain;background:#222124;display:block}
+.cardcontent{padding:19px 18px 20px;display:flex;flex:1;flex-direction:column}
+.card h4{font-size:19px;margin:0 0 8px;line-height:1.3}
+.card p{font-size:13px;color:#b9b6b0;margin:0 0 20px}
+.button{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:45px;padding:11px 18px;background:var(--accent);color:#19140f;border:1px solid var(--accent);border-radius:4px;font-size:12px;font-weight:800;letter-spacing:.035em;text-align:center;transition:background .15s}
+.button:hover{background:#dfc298}
+.card .button{margin-top:auto;width:100%}
+.single{border:1px solid #343234;background:linear-gradient(115deg,#211d19,#141416 70%);border-radius:7px;min-height:220px;padding:35px;display:flex;align-items:center;justify-content:space-between;gap:32px}
+.single h3{font-size:clamp(26px,3.4vw,39px);margin:5px 0 10px;letter-spacing:-.04em}
+.single p{color:#c6c0b9;max-width:620px;margin:0;font-size:14px}
+.single .button{flex-shrink:0}
+.notice{margin:23px 0 0;font-size:12px;color:#a7a19a;line-height:1.6}
+.cta{border-top:1px solid #34302b;background:#c4a477;color:#1b1510;padding:37px 0}
+.cta .container{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.cta h2{margin:0 0 7px}
+.cta p{margin:0;font-size:14px}
+.cta .button{background:#131313;color:#fff;border-color:#131313;white-space:nowrap}
+footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:30px;font-size:12px}
+.foot img{width:130px;height:55px;object-fit:contain;display:block}
+@media(max-width:900px){.categories{grid-template-columns:repeat(5,minmax(0,1fr))}.photo{height:240px}}
+@media(max-width:620px){
+ .container{padding-left:15px;padding-right:15px}
+ .nav{padding:10px 15px;display:flex;flex-direction:column;gap:3px}
+ .brand img{width:132px;height:52px}
+ nav{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;font-size:12px}
+ nav a{text-align:center;padding:8px 1px}
+ .hero{padding:35px 0 34px}
+ h1{font-size:clamp(35px,10vw,48px)}
+ .hero p:not(.eyebrow){font-size:13px}
+ .catalog{padding-top:27px;padding-bottom:48px}
+ .catalog-heading{display:block}
+ .categories{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:16px 0 23px}
+ .category{font-size:11px;min-height:44px;padding:7px 4px}
+ .sectionhead{padding-top:22px;margin-bottom:15px}
+ .sectionhead h3{font-size:23px}
+ .badge{font-size:10px;padding:5px 7px}
+ .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .photo{height:clamp(155px,45vw,210px)}
+ .cardcontent{padding:12px 10px 13px}
+ .card h4{font-size:15px}
+ .card p{font-size:12px;line-height:1.4;margin-bottom:14px}
+ .card .button{font-size:10px;min-height:44px;padding:8px 6px;letter-spacing:0}
+ .single{padding:25px 18px;display:block;min-height:0}
+ .single .button{width:100%;margin-top:23px}
+ .cta .container{display:block}
+ .cta .button{margin-top:18px}
+ .foot{flex-wrap:wrap;gap:12px}
 }
-@media (max-width: 340px) {
- .catalog .grid { grid-template-columns: 1fr; }
- .catalog .card { flex-direction: row; }
- .catalog .card .art { width: 43%; height: auto; min-height: 155px; flex-shrink: 0; }
- .catalog .body h3 { min-height: auto; }
-}
-.logo img{display:block;width:clamp(136px,17vw,176px);height:auto;max-height:70px;object-fit:contain}footer .container > div{display:grid;gap:7px}@media(max-width:760px){.nav .logo{display:flex;justify-content:center}.nav .logo img{width:150px;max-height:62px}}</style></head><body>
-<header><div class="nav"><a href="/" class="logo" aria-label="Voltar ao início da OSS Kimonos"><img src="/assets/oss-logo.png" alt="Logo oficial OSS Kimonos" width="176" height="62" decoding="async"></a><nav aria-label="Navegação"><a href="/">Início</a><a class="active" aria-current="page" href="/loja.html">Loja</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a></nav></div></header>
-<main><section class="hero"><div class="container"><div class="eyebrow">OSS Kimonos • Catálogo</div><h1>TUDO PARA<br>SEU JIU-JITSU.</h1><p class="muted">Explore as categorias do nosso catálogo: kimonos, faixas e outros itens para o tatame. Consulte modelos, preços e disponibilidade diretamente com a equipe.</p><a href="#produtos" class="button">Ver catálogo</a></div></section>
-<section id="produtos" class="container catalog"><div class="eyebrow">Coleção</div><h2>Encontre seu estilo.</h2><p class="muted">Explore as categorias abaixo. Estamos preparando o cadastro de produtos com fotos e preços confirmados.</p><div class="note">Catálogo em preparação: as categorias não significam estoque confirmado. Para comprar, consulte modelos, valores e disponibilidade no WhatsApp.</div><div class="grid">
-<article class="card"><div class="art" role="img" aria-label="Foto original de kimono claro OSS Kimonos"><small>FOTO OSS</small></div><div class="body"><h3>Kimonos claros</h3><p>Consulte modelos, tamanhos e valores.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20comprar%20um%20kimono%20claro%20da%20OSS.%20Quais%20modelos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art" role="img" aria-label="Foto original de kimono preto OSS Kimonos"><small>FOTO OSS</small></div><div class="body"><h3>Kimonos pretos</h3><p>Consulte modelos, tamanhos e valores.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20comprar%20um%20kimono%20preto%20da%20OSS.%20Quais%20modelos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art" role="img" aria-label="Foto original OSS Kimonos da linha feminina"><small>FOTO OSS</small></div><div class="body"><h3>Linha feminina</h3><p>Consulte modelos, tamanhos e valores.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20quero%20comprar%20a%20linha%20feminina%20da%20OSS.%20Quais%20modelos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art pending-art" aria-label="Fotografia do produto ainda não cadastrada"><span>FOTO DO PRODUTO<br>EM BREVE</span></div><div class="body"><h3>Faixas de Jiu-Jitsu</h3><p>Consulte cores, graduação, tamanhos e disponibilidade.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pela%20loja%20OSS%20Kimonos%20e%20quero%20consultar%20faixas%20de%20jiu-jitsu.%20Quais%20produtos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art pending-art" aria-label="Fotografia do produto ainda não cadastrada"><span>FOTO DO PRODUTO<br>EM BREVE</span></div><div class="body"><h3>Rashguards</h3><p>Consulte se há modelos, tamanhos e valores disponíveis.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pela%20loja%20OSS%20Kimonos%20e%20quero%20consultar%20rashguards.%20Quais%20produtos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art pending-art" aria-label="Fotografia do produto ainda não cadastrada"><span>FOTO DO PRODUTO<br>EM BREVE</span></div><div class="body"><h3>Shorts de treino</h3><p>Consulte modelos e tamanhos disponíveis.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pela%20loja%20OSS%20Kimonos%20e%20quero%20consultar%20shorts%20de%20treino.%20Quais%20produtos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article>
-<article class="card"><div class="art pending-art" aria-label="Fotografia do produto ainda não cadastrada"><span>FOTO DO PRODUTO<br>EM BREVE</span></div><div class="body"><h3>Acessórios</h3><p>Conheça outros itens e acessórios disponíveis para treino.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pela%20loja%20OSS%20Kimonos%20e%20quero%20consultar%20acess%C3%B3rios.%20Quais%20produtos%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp</a></div></article></div></section>
-<section class="bottom"><div class="container"><div><h2>Precisa de ajuda para escolher?</h2><p>Fale com nossa equipe pelo WhatsApp oficial: (19) 99712-1912.</p></div><a class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a></div></section></main>
-<footer><div class="container"><div><a href="/" aria-label="Voltar ao início"><img src="/assets/oss-logo.png" alt="OSS Kimonos" width="125" height="44" style="width:125px;height:auto;max-height:48px;display:block;object-fit:contain"></a><span>© OSS Kimonos</span></div><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram oficial</a></div></footer></body></html>
+@media(max-width:360px){.cards{grid-template-columns:1fr}.photo{height:250px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+ <div class="nav">
+  <a href="/" class="brand" aria-label="OSS Kimonos - Página inicial"><img src="/assets/oss-logo.png" alt="Logo oficial OSS Kimonos" width="156" height="62"></a>
+  <nav aria-label="Menu principal"><a href="/">Início</a><a href="/loja.html" aria-current="page">Loja</a><a href="/#sobre">Sobre</a><a href="/#contato">Contato</a></nav>
+ </div>
+</header>
+<main>
+ <section class="hero">
+  <div class="container">
+   <p class="eyebrow">OSS Kimonos · Loja</p>
+   <h1>VIVA O TATAME.<br>VISTA A OSS.</h1>
+   <p>Kimonos, treino e lifestyle em um só lugar. Explore nossas categorias e consulte os produtos da OSS diretamente com nossa equipe.</p>
+  </div>
+ </section>
+ <section class="container catalog" id="catalogo">
+  <div class="catalog-heading"><div><p class="eyebrow">Nossa coleção</p><h2>O que você procura?</h2><p class="helptext">Selecione uma categoria para ver apenas o que interessa.</p></div></div>
+  <div class="categories" role="group" aria-label="Categorias de produtos">
+   <button class="category" type="button" data-key="kimonos" aria-pressed="true">Kimonos</button>
+   <button class="category" type="button" data-key="faixas" aria-pressed="false">Faixas</button>
+   <button class="category" type="button" data-key="fight-wear" aria-pressed="false">Fight Wear</button>
+   <button class="category" type="button" data-key="rashguard" aria-pressed="false">Rashguard</button>
+   <button class="category" type="button" data-key="camisas" aria-pressed="false">Camisas</button>
+   <button class="category" type="button" data-key="bones" aria-pressed="false">Bonés</button>
+   <button class="category" type="button" data-key="bermuda" aria-pressed="false">Bermuda</button>
+   <button class="category" type="button" data-key="moletom" aria-pressed="false">Moletom</button>
+   <button class="category" type="button" data-key="mochilas" aria-pressed="false">Mochilas</button>
+  </div>
+  <section id="kimonos-panel" aria-labelledby="kimono-title">
+   <div class="sectionhead"><div><p class="eyebrow">OSS no tatame</p><h3 id="kimono-title">Kimonos OSS</h3></div><span class="badge">Fotos originais</span></div>
+   <div class="cards">
+    <article class="card">
+     <img class="photo" src="/assets/kimono-branco-detalhe.png" loading="lazy" decoding="async" alt="Detalhes de kimono branco OSS Kimonos" width="580" height="440">
+     <div class="cardcontent"><h4>Kimonos claros</h4><p>Consulte os modelos, tamanhos e valores disponíveis.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20os%20kimonos%20claros%20OSS." target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a></div>
+    </article>
+    <article class="card">
+     <img class="photo" src="/assets/hero-modelo-preto.png" loading="lazy" decoding="async" alt="Atleta com kimono preto OSS Kimonos" width="580" height="440">
+     <div class="cardcontent"><h4>Kimonos pretos</h4><p>Consulte os modelos, tamanhos e valores disponíveis.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20os%20kimonos%20pretos%20OSS." target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a></div>
+    </article>
+    <article class="card">
+     <img class="photo" src="/assets/modelo-branco-feminino.png" loading="lazy" decoding="async" alt="Atleta com kimono OSS Kimonos de linha feminina" width="580" height="440">
+     <div class="cardcontent"><h4>Linha feminina</h4><p>Consulte os modelos, tamanhos e valores disponíveis.</p><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20a%20linha%20feminina%20de%20kimonos%20OSS." target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a></div>
+    </article>
+   </div>
+  </section>
+  <section id="other-panel" aria-live="polite" hidden>
+   <div class="sectionhead"><div><p class="eyebrow">Categoria</p><h3 id="selected-category">Faixas</h3></div></div>
+   <div class="single">
+     <div><p class="eyebrow">Catálogo OSS Kimonos</p><h3 id="other-heading">Faixas</h3><p id="other-description">Consulte os modelos e opções dessa categoria diretamente com nossa equipe. Fotos e preços individuais ainda não foram cadastrados no site.</p></div>
+     <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar produtos</a>
+   </div>
+  </section>
+  <p class="notice">As categorias não garantem estoque. Consulte disponibilidade, tamanhos e preços diretamente com a OSS. Os produtos ainda estão sendo cadastrados individualmente.</p>
+ </section>
+ <section class="cta" id="contato"><div class="container"><div><h2>Ficou com alguma dúvida?</h2><p>Atendimento OSS Kimonos · WhatsApp (19) 99712-1912.</p></div><a class="button" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos." target="_blank" rel="noopener noreferrer">Fale com a OSS</a></div></section>
+</main>
+<footer><div class="container foot"><a href="/" aria-label="Voltar à página inicial"><img src="/assets/oss-logo.png" alt="OSS Kimonos" width="130" height="55"></a><span>© OSS Kimonos. Todos os direitos reservados.</span><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram oficial</a></div></footer>
+<script>
+(function () {
+ const categories = {
+   "kimonos":"Kimonos","faixas":"Faixas","fight-wear":"Fight Wear",
+   "rashguard":"Rashguard","camisas":"Camisas","bones":"Bonés",
+   "bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"
+ };
+ const buttons = Array.from(document.querySelectorAll(".category"));
+ const panelKimonos=document.getElementById("kimonos-panel");
+ const panelOther=document.getElementById("other-panel");
+ const title=document.getElementById("selected-category");
+ const heading=document.getElementById("other-heading");
+ const whatsapp=document.getElementById("other-whatsapp");
+ function showCategory(key) {
+   if (!Object.prototype.hasOwnProperty.call(categories,key)) return;
+   for (const button of buttons) button.setAttribute("aria-pressed",String(button.dataset.key===key));
+   const isKimonos = key==="kimonos";
+   panelKimonos.hidden=!isKimonos;
+   panelOther.hidden=isKimonos;
+   if (!isKimonos){
+     const label=categories[key];
+     title.textContent=label;
+     heading.textContent=label;
+     const msg="Olá, vim pela loja OSS Kimonos e gostaria de consultar os produtos da categoria "+label+". Quais modelos estão disponíveis?";
+     whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent(msg);
+   }
+ }
+ for (const button of buttons) button.addEventListener("click",()=>showCategory(button.dataset.key));
+ const fromHash=decodeURIComponent(location.hash.substring(1)).toLowerCase();
+ if (Object.prototype.hasOwnProperty.call(categories,fromHash)) showCategory(fromHash);
+})();
+</script>
+</body></html>
