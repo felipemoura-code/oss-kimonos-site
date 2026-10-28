@@ -68,18 +68,29 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
-test('pagina inicial usa carrossel premium de nove categorias sem fotos artificiais', () => {
+test('cada categoria do carrossel abre detalhes na mesma página, sem outra aba', () => {
   assert.match(home, /id="category-track"/);
   assert.match(home, /id="category-prev"/);
   assert.match(home, /id="category-next"/);
   assert.match(home, /id="category-toggle"/);
   assert.match(home, /id="category-progress"/);
-  assert.match(home, /id="category-position"/);
+  assert.match(home, /id="category-details"/);
+  assert.match(home, /id="detail-close"/);
+  assert.match(home, /id="detail-items"/);
+  assert.match(home, /id="detail-empty"/);
   assert.match(home, /track\.scrollTo/);
-  assert.equal((home.match(/class="category-tile"/g) || []).length, 9);
+  const carousel = home.split('id="category-track"')[1].split('</div>\n <div class="carousel-bottom">')[0];
+  assert.equal((carousel.match(/class="category-tile"/g) || []).length, 9);
   for (const key of categories) {
-    assert.ok(home.includes('href="/loja.html#' + key + '"'), 'Categoria sem link: ' + key);
+    assert.ok(home.includes('data-category="' + key + '"'), 'Categoria sem botão: ' + key);
   }
+  assert.doesNotMatch(carousel, /href="/);
+  assert.doesNotMatch(carousel, /target="_blank"/);
+  assert.match(home, /selectCategory\(card\.dataset\.category,card\)/);
+  assert.match(home, /details\.scrollIntoView/);
+  assert.match(home, /details\.hidden=false/);
+  assert.match(home, /closeDetails\(true\)/);
+  assert.match(home, /fetch\('\/catalogo\.json'/);
   assert.doesNotMatch(home, /class="product"/);
   assert.match(home, /scroll-snap-type:x mandatory/);
 });
@@ -96,6 +107,8 @@ test('carousel avanca sozinho com pausa e sem salto para o inicio', () => {
   assert.match(home, /IntersectionObserver/);
   assert.match(home, /prefers-reduced-motion: reduce/);
   assert.match(home, /toggle\.addEventListener\('click'/);
+  assert.match(home, /selectedCategory===null/);
+  assert.match(home, /aria-expanded/);
 });
 
 test('categorias sem fotos reais mostram apenas consulta; kimonos preservam originais', () => {
