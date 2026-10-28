@@ -195,7 +195,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    try {
      const actual=new URL(value);
      const endpoint=new URL(activeCatalogEndpoint,location.origin);
-     return endpoint.origin!==location.origin && actual.protocol==="https:" &&
+     return actual.protocol==="https:" &&
        actual.origin===endpoint.origin &&
        /\/uploads\/[a-f0-9]{32}\.(?:jpg|png|webp)$/i.test(actual.pathname);
    }catch(e){return false;}
