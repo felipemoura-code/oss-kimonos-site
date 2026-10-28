@@ -127,6 +127,26 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  .mobile-nav-links a:hover{background:#302922}
 }
 @media(max-width:340px){.mobile-actions{gap:5px}.mobile-home,.mobile-nav summary{padding:8px;font-size:11px}.brand img{width:100px}}
+
+/* Referencias originais e neutras: sem fotografias de outras marcas */
+.reference-panel{padding:16px;gap:28px;align-items:stretch;min-height:270px}
+.reference-art{flex:0 0 41%;min-height:242px;border:1px solid #47413c;border-radius:5px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 45% 35%,#373334,#19191b 70%)}
+.reference-art:before{content:"";position:absolute;inset:18px;border:1px solid #ffffff10;pointer-events:none}
+.reference-art svg{display:block;width:min(94%,360px);height:210px;filter:drop-shadow(0 18px 12px #0005)}
+.reference-label{position:absolute;bottom:12px;left:10px;right:10px;font-size:10px;letter-spacing:.1em;font-weight:800;text-transform:uppercase;text-align:center;color:#c3b9a9}
+.reference-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:10px 4px}
+.reference-info .eyebrow{font-size:10px}
+.reference-info h3{font-size:clamp(25px,3.5vw,39px);letter-spacing:-.03em;margin:7px 0 10px}
+.reference-info p{line-height:1.5;margin:0 0 11px}
+.reference-info .reference-note{color:#b0a69a;font-size:12px}
+.reference-info .button{margin-top:10px;min-width:200px}
+@media(max-width:620px){
+ .reference-panel{display:flex;flex-direction:column;gap:14px;padding:10px}
+ .reference-art{flex:auto;width:100%;height:215px;min-height:215px}
+ .reference-art svg{height:195px}
+ .reference-info{width:100%;padding:10px 7px 14px}
+ .reference-info .button{min-width:0;width:100%;margin-top:8px}
+}
 </style>
 </head>
 <body>
@@ -181,9 +201,18 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
   </section>
   <section id="other-panel" aria-live="polite" hidden>
    <div class="sectionhead"><div><p class="eyebrow">Categoria</p><h3 id="selected-category">Faixas</h3></div></div>
-   <div class="single">
-     <div><p class="eyebrow">Catálogo OSS Kimonos</p><h3 id="other-heading">Faixas</h3><p id="other-description">Ainda não há itens individuais publicados nesta categoria. Consulte com a equipe quais modelos estão disponíveis.</p></div>
-     <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar produtos</a>
+   <div class="single reference-panel">
+     <div class="reference-art" id="reference-art" role="img" aria-label="Ilustração de referência para a categoria Faixas; não é fotografia de produto">
+       <svg viewBox="0 0 320 240" aria-hidden="true" focusable="false"><use id="reference-symbol" href="/assets/oss-categorias.svg#faixas"></use></svg>
+       <span class="reference-label">Referência ilustrativa</span>
+     </div>
+     <div class="reference-info">
+       <p class="eyebrow">Exemplo visual da categoria</p>
+       <h3 id="other-heading">Faixas</h3>
+       <p id="other-description">Representação neutra do tipo de produto. Não corresponde a um modelo cadastrado ou a estoque confirmado da OSS.</p>
+       <p class="reference-note">Fotos oficiais, modelos e valores serão adicionados após confirmação.</p>
+       <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar a categoria</a>
+     </div>
    </div>
   </section>
   <p class="notice">As categorias não garantem estoque. Consulte disponibilidade, tamanhos e preços diretamente com a OSS. Os produtos ainda estão sendo cadastrados individualmente.</p>
@@ -209,6 +238,8 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  const title=document.getElementById("selected-category");
  const heading=document.getElementById("other-heading");
  const whatsapp=document.getElementById("other-whatsapp");
+ const refArtwork=document.getElementById("reference-art");
+ const refSymbol=document.getElementById("reference-symbol");
  const description=document.getElementById("other-description");
  const formatter=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
  let publishedProducts=[];
@@ -292,8 +323,10 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
      const label=categories[key];
      title.textContent=label;
      heading.textContent=label;
-     description.textContent="Ainda não há produtos individuais publicados na categoria "+label+". Consulte com a equipe quais opções estão disponíveis.";
-     whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent("Olá, vim pela loja OSS Kimonos e gostaria de consultar a categoria "+label+". Quais produtos estão disponíveis?");
+     refSymbol.setAttribute("href","/assets/oss-categorias.svg#"+key);
+     refArtwork.setAttribute("aria-label","Ilustração de referência para a categoria "+label+"; não é foto de produto nem indicação de estoque");
+     description.textContent="Ilustração neutra da categoria "+label+". Não é foto de um produto da OSS e não significa que esse modelo esteja disponível.";
+     whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent("Olá, vim pela loja OSS Kimonos e gostaria de saber se há itens da categoria "+label+" disponíveis. Quais modelos, tamanhos e preços vocês têm?");
    }
    if(writeHistory&&location.hash!=="#"+key)history.pushState(null,"","#"+key);
  }
