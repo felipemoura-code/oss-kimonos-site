@@ -80,7 +80,19 @@ test('referencias ilustrativas sao originais e nao inventam produtos', () => {
   assert.match(store, /Referência ilustrativa/);
   assert.match(store, /Não é foto de um produto da OSS/);
   assert.match(store, /refArtwork\.setAttribute\("aria-label"/);
-  assert.deepEqual(catalog.produtos, []);
+  assert.equal(catalog.produtos.length, 3);
+  assert.equal(new Set(catalog.produtos.map(p => p.id)).size, 3);
+  for (const product of catalog.produtos) {
+    assert.equal(product.categoria, 'kimonos');
+    assert.equal(product.tipo_registro, 'foto_oficial_consulta');
+    assert.equal(product.preco_confirmado, false);
+    assert.equal(product.status, 'publicado');
+    assert.ok(existsSync('.' + product.imagem), product.imagem);
+    assert.match(product.descricao, /confirmação/);
+    assert.equal(product.estoque, undefined);
+  }
+  assert.match(store, /Foto original OSS · modelo sob consulta/);
+  assert.match(store, /foto oficial/);
 });
 
 test('imagens HTML usam descricao alternativa', () => {
