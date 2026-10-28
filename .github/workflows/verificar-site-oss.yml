@@ -1,0 +1,32 @@
+name: Verificar site OSS Kimonos
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'loja.html'
+      - 'catalogo.json'
+      - 'integracao-host.json'
+      - 'assets/**'
+      - 'tests/**'
+      - '.github/workflows/verificar-site-oss.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'loja.html'
+      - 'catalogo.json'
+      - 'integracao-host.json'
+      - 'assets/**'
+      - 'tests/**'
+permissions:
+  contents: read
+jobs:
+  site-smoke:
+    name: Validar navegacao, catalogo e fotos OSS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/site-smoke.mjs
