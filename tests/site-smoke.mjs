@@ -68,6 +68,20 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
+test('referencias ilustrativas sao originais e nao inventam produtos', () => {
+  const art = text('assets/oss-categorias.svg');
+  const referenceCategories = categories.filter(key => key !== 'kimonos');
+  const ids = [...art.matchAll(/<symbol id="([^"]+)"/g)].map(match => match[1]);
+  assert.deepEqual(ids, referenceCategories);
+  assert.match(store, /class="single reference-panel"/);
+  assert.match(store, /id="reference-symbol"/);
+  assert.match(store, /setAttribute\("href","\/assets\/oss-categorias\.svg#"/);
+  assert.match(store, /Referência ilustrativa/);
+  assert.match(store, /Não é foto de um produto da OSS/);
+  assert.match(store, /refArtwork\.setAttribute\("aria-label"/);
+  assert.deepEqual(catalog.produtos, []);
+});
+
 test('imagens HTML usam descricao alternativa', () => {
   for (const page of [home, store]) {
     for (const match of page.matchAll(/<img\b[^>]*>/g)) {
