@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="240" viewBox="0 0 320 240" aria-hidden="true">
+<defs>
+ <linearGradient id="fabric" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#4e5356"/><stop offset="52%" stop-color="#2c3033"/><stop offset="100%" stop-color="#17191d"/></linearGradient>
+ <linearGradient id="fabric-light" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#747677"/><stop offset="100%" stop-color="#303337"/></linearGradient>
+</defs>
+<symbol id="faixas" viewBox="0 0 320 240">
+ <path d="M47 99 Q111 72 175 92 T278 93 L274 123 Q222 131 168 123 T49 132Z" fill="url(#fabric)" stroke="#a6a09a" stroke-width="2"/>
+ <path d="M104 102 L184 194 L206 185 L136 104Z" fill="#414346" stroke="#bfb5a5" stroke-width="2"/>
+ <path d="M157 104 L112 189 L135 200 L182 116Z" fill="url(#fabric-light)" stroke="#c1b59b" stroke-width="2"/>
+ <path d="M149 98 Q164 84 181 99 L175 119 Q159 125 147 113Z" fill="#222326" stroke="#dac6a1" stroke-width="3"/>
+ <path d="M58 116 Q110 100 142 111 M190 112 Q237 117 269 107 M140 172 L130 190 M178 173 L194 186" stroke="#d6c5a4" stroke-width="2" fill="none" opacity=".7"/>
+</symbol>
+<symbol id="rashguard" viewBox="0 0 320 240">
+ <path d="M132 49 L109 64 L50 94 L31 150 L64 164 L94 115 L111 122 L110 203 Q159 215 209 203 L208 123 L226 116 L257 166 L288 150 L268 94 L211 64 L188 49 Q161 65 132 49Z" fill="url(#fabric)" stroke="#98918a" stroke-width="2.5" stroke-linejoin="round"/>
+ <path d="M132 49 Q157 84 188 49 M111 122 L121 85 M208 123 L198 85 M76 143 L55 134 M245 143 L267 134" stroke="#d3b891" stroke-width="3" fill="none"/>
+ <path d="M120 91 Q162 112 199 91 M121 190 Q163 196 199 190" stroke="#a6a09a" stroke-width="2" fill="none" opacity=".75"/>
+</symbol>
+<symbol id="fight-wear" viewBox="0 0 320 240">
+ <path d="M92 55 L119 38 Q160 64 200 38 L229 55 L270 111 L239 137 L212 107 L212 153 L108 153 L108 107 L81 137 L50 111Z" fill="url(#fabric)" stroke="#b7afa0" stroke-width="2.5" stroke-linejoin="round"/>
+ <path d="M119 38 Q160 82 200 38 M107 135 L212 135" fill="none" stroke="#d0b58e" stroke-width="3"/>
+ <path d="M112 164 L208 164 L217 214 L167 214 L159 187 L151 214 L103 214Z" fill="#333537" stroke="#a6a09a" stroke-width="2.5"/>
+ <path d="M111 177 L209 177 M158 169 L158 187" fill="none" stroke="#cdb38b" stroke-width="2"/>
+</symbol>
+<symbol id="camisas" viewBox="0 0 320 240">
+ <path d="M111 52 L135 40 Q160 54 185 40 L209 52 L271 96 L243 137 L214 116 L214 207 L106 207 L106 116 L77 137 L49 96Z" fill="url(#fabric)" stroke="#b5aea2" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M135 40 Q160 79 185 40 M110 182 L210 182" stroke="#cbb38e" stroke-width="2.5" fill="none"/>
+ <path d="M107 116 L117 95 M213 116 L203 95" stroke="#9a9690" stroke-width="2" fill="none"/>
+</symbol>
+<symbol id="bones" viewBox="0 0 320 240">
+ <path d="M80 157 Q82 72 151 66 Q215 64 235 147 L231 161 L80 170Z" fill="url(#fabric)" stroke="#bbb1a3" stroke-width="3"/>
+ <path d="M151 66 Q159 94 164 156 M91 134 Q152 120 229 147" stroke="#cdb88f" stroke-width="2.5" fill="none"/>
+ <path d="M78 158 Q149 143 233 154 Q263 157 293 178 Q264 194 203 185 L76 175Z" fill="#3d4042" stroke="#bfb3a0" stroke-width="3"/>
+ <path d="M93 166 Q188 159 270 179" fill="none" stroke="#d1b991" stroke-width="2"/>
+ <circle cx="152" cy="67" r="5" fill="#d5c49c"/>
+</symbol>
+<symbol id="bermuda" viewBox="0 0 320 240">
+ <path d="M87 53 L233 53 L253 198 L178 208 L159 137 L141 208 L67 198Z" fill="url(#fabric)" stroke="#b8aea0" stroke-width="3" stroke-linejoin="round"/>
+ <path d="M88 72 L232 72 M159 72 L159 140 M82 181 L138 186 M182 186 L238 181" stroke="#d0bb97" stroke-width="2.5" fill="none"/>
+ <path d="M93 79 L118 109 M227 79 L202 109" stroke="#a19b94" stroke-width="2" fill="none"/>
+ <path d="M148 55 L147 82 M172 55 L172 82" stroke="#d7c7a8" stroke-width="3"/>
+</symbol>
+<symbol id="moletom" viewBox="0 0 320 240">
+ <path d="M121 57 Q115 20 160 18 Q205 20 199 57 L217 67 L276 104 L256 161 L222 153 L207 127 L209 214 L111 214 L113 127 L98 153 L64 161 L44 104 L103 67Z" fill="url(#fabric)" stroke="#b9ad9c" stroke-width="2.8" stroke-linejoin="round"/>
+ <path d="M124 56 Q161 83 196 56 M145 30 Q161 46 177 30 M128 177 Q160 188 192 177 L186 197 L134 197Z" fill="none" stroke="#cdb790" stroke-width="2.5"/>
+ <path d="M117 70 L139 117 L160 141 L181 117 L202 70" fill="none" stroke="#a5a1a0" stroke-width="2"/>
+ <path d="M155 103 L154 149 M166 103 L166 149" fill="none" stroke="#d8c7a5" stroke-width="2.5"/>
+</symbol>
+<symbol id="mochilas" viewBox="0 0 320 240">
+ <path d="M117 83 L117 54 Q117 29 160 29 Q203 29 203 54 L203 83" fill="none" stroke="#a79e90" stroke-width="13" stroke-linecap="round"/>
+ <path d="M93 97 Q93 63 124 63 L196 63 Q227 63 227 97 L240 192 Q241 215 218 215 L102 215 Q79 215 80 192Z" fill="url(#fabric)" stroke="#bcb2a2" stroke-width="3"/>
+ <path d="M90 110 Q57 114 64 171 M230 110 Q263 114 256 171" fill="none" stroke="#bba981" stroke-width="12" stroke-linecap="round"/>
+ <path d="M116 130 L204 130 Q216 130 216 144 L212 194 L108 194 L104 144 Q104 130 116 130Z" fill="#3b3d3f" stroke="#c8b28b" stroke-width="2.5"/>
+ <path d="M141 93 L179 93 M130 145 L190 145" fill="none" stroke="#c9bd9f" stroke-width="2.5"/>
+</symbol>
+</svg>
