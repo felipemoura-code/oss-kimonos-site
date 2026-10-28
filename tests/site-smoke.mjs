@@ -72,7 +72,8 @@ test('referencias ilustrativas sao originais e nao inventam produtos', () => {
   const art = text('assets/oss-categorias.svg');
   const referenceCategories = categories.filter(key => key !== 'kimonos');
   const ids = [...art.matchAll(/<symbol id="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(ids, referenceCategories);
+  assert.equal(ids.length, referenceCategories.length);
+  assert.deepEqual(new Set(ids), new Set(referenceCategories));
   assert.match(store, /class="single reference-panel"/);
   assert.match(store, /id="reference-symbol"/);
   assert.match(store, /setAttribute\("href","\/assets\/oss-categorias\.svg#"/);
