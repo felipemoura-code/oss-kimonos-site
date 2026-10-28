@@ -132,6 +132,23 @@ test('categorias sem fotos reais mostram apenas consulta; kimonos preservam orig
   assert.match(store, /Foto original OSS · modelo sob consulta/);
 });
 
+test('adaptador do painel da OSS nao altera site sem API configurada', () => {
+  const adapter = text('site-editor-runtime.js');
+  new Script(adapter, {filename:'site-editor-runtime.js'});
+  assert.match(home, /src="\/site-editor-runtime\.js"/);
+  assert.match(store, /src="\/site-editor-runtime\.js"/);
+  assert.equal(integration.api_site, '');
+  assert.match(adapter, /if\(!api\)return null/);
+  assert.match(adapter, /fetch\(configURL/);
+  assert.match(adapter, /\/api\/site\.php/);
+  assert.match(adapter, /whatsapp_number/);
+  assert.match(adapter, /accent_color/);
+  assert.match(adapter, /instagram_url/);
+  assert.match(adapter, /banner_image/);
+  assert.match(adapter, /logo_image/);
+  assert.match(adapter, /about_image/);
+});
+
 test('imagens HTML usam descricao alternativa', () => {
   for (const page of [home, store]) {
     for (const match of page.matchAll(/<img\b[^>]*>/g)) {
