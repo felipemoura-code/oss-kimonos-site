@@ -128,25 +128,12 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 }
 @media(max-width:340px){.mobile-actions{gap:5px}.mobile-home,.mobile-nav summary{padding:8px;font-size:11px}.brand img{width:100px}}
 
-/* Referencias originais e neutras: sem fotografias de outras marcas */
-.reference-panel{padding:16px;gap:28px;align-items:stretch;min-height:270px}
-.reference-art{flex:0 0 41%;min-height:328px;border:1px solid #47413c;border-radius:5px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 45% 35%,#373334,#19191b 70%)}
-.reference-art:before{content:"";position:absolute;inset:18px;border:1px solid #ffffff10;pointer-events:none}
-.reference-art .reference-photo{display:block;width:100%;max-width:380px;height:300px;object-fit:contain;object-position:center;filter:drop-shadow(0 12px 13px #0006);padding:8px 12px 27px;box-sizing:border-box;}
-.reference-label{position:absolute;bottom:12px;left:10px;right:10px;font-size:10px;letter-spacing:.1em;font-weight:800;text-transform:uppercase;text-align:center;color:#c3b9a9}
-.reference-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:10px 4px}
-.reference-info .eyebrow{font-size:10px}
-.reference-info h3{font-size:clamp(25px,3.5vw,39px);letter-spacing:-.03em;margin:7px 0 10px}
-.reference-info p{line-height:1.5;margin:0 0 11px}
-.reference-info .reference-note{color:#b0a69a;font-size:12px}
-.reference-info .button{margin-top:10px;min-width:200px}
-@media(max-width:620px){
- .reference-panel{display:flex;flex-direction:column;gap:14px;padding:10px}
- .reference-art{flex:auto;width:100%;height:285px;min-height:285px}
- .reference-art .reference-photo{height:275px;max-width:100%}
- .reference-info{width:100%;padding:10px 7px 14px}
- .reference-info .button{min-width:0;width:100%;margin-top:8px}
-}
+/* Categoria ainda sem foto oficial: mostrar consulta sem imagens inventadas */
+.category-enquiry{display:flex;align-items:center;justify-content:space-between;gap:25px;border:1px solid #3d3834;border-radius:7px;background:linear-gradient(120deg,#211e1b,#141416 85%);min-height:190px;padding:29px 31px}
+.category-enquiry>div{max-width:650px}
+.category-enquiry p:not(.eyebrow){font-size:15px;color:#d0cac2;line-height:1.7;margin:9px 0 0}
+.category-enquiry .button{min-width:205px;flex-shrink:0}
+@media(max-width:650px){.category-enquiry{display:flex;flex-direction:column;align-items:stretch;padding:22px 18px;min-height:0;gap:19px}.category-enquiry .button{width:100%;min-width:0}}
 
 .official-photo-tag{font-size:10px;line-height:1.35;letter-spacing:.05em;text-transform:uppercase;font-weight:800;color:#d9c19a;margin-bottom:8px}
 
@@ -235,19 +222,13 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    <div class="cards" id="products-cards"></div>
   </section>
   <section id="other-panel" aria-live="polite" hidden>
-   <div class="sectionhead"><div><p class="eyebrow">Categoria</p><h3 id="selected-category">Faixas</h3></div></div>
-   <div class="single reference-panel">
-     <div class="reference-art" id="reference-art" role="img" aria-label="Simulação fotográfica de faixas de jiu-jitsu. Imagem gerada, não é foto de produto da OSS.">
-       <img id="reference-photo-image" class="reference-photo" src="/assets/oss-ref-faixas.webp" width="438" height="669" loading="lazy" decoding="async" alt="Faixas de jiu-jitsu em fotografia de referência gerada, sem marcas">
-       <span class="reference-label">Imagem de referência gerada</span>
-     </div>
-     <div class="reference-info">
-       <p class="eyebrow">Referência visual da categoria</p>
-       <h3 id="other-heading">Faixas</h3>
-       <p id="other-description">Simulação fotográfica sem marca. Não é um produto real nem comprova a disponibilidade na OSS.</p>
-       <p class="reference-note">Fotos oficiais, tamanhos, modelos e valores serão publicados quando forem confirmados.</p>
-       <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar a categoria</a>
-     </div>
+   <div class="sectionhead"><div><p class="eyebrow">Consultar categoria OSS</p><h3 id="selected-category">Faixas</h3></div></div>
+   <div class="category-enquiry">
+    <div>
+     <p class="eyebrow">Atendimento personalizado</p>
+     <p id="other-description">Ainda não temos fotos oficiais e itens individuais cadastrados nesta categoria. Consulte modelos, tamanhos, preços e disponibilidade com a equipe OSS.</p>
+    </div>
+    <a id="other-whatsapp" class="button" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar pelo WhatsApp</a>
    </div>
   </section>
   <p class="notice">As categorias não garantem estoque. Consulte disponibilidade, tamanhos e preços diretamente com a OSS. Os produtos ainda estão sendo cadastrados individualmente.</p>
@@ -286,16 +267,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  const productTitle=document.getElementById("products-title");
  const productCount=document.getElementById("products-count");
  const title=document.getElementById("selected-category");
- const heading=document.getElementById("other-heading");
  const whatsapp=document.getElementById("other-whatsapp");
- const refArtwork=document.getElementById("reference-art");
- const refPhoto=document.getElementById("reference-photo-image");
- const referenceImages={
-  "faixas":"oss-ref-faixas.webp","fight-wear":"oss-ref-fight-wear.webp",
-  "rashguard":"oss-ref-rashguard.webp","camisas":"oss-ref-camisas.webp",
-  "bones":"oss-ref-bones.webp","bermuda":"oss-ref-bermuda.webp",
-  "moletom":"oss-ref-moletom.webp","mochilas":"oss-ref-mochilas.webp"
- };
  const description=document.getElementById("other-description");
  const formatter=new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL"});
  let publishedProducts=[];
@@ -385,11 +357,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    if(key!=="kimonos"&&!hasProducts){
      const label=categories[key];
      title.textContent=label;
-     heading.textContent=label;
-     const photo=referenceImages[key];
-     if(photo){refPhoto.src="/assets/"+photo;refPhoto.alt="Fotografia de referência gerada para "+label+". Sem marcas, não corresponde a um produto OSS.";}
-     refArtwork.setAttribute("aria-label","Imagem fotográfica gerada para ilustrar a categoria "+label+". Não é foto de produto da OSS.");
-     description.textContent="Imagem fotográfica de referência para "+label+", gerada sem marcas. Não é foto de produto da OSS e não indica estoque disponível.";
+     description.textContent="Ainda não temos fotos oficiais e produtos individuais cadastrados em "+label+". Consulte com a equipe OSS os modelos, tamanhos, preços e a disponibilidade.";
      whatsapp.href="https://wa.me/5519997121912?text="+encodeURIComponent("Olá, vim pela loja OSS Kimonos e gostaria de saber se há itens da categoria "+label+" disponíveis. Quais modelos, tamanhos e preços vocês têm?");
    }
    if(writeHistory&&location.hash!=="#"+key)history.pushState(null,"","#"+key);
