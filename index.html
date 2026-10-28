@@ -73,6 +73,20 @@
 .step h3{font-size:18px;line-height:1.2;margin:15px 0 7px}
 .step p{color:#c4c0ba;font-size:13px;margin:0}
 @media(max-width:750px){.steps-section .wrap{padding-top:55px;padding-bottom:55px}.steps-grid{grid-template-columns:1fr;gap:10px}.step{padding:15px 17px}.step h3{font-size:16px;margin:9px 0 5px}}
+
+/* Corrige a faixa entre tablet e desktop, sem criar rolagem horizontal no cabecalho */
+@media(min-width:751px) and (max-width:980px){
+ .nav>nav{display:none}
+ .mobile-actions{display:flex;align-items:center;gap:9px;margin-left:auto}
+ .mobile-store{border:1px solid var(--gold);border-radius:5px;color:var(--gold);font-size:13px;font-weight:800;padding:10px 14px;white-space:nowrap}
+ .mobile-nav{position:relative}
+ .mobile-nav summary{display:flex;align-items:center;justify-content:center;list-style:none;min-height:43px;cursor:pointer;border:1px solid #555;border-radius:5px;padding:9px 13px;color:#fff;font-weight:800;font-size:13px}
+ .mobile-nav summary::-webkit-details-marker{display:none}
+ .mobile-nav[open] summary{border-color:var(--gold);color:var(--gold)}
+ .mobile-nav-links{position:absolute;top:calc(100% + 9px);right:0;width:270px;background:#171719;border:1px solid #504638;border-radius:8px;padding:9px;box-shadow:0 14px 30px #000b;z-index:30}
+ .mobile-nav-links a{display:block;padding:12px 14px;min-height:44px;color:#eee;border-radius:4px;font-size:14px}
+ .mobile-nav-links a:hover,.mobile-nav-links a:focus-visible{background:#2e2923;color:#edc88a}
+}
 </style></head><body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header><div class="nav"><a class="mark" href="#inicio" aria-label="OSS Kimonos início"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="172" height="60" style="display:block;width:clamp(128px,15vw,172px);height:auto;max-height:68px;object-fit:contain" /></a><nav aria-label="Navegação principal"><a class="store-link" href="/loja.html" aria-label="Abrir a loja OSS Kimonos nesta página">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a class="btn nav-cta" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener">Fale conosco</a></nav><div class="mobile-actions"><a class="mobile-store" href="/loja.html">Loja</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="#inicio">Início</a><a href="/loja.html">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div></div></header>
