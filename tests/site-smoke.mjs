@@ -68,17 +68,34 @@ test('catalogo nao presume produtos nem hospedagem conectada', () => {
   assert.equal(typeof integration.api_catalogo, 'string');
 });
 
-test('pagina inicial usa carrossel de nove categorias, sem fotografias inventadas', () => {
+test('pagina inicial usa carrossel premium de nove categorias sem fotos artificiais', () => {
   assert.match(home, /id="category-track"/);
   assert.match(home, /id="category-prev"/);
   assert.match(home, /id="category-next"/);
-  assert.match(home, /track\.scrollBy/);
+  assert.match(home, /id="category-toggle"/);
+  assert.match(home, /id="category-progress"/);
+  assert.match(home, /id="category-position"/);
+  assert.match(home, /track\.scrollTo/);
   assert.equal((home.match(/class="category-tile"/g) || []).length, 9);
   for (const key of categories) {
     assert.ok(home.includes('href="/loja.html#' + key + '"'), 'Categoria sem link: ' + key);
   }
   assert.doesNotMatch(home, /class="product"/);
   assert.match(home, /scroll-snap-type:x mandatory/);
+});
+
+test('carousel avanca sozinho com pausa e sem salto para o inicio', () => {
+  assert.match(home, /const interval=3900/);
+  assert.match(home, /setInterval\(advance,interval\)/);
+  assert.match(home, /clearInterval\(timer\)/);
+  assert.match(home, /if\(x>=max-3\)direction=-1/);
+  assert.match(home, /else if\(x<=3\)direction=1/);
+  assert.match(home, /pointerenter/);
+  assert.match(home, /focusin/);
+  assert.match(home, /visibilitychange/);
+  assert.match(home, /IntersectionObserver/);
+  assert.match(home, /prefers-reduced-motion: reduce/);
+  assert.match(home, /toggle\.addEventListener\('click'/);
 });
 
 test('categorias sem fotos reais mostram apenas consulta; kimonos preservam originais', () => {
