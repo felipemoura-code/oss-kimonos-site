@@ -125,6 +125,50 @@ button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:
 @media(max-width:700px){.shell{width:min(var(--max),calc(100% - 34px))}.topline .shell{justify-content:center}.topline .shell span:last-child{display:none}.header-row{min-height:69px}.brand img{height:59px;width:124px}.hero{min-height:650px;align-items:flex-start}.hero-content{padding:75px 0 85px}.hero h1{font-size:clamp(44px,11vw,72px)}.hero-visual{background-position:58% 45%;opacity:.68}.hero::before{background:linear-gradient(90deg,#0a0a0aef 0%,#0a0a0ad9 65%,#0a0a0a58),linear-gradient(0deg,#090909c8,transparent 70%)}.hero-proof{flex-wrap:wrap;margin-top:45px}.hero-side{display:none}.section{padding-block:55px}.section-head{align-items:start;flex-direction:column;gap:11px}.collections-section{padding-top:52px}.collection-card{flex-basis:calc((100% - 13px)/2);aspect-ratio:1;min-height:170px}.collection-name{font-size:26px}.product-grid{gap:9px}.product-photo-open img{height:230px}.product-body{padding:14px}.product-body h3{font-size:20px}.quick-preview img{height:145px}.brand-story{grid-template-columns:1fr}.story-image{min-height:315px;background-position:center 42%}.story-copy{padding:44px 22px 52px}.contact-strip .shell{flex-direction:column;align-items:stretch}.footer-row{flex-wrap:wrap}}
 @media(max-width:490px){.hero{min-height:675px}.hero-content{padding-top:65px}.hero-sub{max-width:325px}.collection-card{flex-basis:77%;min-height:178px;max-height:225px;padding:17px}.collection-name{font-size:30px}.product-grid{grid-template-columns:1fr}.product-card{display:grid;grid-template-columns:42% 58%;min-height:225px}.product-photo-open img{height:100%;min-height:225px;max-height:300px}.product-body{padding:14px}.product-meta{font-size:9px}.product-body h3{font-size:18px}.product-body p{font-size:12px}.quick-preview{grid-template-columns:1fr 1fr}.quick-preview img{height:120px}.quick-top h3{font-size:24px}.contact-strip .btn{width:100%}.footer-row{justify-content:center;text-align:center;flex-direction:column}.footer-links{justify-content:center}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* Ajuste editorial da foto principal: imagem original completa, nunca ampliada como wallpaper */
+.hero{display:block;min-height:0;background:radial-gradient(ellipse at 88% 70%,#29221e 0%,#151313 40%,#0b0b0c 76%);isolation:isolate;overflow:hidden}
+.hero::before{display:none}
+.hero-shell{display:grid;grid-template-columns:minmax(0,1.16fr) minmax(0,.84fr);align-items:center;gap:34px;min-height:590px}
+.hero-content{position:relative;z-index:2;width:auto;padding:76px 0 68px;min-width:0}
+.hero h1{font-size:clamp(43px,5vw,78px);max-width:680px;line-height:1.065;letter-spacing:-.058em;margin-bottom:22px}
+.hero h1 em{white-space:normal}
+.hero-sub{font-size:clamp(15px,1.27vw,17px);max-width:470px}
+.hero-proof{margin-top:45px;gap:11px;font-size:10px;flex-wrap:wrap}
+.hero-visual{inset:auto;position:relative;z-index:1;width:100%;height:590px;min-width:0;display:flex;align-items:flex-end;justify-content:center;background:radial-gradient(ellipse at 50% 68%,#3b3029 0%,#1d1a19 45%,transparent 75%);filter:none;overflow:hidden}
+.hero-visual::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;box-shadow:inset 36px 0 40px -34px #0b0b0c,inset -36px 0 40px -34px #0b0b0c}
+.hero-visual img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:none}
+.hero-side{display:none}
+@media(max-width:1150px){
+ .hero-shell{min-height:560px;gap:16px;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}
+ .hero-visual{height:540px}
+ .hero h1{font-size:clamp(42px,5.5vw,66px)}
+}
+@media(max-width:900px){
+ .hero-shell{grid-template-columns:minmax(0,1fr) minmax(0,.8fr);gap:6px;min-height:480px}
+ .hero-content{padding:52px 0 51px}
+ .hero-visual{height:450px;background:radial-gradient(ellipse at 50% 60%,#322a23,#181616 65%,transparent)}
+ .hero h1{font-size:clamp(37px,5.5vw,57px)}
+ .hero-sub{max-width:370px}
+ .hero-proof{margin-top:30px}
+}
+@media(max-width:700px){
+ .hero{min-height:0}
+ .hero-shell{display:flex;flex-direction:column;gap:0;align-items:stretch;min-height:0}
+ .hero-content{order:1;padding:54px 0 27px}
+ .hero-visual{order:2;inset:auto;position:relative;z-index:1;width:100%;height:355px;min-height:0;opacity:1;filter:none;border-top:1px solid #392f29;background:radial-gradient(ellipse at 50% 65%,#3a2b24,#141212 74%)}
+ .hero-visual img{width:100%;height:100%;object-fit:contain;object-position:center bottom}
+ .hero h1{font-size:clamp(38px,9.2vw,62px);max-width:560px}
+ .hero-sub{max-width:550px}
+ .hero-proof{margin-top:33px}
+}
+@media(max-width:490px){
+ .hero{min-height:0}
+ .hero-content{padding:39px 0 24px}
+ .hero h1{font-size:clamp(35px,10vw,48px)}
+ .hero-visual{height:315px}
+ .hero-proof{font-size:9px;gap:9px}
+}
 </style>
 </head>
 <body>
@@ -140,13 +184,14 @@ button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:
 </div></header>
 <main id="conteudo">
 <section class="hero" id="inicio" aria-labelledby="principal-titulo">
-<div class="hero-visual" aria-hidden="true"></div>
-<div class="shell hero-content"><div class="eyebrow">OSS KIMONOS · NASCIDA NO TATAME</div>
+<div class="shell hero-shell">
+<div class="hero-content"><div class="eyebrow">OSS KIMONOS · NASCIDA NO TATAME</div>
 <h1 id="principal-titulo">Feito para<br>o tatame.<em>Viver o Jiu-Jitsu.</em></h1>
 <p class="hero-sub">Uma marca para quem carrega a disciplina, a evolução e o respeito dentro e fora do treino.</p>
 <div class="actions"><a href="#destaques" class="btn btn-solid">Conheça os kimonos <span aria-hidden="true">↗</span></a><a href="#sobre" class="btn btn-ghost">Nossa essência</a></div>
 <div class="hero-proof"><span>Jiu-Jitsu é nossa essência</span><span>Fotos originais da OSS</span><span>Converse direto com a equipe</span></div></div>
-<div class="hero-side" aria-hidden="true"><span>OSS KIMONOS</span><span class="line"></span><span>2026</span></div></section>
+<div class="hero-visual" aria-hidden="true"><img src="/assets/hero-modelo-preto.png" width="620" height="760" fetchpriority="high" decoding="async" alt=""></div>
+</div></section>
 <section class="section collections-section" id="categorias" aria-labelledby="categorias-titulo">
 <div class="shell">
 <div class="section-head"><div><div class="eyebrow">EXPLORE O UNIVERSO OSS</div><h2 id="categorias-titulo">Encontre sua categoria.</h2></div><p>Explore as linhas da marca. Selecione uma categoria e veja os detalhes nesta mesma página.</p></div>
