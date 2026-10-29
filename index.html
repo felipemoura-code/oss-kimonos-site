@@ -2,391 +2,314 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#090a0a">
-<meta name="description" content="OSS Kimonos: conheça os kimonos oficiais, explore as nove categorias e consulte modelos, tamanhos e valores pelo WhatsApp.">
-<link rel="canonical" href="https://oss-kimonos-site.onrender.com/">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="pt_BR">
-<meta property="og:site_name" content="OSS Kimonos">
-<meta property="og:title" content="OSS Kimonos | Feito para o tatame">
-<meta property="og:description" content="Kimonos e categorias OSS. Conheça a marca e consulte os produtos pelo WhatsApp oficial.">
-<meta property="og:image" content="https://oss-kimonos-site.onrender.com/assets/banner-oss-tres-modelos.png">
-<meta name="twitter:card" content="summary_large_image">
-<title>OSS Kimonos | Feito para o tatame</title>
-<link rel="icon" type="image/png" href="/assets/oss-logo.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10100e">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Ambiente de testes da futura loja OSS Kimonos. Explore produtos reais e monte uma consulta sem pagamento online.">
+<title>OSS Store Lab — Loja experimental</title>
+<link rel="icon" href="/assets/oss-logo.png" type="image/png">
 <link rel="preload" as="image" href="/assets/banner-oss-tres-modelos.webp">
 <style>
-:root{color-scheme:dark;--black:#090a0a;--panel:#171718;--muted:#a8a5a0;--cream:#f6f2e9;--gold:#c8a77c;--gold-light:#e3c69c;--line:#343130;--max:1280px}
-*,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:85px}
-body{margin:0;min-width:320px;background:var(--black);color:var(--cream);font-family:Inter,"Helvetica Neue",Arial, sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
-button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}img{max-width:100%;display:block}
-:focus-visible{outline:3px solid var(--gold-light);outline-offset:3px}
+:root{--bg:#0e0e0e;--panel:#171614;--panel2:#201d1a;--ink:#f8f5ef;--muted:#b6b0a7;--gold:#cbb18b;--gold2:#e4d2b6;--line:#453e34;--max:1230px;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:91px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold2);outline-offset:4px}
+img{max-width:100%}
 [hidden]{display:none!important}
-.shell{width:min(var(--max),calc(100% - 64px));margin-inline:auto}
-.eyebrow{color:var(--gold);font-size:11px;letter-spacing:.28em;text-transform:uppercase;font-weight:750}
-.skip{position:fixed;top:-100px;left:12px;background:var(--gold);color:#111;z-index:1000;padding:12px 18px}.skip:focus{top:10px}
-.site-header{position:sticky;top:0;z-index:30;background:rgba(10,10,10,.96);border-bottom:1px solid #303031;backdrop-filter:blur(20px)}
-.topline{border-bottom:1px solid #302c28;background:#14120f;color:#bfb5a7}
-.topline .shell{display:flex;justify-content:space-between;align-items:center;gap:20px;min-height:27px;font-size:10px;letter-spacing:.12em;text-transform:uppercase}
-.topline strong{color:#dac19b;font-weight:700}
-.header-row{display:flex;align-items:center;min-height:86px;gap:36px}
-.brand img{width:154px;height:70px;object-fit:contain}
-.nav-links{display:flex;align-items:center;gap:30px;margin-inline:auto}
-.nav-links a{font-size:12px;font-weight:700;letter-spacing:.025em;white-space:nowrap;color:#e1dfd9;transition:color .2s}
-.nav-links a:hover{color:var(--gold)}
-.header-wa{padding:12px 18px;border:1px solid #9f7e56;color:var(--gold-light);font-size:12px;font-weight:800;border-radius:3px;white-space:nowrap;transition:background .2s}
-.header-wa:hover{background:#2b2319}
-.menu-details{display:none}
-.hero{position:relative;min-height:min(660px,70vw);display:flex;align-items:stretch;isolation:isolate;overflow:hidden;background:#191614}
-.hero-visual{position:absolute;inset:0;z-index:-2;background-image:url('/assets/banner-oss-tres-modelos.webp');background-repeat:no-repeat;background-size:auto 100%;background-position:right center;filter:saturate(.92) contrast(1.03)}
-.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0a0a0afc 0%,#09090aef 29%,#0c0b0c80 55%,#100d0b12 100%),linear-gradient(0deg,#09090aad,transparent 42%)}
-.hero-content{padding-block:105px 100px;width:100%}
-.hero-content .eyebrow{margin-bottom:21px}
-.hero h1{font-size:clamp(46px,6.5vw,98px);letter-spacing:-.064em;line-height:1.01;margin:0 0 27px;font-weight:850;max-width:800px}
-.hero h1 em{font-style:normal;color:var(--gold);display:block}
-.hero-sub{color:#d4d0ca;font-size:clamp(15px,1.45vw,19px);line-height:1.7;max-width:470px;margin:0 0 31px}
-.actions{display:flex;flex-wrap:wrap;gap:12px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:22px;min-height:51px;padding:12px 25px;font-size:12px;font-weight:800;border:1px solid var(--gold);border-radius:3px;letter-spacing:.02em;transition:background .2s,transform .2s}
-.btn-solid{background:var(--gold);color:#1a1714}.btn-solid:hover{background:var(--gold-light);transform:translateY(-1px)}
-.btn-ghost{background:#0b0b0b4d;color:#fff;border-color:#85735c}.btn-ghost:hover{background:#3e3123}
-.hero-proof{display:flex;align-items:center;gap:18px;margin-top:61px;color:#e3dbce;font-size:11px;line-height:1.5;font-weight:650}
-.hero-proof>span{border-left:1px solid #b38c57;padding-left:14px}
-.hero-proof>span:first-child{border:0;padding:0}
-.hero-side{position:absolute;right:3%;bottom:45px;display:flex;align-items:center;gap:12px;color:#d4c0a1;letter-spacing:.2em;font-size:10px;text-transform:uppercase;writing-mode:vertical-rl}
-.line{height:24px;width:1px;background:var(--gold)}
-.section{padding-block:82px}
-.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:30px}
-.section-head h2{font-size:clamp(31px,3.5vw,49px);letter-spacing:-.045em;line-height:1.1;margin:10px 0 0}
-.section-head p{color:#bab6af;margin:0;max-width:350px;font-size:13px}
-.section-link{font-size:12px;color:var(--gold-light);font-weight:750;white-space:nowrap}
-.section-link span{margin-left:8px}
-.collections-section{padding-top:70px;background:linear-gradient(180deg,#0d0d0d,#0a0a0b)}
-.collections-utilities{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:17px}
-.collections-utilities>span{font-size:11px;color:#a9a5a0}
-.carousel-buttons{display:flex;gap:7px}
-.carousel-buttons button{width:38px;height:38px;color:var(--gold-light);background:#1c1a18;border:1px solid #514433;font-size:20px;border-radius:3px}
-.carousel-buttons button:hover{background:#2b241c}.carousel-buttons button:disabled{opacity:.3;cursor:default}
-.collection-track{display:flex;gap:13px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scroll-behavior:smooth;padding-bottom:10px}
-.collection-track::-webkit-scrollbar{display:none}
-.collection-card{flex:0 0 calc((100% - 52px)/5);min-width:0;aspect-ratio:1.13;border:1px solid #423b35;background:linear-gradient(140deg,#242121,#111212);border-radius:2px;scroll-snap-align:start;color:#fff;padding:19px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;text-align:left;position:relative;overflow:hidden;isolation:isolate;transition:border-color .2s,transform .2s}
-.collection-card:nth-child(3n+2){background:linear-gradient(135deg,#24211d,#0f1010 85%)}
-.collection-card::before{content:"OSS";position:absolute;right:-23px;top:35px;color:#ffffff0b;font-size:96px;font-weight:950;font-style:italic;letter-spacing:-.18em;z-index:-1;pointer-events:none}
-.collection-card:hover,.collection-card[aria-expanded="true"]{border-color:#c9a477;transform:translateY(-2px)}
-.collection-count{font-size:10px;color:#a79a85;letter-spacing:.12em;font-weight:750}
-.slash{color:#665849}
-.collection-name{font-size:clamp(20px,2vw,28px);font-weight:820;letter-spacing:-.055em;line-height:1.1;margin-top:auto}
-.collection-arrow{color:#d8b688;font-size:24px;line-height:1;align-self:flex-end}
-.category-quick{margin-top:20px;border:1px solid #7d6146;background:linear-gradient(120deg,#221f1c,#141516);padding:27px}
-.quick-top{display:flex;justify-content:space-between;gap:14px;align-items:start}
-.quick-top h3{font-size:29px;letter-spacing:-.04em;margin:2px 0 0}.quick-top button{background:none;color:#d9bc96;border:1px solid #64533c;border-radius:3px;padding:9px 14px;font-size:12px}
-.quick-note{color:#c4beb7;font-size:13px;max-width:600px}
-.quick-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
-.quick-actions a{font-size:12px;font-weight:800;border:1px solid #b28f63;padding:12px 19px;border-radius:3px;color:#d8b991}
-.quick-actions a:hover{background:#33291f}
-.quick-preview{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:20px}
-.quick-preview button{border:1px solid #42372e;background:#161617;color:#f5f2ec;display:flex;flex-direction:column;gap:7px;text-align:left;padding:0 0 12px;font-weight:750;overflow:hidden}
-.quick-preview img{width:100%;height:170px;object-fit:contain;background:#242426}
-.quick-preview span{padding-inline:12px;font-size:13px}
-.products-section{padding-top:63px;background:#0c0c0d}
-.product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-.product-card{border:1px solid #29292b;background:#161617;display:flex;flex-direction:column;min-width:0}
-.product-photo-open{display:block;width:100%;padding:0;border:0;overflow:hidden;background:#242426;position:relative}
-.product-photo-open img{width:100%;height:350px;object-fit:contain;transition:transform .35s}
-.product-photo-open:hover img{transform:scale(1.035)}
-.photo-zoom{position:absolute;bottom:9px;right:10px;padding:6px 10px;color:#fff;background:#111c;font-size:10px;letter-spacing:.06em;opacity:0;transition:opacity .2s}
-.product-photo-open:hover .photo-zoom,.product-photo-open:focus-visible .photo-zoom{opacity:1}
-.product-body{display:flex;flex:1;flex-direction:column;padding:20px}
-.product-meta{display:flex;justify-content:space-between;gap:10px;color:#aa9e8a;font-size:10px;letter-spacing:.12em;font-weight:800}
-.product-body h3{font-size:clamp(19px,2vw,26px);letter-spacing:-.03em;line-height:1.25;margin:13px 0 8px}
-.product-body p{font-size:13px;color:#b9b5ae;margin:0 0 22px}
-.product-contact{margin-top:auto;padding-top:14px;border-top:1px solid #3b3837;display:flex;justify-content:space-between;align-items:center;color:#e4c79c;font-size:12px;font-weight:800}
-.product-contact:hover{color:#fff}
-.brand-story{display:grid;grid-template-columns:1fr 1.1fr;min-height:480px;border-block:1px solid #292827;background:#151415}
-.story-image{background:url('/assets/banner-oss-tres-modelos.webp') center/cover no-repeat;min-height:470px}
-.story-copy{padding:70px max(35px,calc((100vw - var(--max))/2 + 35px)) 65px 8%;display:flex;flex-direction:column;justify-content:center}
-.story-copy h2{font-size:clamp(31px,3.4vw,48px);line-height:1.08;letter-spacing:-.045em;margin:17px 0}
-.story-copy p{color:#c7c0b7;max-width:470px;margin:0 0 17px;font-size:14px}
-.story-copy .btn{align-self:flex-start;margin-top:12px}
-.contact-strip{padding:48px 0;border-bottom:1px solid #2e2b2b;background:#100f0e}
-.contact-strip .shell{display:flex;justify-content:space-between;gap:22px;align-items:center}
-.contact-strip h2{font-size:clamp(23px,3vw,36px);letter-spacing:-.03em;margin:0 0 6px}
-.contact-strip p{color:#c2b9ac;margin:0;font-size:13px}
-.site-footer{padding:30px 0;background:#0a0a0a}
-.footer-row{display:flex;align-items:center;justify-content:space-between;gap:25px}
-.footer-logo img{width:130px;height:55px;object-fit:contain}
-.footer-info{font-size:11px;color:#9c968d}
-.footer-links{display:flex;flex-wrap:wrap;gap:17px;font-size:12px}
-.footer-links a:hover{color:var(--gold)}
-.preview-ribbon{background:#a68760;color:#100e0b;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;font-size:11px;line-height:1.4;padding:8px 14px;font-weight:850}
-.preview-ribbon a{text-decoration:underline;text-underline-offset:3px}
-.viewer{padding:0;border:1px solid #877151;background:#131313;color:#eee;max-width:min(94vw,950px);width:max-content;max-height:94vh;overflow:auto}
-.viewer::backdrop{background:#000e;backdrop-filter:blur(4px)}
-.viewer-close{display:block;margin:10px 10px 8px auto;background:#352b21;color:#e9cc9d;border:1px solid #a98b62;padding:8px 14px;font-weight:800;cursor:pointer}
-.viewer img{max-width:100%;width:auto;max-height:78vh;height:auto;object-fit:contain;margin:auto}
-.viewer p{padding:8px 16px 13px;margin:0;font-size:12px;color:#c0bcb6}
-.mobile-nav{display:none}
-@media(max-width:1150px){.nav-links{gap:15px}.header-wa{padding:10px}.brand img{width:125px}.collection-card{flex-basis:calc((100% - 39px)/4)}.hero{min-height:570px}}
-@media(max-width:900px){.nav-links,.header-wa{display:none}.mobile-nav{display:block;margin-left:auto;position:relative}.mobile-nav summary{list-style:none;border:1px solid #70593d;border-radius:3px;color:#e7cb9f;min-height:43px;padding:9px 15px;display:flex;align-items:center;cursor:pointer;font-size:13px;font-weight:750}.mobile-nav summary::-webkit-details-marker{display:none}.mobile-panel{position:absolute;right:0;top:calc(100% + 8px);width:240px;border:1px solid #69533a;background:#181615;box-shadow:0 20px 55px #000d;display:flex;flex-direction:column;padding:8px}.mobile-panel a{padding:12px 14px;font-size:13px}.mobile-panel a:hover{background:#32291e}.hero-visual{background-position:right center}.hero::before{background:linear-gradient(90deg,#0a0a0afa 0%,#0a0a0adf 38%,#09090972 73%,#1112),linear-gradient(0deg,#090909a6,transparent 60%)}.hero h1{max-width:610px}.collection-card{flex-basis:calc((100% - 26px)/3)}.product-photo-open img{height:300px}.story-copy{padding:50px 35px}.story-image{min-height:390px}}
-@media(max-width:700px){.shell{width:min(var(--max),calc(100% - 34px))}.topline .shell{justify-content:center}.topline .shell span:last-child{display:none}.header-row{min-height:69px}.brand img{height:59px;width:124px}.hero{min-height:650px;align-items:flex-start}.hero-content{padding:75px 0 85px}.hero h1{font-size:clamp(44px,11vw,72px)}.hero-visual{background-position:right center;background-size:contain;opacity:.72}.hero::before{background:linear-gradient(90deg,#0a0a0aef 0%,#0a0a0ad9 65%,#0a0a0a58),linear-gradient(0deg,#090909c8,transparent 70%)}.hero-proof{flex-wrap:wrap;margin-top:45px}.hero-side{display:none}.section{padding-block:55px}.section-head{align-items:start;flex-direction:column;gap:11px}.collections-section{padding-top:52px}.collection-card{flex-basis:calc((100% - 13px)/2);aspect-ratio:1;min-height:170px}.collection-name{font-size:26px}.product-grid{gap:9px}.product-photo-open img{height:230px}.product-body{padding:14px}.product-body h3{font-size:20px}.quick-preview img{height:145px}.brand-story{grid-template-columns:1fr}.story-image{min-height:315px;background-position:center 42%}.story-copy{padding:44px 22px 52px}.contact-strip .shell{flex-direction:column;align-items:stretch}.footer-row{flex-wrap:wrap}}
-@media(max-width:490px){.hero{min-height:675px}.hero-content{padding-top:65px}.hero-sub{max-width:325px}.collection-card{flex-basis:77%;min-height:178px;max-height:225px;padding:17px}.collection-name{font-size:30px}.product-grid{grid-template-columns:1fr}.product-card{display:grid;grid-template-columns:42% 58%;min-height:225px}.product-photo-open img{height:100%;min-height:225px;max-height:300px}.product-body{padding:14px}.product-meta{font-size:9px}.product-body h3{font-size:18px}.product-body p{font-size:12px}.quick-preview{grid-template-columns:1fr 1fr}.quick-preview img{height:120px}.quick-top h3{font-size:24px}.contact-strip .btn{width:100%}.footer-row{justify-content:center;text-align:center;flex-direction:column}.footer-links{justify-content:center}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
-
-/* Margens discretas na vitrine — preserva texto, fotografia e composicao original */
-#inicio.hero{margin-inline:clamp(10px,1vw,18px)}
-#inicio .hero-content.shell{width:calc(100% - 36px);max-width:none;margin-inline:auto}
-@media(max-width:700px){
- #inicio.hero{margin-inline:10px}
- #inicio .hero-content.shell{width:calc(100% - 28px)}
+.container{width:min(var(--max),calc(100% - 60px));margin-inline:auto}
+.skip{position:absolute;left:9px;top:-80px;background:var(--gold);color:#17130b;padding:12px;z-index:20}
+.skip:focus{top:9px}
+.sandbox{display:flex;justify-content:center;align-items:center;gap:12px;background:#4c3320;color:#f9e4c8;font-size:11px;font-weight:800;letter-spacing:.11em;text-align:center;padding:8px 14px}
+.sandbox .dot{height:7px;width:7px;background:#e9c98b;border-radius:50%}
+.header{position:sticky;top:0;background:#10100ff5;z-index:10;border-bottom:1px solid #3d342c;backdrop-filter:blur(15px)}
+.header-inner{height:82px;display:flex;align-items:center;gap:28px;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand img{width:122px;height:62px;object-fit:contain}.brand span{border-left:1px solid #4d4439;padding-left:12px;font-size:10px;color:var(--gold2);letter-spacing:.22em;font-weight:900;white-space:nowrap}
+.nav{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:700;color:#e2ded8}.nav a:hover{color:var(--gold)}
+.header-tools{display:flex;align-items:center;gap:10px}
+.bag{display:inline-flex;align-items:center;gap:13px;padding:11px 15px;border:1px solid var(--gold);color:var(--gold2);background:transparent;border-radius:3px;font-weight:800;font-size:13px;white-space:nowrap}
+.bag em{font-style:normal;background:var(--gold);color:#191510;border-radius:50%;width:21px;height:21px;display:grid;place-items:center;font-size:11px}
+.official-link{font-size:12px;color:#dbd2c6;text-decoration:underline;text-underline-offset:4px}
+.hero{background:radial-gradient(ellipse at 87% 42%,#463423,#151412 58%,#0e0e0e);border-bottom:1px solid #39312b;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1fr 1.02fr;align-items:center;gap:35px;min-height:540px}
+.eyebrow{color:var(--gold);letter-spacing:.18em;font-size:11px;font-weight:900;text-transform:uppercase}
+.hero h1,.section-title,h2,h3{font-family:Impact,"Arial Narrow",system-ui,sans-serif;font-stretch:condensed;letter-spacing:.025em}
+.hero h1{font-size:clamp(48px,5.4vw,85px);line-height:1.04;margin:17px 0 19px;font-weight:800;max-width:680px;text-transform:uppercase}
+.hero h1 span{display:block;color:var(--gold2)}
+.hero p{max-width:480px;color:#c8c0b6;font-size:16px;margin-bottom:27px}
+.hero-cta,.main-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--gold);color:#19160f;font-size:13px;font-weight:900;letter-spacing:.04em;padding:14px 20px;border:1px solid var(--gold);border-radius:3px}
+.hero-cta:hover,.main-btn:hover{background:#e2cba7}
+.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:520px;background:radial-gradient(ellipse at 50% 50%,#493b2c,#1c1915 70%,transparent);overflow:hidden}
+.hero-visual img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:saturate(.98)}
+.hero-label{position:absolute;bottom:15px;right:17px;font-weight:900;letter-spacing:.18em;font-size:10px;background:#100e0bbc;padding:10px 12px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;color:#bcae98;font-size:11px}
+.hero-tags span{border-left:1px solid var(--gold);padding-left:9px}
+.section{padding:75px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:27px}
+.section-title{font-size:clamp(37px,4.5vw,62px);line-height:1.08;text-transform:uppercase;margin:10px 0 0}
+.section-head p{max-width:375px;margin:0;color:var(--muted);font-size:13px}
+.catalog{background:#141310}
+.filters{display:flex;gap:9px;overflow-x:auto;padding:5px 0 17px;scrollbar-width:thin}
+.chip{border:1px solid #51483c;background:#1f1c18;color:#d9d2c7;border-radius:2px;padding:10px 14px;white-space:nowrap;font-size:12px;font-weight:800}
+.chip[aria-pressed="true"]{background:var(--gold);color:#16130e;border-color:var(--gold)}
+.searchbar{display:flex;gap:12px;align-items:center;margin-bottom:24px}
+.searchbar label{font-size:12px;color:var(--muted);font-weight:700}
+.searchbar input{width:min(390px,100%);padding:12px 14px;background:#211f1b;border:1px solid #51483c;color:#fff;border-radius:3px}
+.catalog-count{margin-left:auto;font-size:12px;color:var(--gold2);white-space:nowrap}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.card{border:1px solid #3f3930;background:#1c1a17;display:flex;flex-direction:column;min-width:0}
+.card-photo{background:radial-gradient(ellipse at center,#5b4f42,#2b2926);position:relative;overflow:hidden;aspect-ratio:4/4.4;min-height:260px;display:flex}
+.card-photo img{width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .4s}
+.card:hover .card-photo img{transform:scale(1.025)}
+.photo-label{position:absolute;top:14px;left:14px;font-size:10px;letter-spacing:.1em;font-weight:800;color:#fff;background:#100f0edb;border:1px solid #7d7163;padding:6px 9px}
+.card-body{padding:20px;display:flex;flex-direction:column;flex:1}
+.card-meta{font-size:10px;letter-spacing:.12em;color:var(--gold);font-weight:800}
+.card h3{font-size:27px;line-height:1.1;font-weight:700;margin:9px 0 9px;text-transform:uppercase}
+.card p{font-size:12px;color:#bfb5aa;line-height:1.6;margin:0 0 18px}
+.price{margin-top:auto;font-size:14px;font-weight:800}
+.price small{display:block;font-size:11px;color:#afa499;font-weight:400;margin-top:3px}
+.card-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:18px}
+.add{border:1px solid var(--gold);background:var(--gold);color:#14120e;padding:12px 10px;font-size:12px;font-weight:900;border-radius:3px}
+.more{border:1px solid #8a7860;color:#f3e8d6;background:transparent;border-radius:3px;font-size:12px;font-weight:700;padding:10px 13px}
+.empty{background:#201d19;padding:35px;border:1px solid #4f4438;text-align:center;color:#d8cfc4}
+.empty strong{display:block;font-size:23px;margin-bottom:7px;color:#fff}
+.status-note{margin:18px 0 0;color:#aea496;font-size:12px}
+.checkout-section{border-top:1px solid #3d362e;background:#100f0e}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.step{background:#1e1b17;border:1px solid #43392f;padding:22px}
+.step span{font-size:10px;color:var(--gold);letter-spacing:.17em;font-weight:900}
+.step h3{font-size:25px;margin:12px 0 8px}
+.step p{font-size:13px;color:#bcb2a5;margin:0}
+.future{padding:70px 0;background:#181612}
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
+.future-feature{border:1px solid #43392f;padding:20px;background:#211e19}
+.future-feature h3{font-size:23px;margin:0 0 8px}
+.future-feature p{margin:0;font-size:12px;color:#bcb2a5}
+.future-feature .tag{color:var(--gold2);display:block;font-weight:800;font-size:10px;letter-spacing:.13em;margin-top:16px}
+.footer{border-top:1px solid #3b342b;background:#0c0c0c;padding:32px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:15px;color:#a69b8d;font-size:12px}
+.footer a{text-decoration:underline;text-underline-offset:3px}
+dialog{padding:0;max-width:calc(100% - 20px);color:var(--ink);border:1px solid #675840;background:#171614;box-shadow:0 20px 90px #000c}
+dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
+#cartDialog{margin:0 0 0 auto;width:min(480px,100vw);height:100dvh;max-height:100dvh;border-radius:0;overflow:auto}
+.drawer-header{padding:23px;border-bottom:1px solid #40382f;display:flex;align-items:center;justify-content:space-between}
+.drawer-header h2{font-size:30px;margin:0}
+.close{background:transparent;color:#fff;border:1px solid #655641;padding:7px 12px;font-weight:800}
+.drawer-body{padding:22px}
+.drawer-empty{color:#c4b7a7}
+.cart-line{display:grid;grid-template-columns:80px minmax(0,1fr);gap:15px;margin-bottom:14px;border-bottom:1px solid #39322a;padding:0 0 16px}
+.cart-line img{width:80px;height:96px;object-fit:contain;background:#302a23}
+.cart-line strong{font-size:13px}
+.cart-line .minor{font-size:11px;color:#b9aa94;margin:5px 0}
+.qty{display:flex;align-items:center;gap:12px}
+.qty button{border:1px solid #685a48;background:#28231d;color:#fff;width:29px;height:29px}
+.qty output{min-width:13px;text-align:center}
+.remove{margin-left:auto;background:transparent;border:0;color:#e3be98;font-size:11px;text-decoration:underline}
+.drawer-summary{border-top:1px solid #544637;padding-top:20px;margin-top:15px}
+.drawer-summary p{color:#bcb2a5;font-size:13px}
+.drawer-summary .main-btn{width:100%}
+.drawer-summary small{display:block;margin:13px 0;color:#aaa097;font-size:11px;text-align:center}
+#productDialog{width:min(760px,95vw);max-height:85dvh;overflow:auto}
+.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:22px}
+.detail-layout img{width:100%;height:370px;object-fit:contain;background:#322d26}
+.detail-layout h2{font-size:36px;margin:8px 0}
+.detail-layout p{color:#c6bdb1;font-size:13px}
+.detail-layout .main-btn{margin-top:24px}
+.loading{color:#cfc0a5;padding:32px;text-align:center}
+@media(max-width:980px){.nav{gap:13px}.hero-grid{gap:10px}.brand span{display:none}.card h3{font-size:23px}}
+@media(max-width:720px){
+ .container{width:calc(100% - 30px)}.header-inner{height:66px;gap:8px}.brand img{width:106px;height:52px}.nav{display:none}.bag{padding:9px;font-size:12px;gap:7px}.official-link{font-size:11px}
+ .hero-grid{display:flex;flex-direction:column;min-height:0;align-items:stretch;gap:0}
+ .hero-text{padding:42px 0 18px}.hero h1{font-size:clamp(40px,10.5vw,60px);margin:13px 0}.hero p{font-size:14px}
+ .hero-tags{margin-top:22px;gap:10px}.hero-visual{height:320px;border-top:1px solid #3c3329}
+ .hero-visual img{height:100%;width:100%;object-fit:contain}
+ .section{padding:53px 0}.section-head{flex-direction:column;align-items:flex-start;gap:10px}
+ .section-title{font-size:41px}.filters{margin-right:-15px}.searchbar{flex-wrap:wrap}.searchbar label{width:100%}.searchbar input{width:100%}.catalog-count{margin-left:0}
+ .products{grid-template-columns:1fr;gap:14px}.card-photo{aspect-ratio:1.25;min-height:260px}.card h3{font-size:27px}
+ .steps,.future-grid{grid-template-columns:1fr}.future,.checkout-section{padding:53px 0}
+ .footer-inner{flex-wrap:wrap}.detail-layout{grid-template-columns:1fr}.detail-layout img{height:250px}
 }
-
-/* Refinamentos discretos sobre o layout aprovado */
-.brand-story .story-image{position:relative;isolation:isolate}
-.brand-story .story-image::after{content:"";position:absolute;left:20px;top:18px;width:clamp(100px,18%,172px);height:60px;background:url('/assets/oss-logo.webp') left center/contain no-repeat;opacity:.15;pointer-events:none;filter:grayscale(1)}
-.buying-section{padding:68px 0 73px;background:#100f0f;border-top:1px solid #272322}
-.buying-section .section-head{margin-bottom:23px}
-.buying-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.buying-step{border:1px solid #3b342c;background:#191716;padding:21px 22px;min-height:154px}
-.buying-step span{font-size:11px;letter-spacing:.14em;color:#d8b184;font-weight:850}
-.buying-step h3{font-size:18px;margin:13px 0 7px;line-height:1.2}
-.buying-step p{font-size:13px;color:#bbb5ae;line-height:1.6;margin:0}
-.carousel-buttons button{min-width:42px;min-height:42px}
-@media(max-width:700px){.buying-section{padding:52px 0}.buying-grid{grid-template-columns:1fr;gap:9px}.buying-step{padding:16px 18px;min-height:0}.buying-step h3{margin:7px 0 5px}}
-
-/* Loop de carrossel sem barras ou saltos visíveis */
-.collection-track{scrollbar-width:none;scroll-snap-type:x mandatory}
-.collection-card[data-duplicate="1"]{scroll-snap-align:start}
-#collection-detail{scroll-margin-top:118px}
-@media(prefers-reduced-motion:reduce){.collection-track{scroll-behavior:auto}}
+@media(min-width:520px) and (max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card-photo img{transition:none}}
 </style>
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-<header class="site-header">
-<div class="topline"><div class="shell"><span>OSS KIMONOS · JIU-JITSU & ESTILO DE VIDA</span><span><strong>Atendimento direto</strong> pelo WhatsApp oficial</span></div></div>
-<div class="shell header-row">
-<a href="#inicio" class="brand" aria-label="OSS Kimonos — início"><img src="/assets/oss-logo.webp" width="154" height="70" alt="Logo oficial OSS Kimonos"></a>
-<nav class="nav-links" aria-label="Navegação"><a href="#inicio">Início</a><a href="#categorias">Categorias</a><a href="#destaques">Kimonos</a><a href="#como-comprar">Como comprar</a><a href="#sobre">A marca</a><a href="#contato">Contato</a></nav>
-<a class="header-wa" href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Gostaria%20de%20conhecer%20os%20produtos%20OSS%20Kimonos." target="_blank" rel="noopener noreferrer">Falar no WhatsApp ↗</a>
-<details class="mobile-nav"><summary aria-label="Abrir menu do site">☰ Menu</summary><div class="mobile-panel"><a href="#inicio">Início</a><a href="#categorias">Categorias</a><a href="#destaques">Kimonos</a><a href="#como-comprar">Como comprar</a><a href="#sobre">A marca</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div></details>
-</div></header>
-<main id="conteudo">
-<section class="hero" id="inicio" aria-labelledby="principal-titulo">
-<div class="hero-visual" aria-hidden="true"></div>
-<div class="shell hero-content"><div class="eyebrow">OSS KIMONOS · NASCIDA NO TATAME</div>
-<h1 id="principal-titulo">Feito para<br>o tatame.<em>Viver o Jiu-Jitsu.</em></h1>
-<p class="hero-sub">Uma marca para quem carrega a disciplina, a evolução e o respeito dentro e fora do treino.</p>
-<div class="actions"><a href="#destaques" class="btn btn-solid">Conheça os kimonos <span aria-hidden="true">↗</span></a><a href="#sobre" class="btn btn-ghost">Nossa essência</a></div>
-<div class="hero-proof"><span>Jiu-Jitsu é nossa essência</span><span>Fotos originais da OSS</span><span>Converse direto com a equipe</span></div></div>
-<div class="hero-side" aria-hidden="true"><span>OSS KIMONOS</span><span class="line"></span><span>2026</span></div></section>
-<section class="section collections-section" id="categorias" aria-labelledby="categorias-titulo">
-<div class="shell">
-<div class="section-head"><div><div class="eyebrow">EXPLORE O UNIVERSO OSS</div><h2 id="categorias-titulo">Encontre sua categoria.</h2></div><p>Explore as linhas da marca. Selecione uma categoria e veja os detalhes nesta mesma página.</p></div>
-<div class="collections-utilities"><span>09 categorias · deslize para explorar</span><div class="carousel-buttons"><button type="button" id="cat-prev" aria-label="Categorias anteriores">‹</button><button type="button" id="cat-next" aria-label="Próximas categorias">›</button></div></div>
-<div class="collection-track" id="category-track" tabindex="0" role="region" aria-label="Categorias OSS Kimonos">
-<button class="collection-card" type="button" data-category="kimonos" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Kimonos nesta página"><span class="collection-count">01 <span class="slash">/</span> 09</span><span class="collection-name">Kimonos</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="faixas" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Faixas nesta página"><span class="collection-count">02 <span class="slash">/</span> 09</span><span class="collection-name">Faixas</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="fight-wear" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Fight Wear nesta página"><span class="collection-count">03 <span class="slash">/</span> 09</span><span class="collection-name">Fight Wear</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="rashguard" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Rashguard nesta página"><span class="collection-count">04 <span class="slash">/</span> 09</span><span class="collection-name">Rashguard</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="camisas" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Camisas nesta página"><span class="collection-count">05 <span class="slash">/</span> 09</span><span class="collection-name">Camisas</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="bones" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Bonés nesta página"><span class="collection-count">06 <span class="slash">/</span> 09</span><span class="collection-name">Bonés</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="bermuda" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Bermuda nesta página"><span class="collection-count">07 <span class="slash">/</span> 09</span><span class="collection-name">Bermuda</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="moletom" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Moletom nesta página"><span class="collection-count">08 <span class="slash">/</span> 09</span><span class="collection-name">Moletom</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-<button class="collection-card" type="button" data-category="mochilas" aria-expanded="false" aria-controls="collection-detail" aria-label="Ver Mochilas nesta página"><span class="collection-count">09 <span class="slash">/</span> 09</span><span class="collection-name">Mochilas</span><span class="collection-arrow" aria-hidden="true">↗</span></button>
-</div>
-<section class="category-quick" id="collection-detail" aria-labelledby="quick-title" tabindex="-1" hidden>
- <div class="quick-top"><div><div class="eyebrow">COLEÇÃO OSS</div><h3 id="quick-title">Kimonos</h3></div><button type="button" id="quick-close" aria-label="Fechar detalhes">Fechar ×</button></div>
- <p class="quick-note" id="quick-message"></p>
- <div class="quick-preview" id="quick-preview" hidden></div>
- <div class="quick-actions"><a id="quick-contact" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Consultar no WhatsApp ↗</a><a href="#destaques" id="quick-photos" hidden>Ver fotos oficiais ↓</a></div>
-</section>
-</div></section>
-<section class="section products-section" id="destaques" aria-labelledby="destaques-titulo">
-<div class="shell">
-<div class="section-head"><div><div class="eyebrow">FOTOS ORIGINAIS · OSS KIMONOS</div><h2 id="destaques-titulo">Kimonos em destaque.</h2></div><a class="section-link" href="#categorias">Explorar outras categorias <span aria-hidden="true">↗</span></a></div>
-<div class="product-grid">
-<article class="product-card">
- <button class="product-photo-open" type="button" data-image="/assets/kimono-branco-detalhe.webp" data-alt="Kimono OSS branco" aria-label="Ampliar foto de Kimono OSS branco">
-  <img src="/assets/kimono-branco-detalhe.webp" alt="Kimono OSS branco — fotografia original da OSS Kimonos" loading="lazy" decoding="async" width="640" height="780">
-  <span class="photo-zoom" aria-hidden="true">Ampliar foto ↗</span>
- </button>
- <div class="product-body"><div class="product-meta"><span>OSS KIMONOS</span><span>01</span></div><h3>Kimono OSS branco</h3><p>Modelos, tamanhos e valores sob consulta.</p><a class="product-contact" href="https://wa.me/5519997121912?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20Kimono%20OSS%20branco%20da%20OSS%20Kimonos.%20Quais%20modelos%2C%20tamanhos%20e%20pre%C3%A7os%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar peça <span aria-hidden="true">↗</span></a></div>
-</article>
-<article class="product-card">
- <button class="product-photo-open" type="button" data-image="/assets/hero-modelo-preto.webp" data-alt="Kimono OSS preto" aria-label="Ampliar foto de Kimono OSS preto">
-  <img src="/assets/hero-modelo-preto.webp" alt="Kimono OSS preto — fotografia original da OSS Kimonos" loading="lazy" decoding="async" width="640" height="780">
-  <span class="photo-zoom" aria-hidden="true">Ampliar foto ↗</span>
- </button>
- <div class="product-body"><div class="product-meta"><span>OSS KIMONOS</span><span>02</span></div><h3>Kimono OSS preto</h3><p>Modelos, tamanhos e valores sob consulta.</p><a class="product-contact" href="https://wa.me/5519997121912?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20Kimono%20OSS%20preto%20da%20OSS%20Kimonos.%20Quais%20modelos%2C%20tamanhos%20e%20pre%C3%A7os%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar peça <span aria-hidden="true">↗</span></a></div>
-</article>
-<article class="product-card">
- <button class="product-photo-open" type="button" data-image="/assets/modelo-branco-feminino.webp" data-alt="Linha feminina OSS" aria-label="Ampliar foto de Linha feminina OSS">
-  <img src="/assets/modelo-branco-feminino.webp" alt="Linha feminina OSS — fotografia original da OSS Kimonos" loading="lazy" decoding="async" width="640" height="780">
-  <span class="photo-zoom" aria-hidden="true">Ampliar foto ↗</span>
- </button>
- <div class="product-body"><div class="product-meta"><span>OSS KIMONOS</span><span>03</span></div><h3>Linha feminina OSS</h3><p>Modelos, tamanhos e valores sob consulta.</p><a class="product-contact" href="https://wa.me/5519997121912?text=Ol%C3%A1!%20Gostaria%20de%20consultar%20Linha%20feminina%20OSS%20da%20OSS%20Kimonos.%20Quais%20modelos%2C%20tamanhos%20e%20pre%C3%A7os%20est%C3%A3o%20dispon%C3%ADveis%3F" target="_blank" rel="noopener noreferrer">Consultar peça <span aria-hidden="true">↗</span></a></div>
-</article>
-</div>
-<p style="margin:18px 0 0;font-size:12px;color:#a5a19b">Fotos oficiais da OSS. Modelos exatos, tamanhos, valores e disponibilidade devem ser confirmados no atendimento.</p>
-</div></section>
-<section class="buying-section" id="como-comprar" aria-labelledby="buying-title"><div class="shell">
- <div class="section-head"><div><div class="eyebrow">ATENDIMENTO DA OSS</div><h2 id="buying-title">Como consultar um produto.</h2></div><p>Sem checkout ou cobrança automática: o atendimento confirma os detalhes antes de qualquer pedido.</p></div>
- <div class="buying-grid">
-  <div class="buying-step"><span>01</span><h3>Escolha a categoria</h3><p>Explore os kimonos ou encontre a linha que procura.</p></div>
-  <div class="buying-step"><span>02</span><h3>Converse com a OSS</h3><p>Use o WhatsApp para consultar o produto escolhido.</p></div>
-  <div class="buying-step"><span>03</span><h3>Confirme o pedido</h3><p>Verifique tamanhos, valores, disponibilidade e condições de entrega com a equipe.</p></div>
+<div class="sandbox"><span class="dot" aria-hidden="true"></span> LOJA EXPERIMENTAL OSS · SEM PAGAMENTO ONLINE · NÃO É A LOJA OFICIAL</div>
+<header class="header">
+ <div class="container header-inner">
+  <a class="brand" href="#inicio" aria-label="OSS Store Lab, início"><img src="/assets/oss-logo.webp" width="122" height="62" alt="Logo OSS Kimonos"><span>STORE LAB</span></a>
+  <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Produtos</a><a href="#como-funciona">Como funciona</a><a href="#futuro">Próximas funções</a></nav>
+  <div class="header-tools"><a class="official-link" href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Site oficial ↗</a><button type="button" class="bag" id="openCart" aria-label="Abrir sacola de consultas">Sacola <em id="bagCount">0</em></button></div>
  </div>
+</header>
+<main id="conteudo">
+ <section class="hero" id="inicio"><div class="container hero-grid">
+  <div class="hero-text"><div class="eyebrow">OSS KIMONOS / STORE LAB</div><h1>Sua próxima evolução <span>começa no tatame.</span></h1>
+   <p>Explore os produtos com fotos originais da OSS. Monte sua sacola de interesse e envie uma única consulta para a equipe.</p>
+   <a class="hero-cta" href="#catalogo">Explorar produtos <span aria-hidden="true">↗</span></a>
+   <div class="hero-tags"><span>Fotos originais</span><span>Consulta sem compromisso</span><span>Sem cobrança online</span></div>
+  </div>
+  <div class="hero-visual"><img src="/assets/banner-oss-tres-modelos.webp" width="880" height="620" alt="Três modelos com kimonos da OSS Kimonos" fetchpriority="high"><span class="hero-label">OSS / NO TATAME</span></div>
  </div></section>
-<section class="brand-story" id="sobre" aria-labelledby="sobre-titulo">
-<div class="story-image" role="img" aria-label="Fotografia original dos modelos da OSS Kimonos"></div>
-<div class="story-copy"><div class="eyebrow">A NOSSA ESSÊNCIA</div><h2 id="sobre-titulo">Mais que um kimono.<br>Uma mentalidade.</h2><p>Disciplina, respeito e evolução fazem parte da história de quem pratica Jiu-Jitsu.</p><p>A OSS Kimonos acompanha quem leva esses valores para além do tatame.</p>
-<a href="https://www.instagram.com/osskimonos/" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Conheça a OSS no Instagram <span aria-hidden="true">↗</span></a></div>
-</section>
-<section class="contact-strip" id="contato"><div class="shell"><div><div class="eyebrow">FALE COM A OSS</div><h2>Dúvidas sobre modelos e tamanhos?</h2><p>Nosso atendimento confirma as opções disponíveis e os detalhes do pedido.</p></div><a class="btn btn-solid" href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20OSS%20Kimonos%20e%20gostaria%20de%20ajuda." target="_blank" rel="noopener noreferrer">Chamar no WhatsApp ↗</a></div></section>
+ <section class="section catalog" id="catalogo" aria-labelledby="catalogTitle"><div class="container">
+  <div class="section-head"><div><div class="eyebrow">EXPLORE A COLEÇÃO</div><h2 class="section-title" id="catalogTitle">Produtos OSS.</h2></div><p>Apenas fotos e registros oficiais publicados. Categorias sem produtos ainda não exibem anúncios fictícios.</p></div>
+  <div class="filters" id="filters" role="group" aria-label="Filtrar categorias">
+   <button class="chip" type="button" data-filter="todos" aria-pressed="true">Todos</button>
+   <button class="chip" type="button" data-filter="kimonos" aria-pressed="false">Kimonos</button>
+   <button class="chip" type="button" data-filter="faixas" aria-pressed="false">Faixas</button>
+   <button class="chip" type="button" data-filter="fight-wear" aria-pressed="false">Fight Wear</button>
+   <button class="chip" type="button" data-filter="rashguard" aria-pressed="false">Rashguard</button>
+   <button class="chip" type="button" data-filter="camisas" aria-pressed="false">Camisas</button>
+   <button class="chip" type="button" data-filter="bones" aria-pressed="false">Bonés</button>
+   <button class="chip" type="button" data-filter="bermuda" aria-pressed="false">Bermuda</button>
+   <button class="chip" type="button" data-filter="moletom" aria-pressed="false">Moletom</button>
+   <button class="chip" type="button" data-filter="mochilas" aria-pressed="false">Mochilas</button>
+  </div>
+  <div class="searchbar"><label for="search">Buscar produto</label><input id="search" type="search" placeholder="Ex.: kimono branco" autocomplete="off"><span id="catalogCount" class="catalog-count" aria-live="polite">Carregando catálogo...</span></div>
+  <div class="products" id="products" aria-live="polite"></div>
+  <div id="emptyState" class="empty" hidden><strong>Sem produtos cadastrados nesta seleção.</strong><span>A equipe OSS pode confirmar opções pelo WhatsApp. Não exibimos produtos ou estoque sem dados reais.</span></div>
+  <p id="catalogError" class="status-note" role="status"></p>
+  <p class="status-note">Produtos para consulta: preços, tamanhos e disponibilidade precisam ser confirmados pela OSS. Esta página não efetua pedidos nem pagamentos.</p>
+ </div></section>
+ <section class="section checkout-section" id="como-funciona"><div class="container">
+  <div class="section-head"><div><div class="eyebrow">SUA EXPERIÊNCIA</div><h2 class="section-title">Simples. Sem pressa.</h2></div><p>Experimente a sacola como ficaria numa loja virtual, com atendimento real no WhatsApp.</p></div>
+  <div class="steps"><div class="step"><span>01 / EXPLORAR</span><h3>Escolha o produto</h3><p>Veja fotos oficiais e detalhes registrados.</p></div><div class="step"><span>02 / SACOLA</span><h3>Junte os favoritos</h3><p>Adicione produtos e informe quantidades para consulta.</p></div><div class="step"><span>03 / CONVERSAR</span><h3>Confirme com a OSS</h3><p>Envie a lista pelo WhatsApp; valores, tamanhos e entrega são confirmados pela equipe.</p></div></div>
+ </div></section>
+ <section class="future" id="futuro"><div class="container">
+  <div class="eyebrow">ESTRUTURA PARA EVOLUIR</div><h2 class="section-title">Próximas funcionalidades.</h2>
+  <div class="future-grid"><div class="future-feature"><h3>Pix e cartão</h3><p>Checkout seguro por provedor de pagamentos, somente após cadastrar produtos, preços e credenciais válidos.</p><span class="tag">NÃO ATIVO NO TESTE</span></div><div class="future-feature"><h3>Frete por CEP</h3><p>Cálculo real quando existirem pesos, medidas, origem de postagem e integração de entrega.</p><span class="tag">NÃO ATIVO NO TESTE</span></div><div class="future-feature"><h3>Pedidos e estoque</h3><p>Área administrativa autenticada, banco de dados e rastreamento de pedidos reais.</p><span class="tag">NÃO ATIVO NO TESTE</span></div></div>
+ </div></section>
 </main>
-<footer class="site-footer"><div class="shell footer-row"><a class="footer-logo" href="#inicio" aria-label="Voltar ao início"><img src="/assets/oss-logo.webp" alt="OSS Kimonos" width="130" height="55"></a><div class="footer-info">© <span id="year">2026</span> OSS Kimonos · Todos os direitos reservados</div><nav class="footer-links" aria-label="Rodapé"><a href="#inicio">Início</a><a href="#categorias">Categorias</a><a href="#destaques">Kimonos</a><a href="#contato">Contato</a><a href="#como-comprar">Como comprar</a><a href="#sobre">Sobre</a></nav></div></footer>
-<dialog class="viewer" id="photo-viewer" aria-label="Foto ampliada OSS Kimonos"><button class="viewer-close" type="button" id="viewer-close">Fechar ×</button><img id="viewer-image" alt=""><p id="viewer-caption"></p></dialog>
+<footer class="footer"><div class="container footer-inner"><span>© OSS Kimonos · Ambiente experimental independente</span><span>Sem compra ou cobrança neste endereço.</span><a href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Visitar o site oficial ↗</a></div></footer>
+
+<dialog id="cartDialog" aria-labelledby="cartHeading">
+ <div class="drawer-header"><h2 id="cartHeading">Sua sacola</h2><button type="button" id="closeCart" class="close" aria-label="Fechar sacola">Fechar ×</button></div>
+ <div class="drawer-body"><p class="drawer-empty" id="cartEmpty">Sua sacola está vazia. Adicione produtos para montar uma consulta.</p><div id="cartLines"></div><div class="drawer-summary" id="cartSummary" hidden><strong>Valores e tamanhos sob consulta</strong><p>Esta sacola é apenas uma lista de interesse. Nenhuma cobrança ou reserva de estoque será realizada.</p><button type="button" class="main-btn" id="sendRequest">Solicitar orçamento no WhatsApp ↗</button><small>Você poderá revisar a mensagem antes de enviar.</small></div></div>
+</dialog>
+<dialog id="productDialog" aria-labelledby="detailHeading"><div class="drawer-header"><h2>Detalhes do produto</h2><button type="button" id="closeProduct" class="close" aria-label="Fechar detalhes">Fechar ×</button></div><div class="detail-layout"><img id="detailPhoto" src="/assets/kimono-branco-detalhe.webp" alt=""><div><div class="eyebrow">FOTO OFICIAL OSS</div><h2 id="detailHeading"></h2><p id="detailDescription"></p><p>Cor, tamanhos, valores e estoque a confirmar no atendimento.</p><button type="button" id="detailAdd" class="main-btn">Adicionar à sacola de consulta</button></div></div></dialog>
+
 <script>
-(()=>{
+(function(){
 'use strict';
-document.getElementById('year').textContent=new Date().getFullYear();
-const cats={"kimonos":"Kimonos","faixas":"Faixas","fight-wear":"Fight Wear","rashguard":"Rashguard","camisas":"Camisas","bones":"Bonés","bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"};
-const photos=[{"name":"Kimono OSS branco","src":"/assets/kimono-branco-detalhe.webp","detail":"Foto oficial da OSS","slug":"branco"},{"name":"Kimono OSS preto","src":"/assets/hero-modelo-preto.webp","detail":"Foto oficial da OSS","slug":"preto"},{"name":"Linha feminina OSS","src":"/assets/modelo-branco-feminino.webp","detail":"Foto oficial da OSS","slug":"feminino"}];
-const track=document.getElementById('category-track');
-const initialTiles=Array.from(track.querySelectorAll('[data-category]'));
-const count=initialTiles.length;
-const prev=document.getElementById('cat-prev'),next=document.getElementById('cat-next');
-const detail=document.getElementById('collection-detail'),title=document.getElementById('quick-title'),message=document.getElementById('quick-message'),preview=document.getElementById('quick-preview'),contact=document.getElementById('quick-contact'),seePhotos=document.getElementById('quick-photos');
-const reduced=window.matchMedia('(prefers-reduced-motion:reduce)');
-let current=null,autoplay=null,scrollIdle=null,paused=false,inView=false,lastTile=null;
-const makeClone=tile=>{
- const duplicate=tile.cloneNode(true);
- duplicate.setAttribute('aria-hidden','true');
- duplicate.tabIndex=-1;
- duplicate.dataset.duplicate='1';
- return duplicate;
-};
-track.prepend(...initialTiles.map(makeClone));
-track.append(...initialTiles.map(makeClone));
-const tiles=Array.from(track.querySelectorAll('[data-category]'));
-const widthStep=()=>{const first=initialTiles[0];if(!first)return track.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||0;return first.getBoundingClientRect().width+gap;};
-function instantScroll(value){
- const previous=track.style.scrollBehavior;
- const previousSnap=track.style.scrollSnapType;
- track.style.scrollBehavior='auto';
- track.style.scrollSnapType='none';
- track.scrollLeft=value;
- track.style.scrollBehavior=previous;
- track.style.scrollSnapType=previousSnap;
+const byId=id=>document.getElementById(id);
+const productsEl=byId('products'),countEl=byId('catalogCount'),errorEl=byId('catalogError');
+const cartDialog=byId('cartDialog'),detailDialog=byId('productDialog'),cartLines=byId('cartLines');
+const categories=['todos','kimonos','faixas','fight-wear','rashguard','camisas','bones','bermuda','moletom','mochilas'];
+const state={products:[],cart:{},category:'todos',search:'',detail:null};
+const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n);
+function cartRead(){
+ try{const saved=JSON.parse(localStorage.getItem('oss-commerce-lab-bag')||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))state.cart=saved;}catch(_){state.cart={};}
 }
-const resetCenter=()=>instantScroll(widthStep()*count);
-resetCenter();
-const updateArrows=()=>{const enabled=track.scrollWidth>track.clientWidth+5;prev.disabled=!enabled;next.disabled=!enabled;};
-function normalize(){
- const extent=widthStep()*count;
- if(!extent)return;
- const pos=track.scrollLeft;
- if(pos>=2*extent-2)instantScroll(pos-extent);
- else if(pos<extent-2)instantScroll(pos+extent);
+function cartSave(){try{localStorage.setItem('oss-commerce-lab-bag',JSON.stringify(state.cart));}catch(_){}}
+const getProduct=id=>state.products.find(p=>p.id===id);
+function pricesAvailable(p){return p.preco_confirmado===true&&typeof p.preco==='number'&&Number.isFinite(p.preco)&&p.preco>=0;}
+function cartCount(){return Object.values(state.cart).reduce((sum,q)=>sum+Math.max(0,Number(q)||0),0);}
+function badge(){byId('bagCount').textContent=cartCount();}
+function addProduct(id){
+ if(!getProduct(id))return;
+ const n=Math.min(20,Math.max(0,Number(state.cart[id])||0)+1);
+ state.cart[id]=n;cartSave();renderCart();cartDialog.showModal();
 }
-function stop(){if(autoplay!==null){clearInterval(autoplay);autoplay=null;}}
-function move(dir){
- const step=widthStep();
- if(step<1)return;
- const index=Math.round(track.scrollLeft/step);
- track.scrollTo({left:(index+dir)*step,behavior:reduced.matches?'auto':'smooth'});
+function changeQty(id,dir){
+ if(!getProduct(id))return;
+ const n=Math.min(20,Math.max(0,(Number(state.cart[id])||0)+dir));
+ if(!n)delete state.cart[id];else state.cart[id]=n;
+ cartSave();renderCart();
 }
-function refresh(){
- stop();
- if(paused||current||document.hidden||reduced.matches||!inView)return;
- autoplay=setInterval(()=>move(1),2500);
+function elem(tag,cls,content){
+ const node=document.createElement(tag);
+ if(cls)node.className=cls;
+ if(content!==undefined)node.textContent=content;
+ return node;
 }
-function closeDetail(focus,writeHistory=true){
- const old=current;
- current=null;
- detail.hidden=true;
- tiles.forEach(t=>t.setAttribute('aria-expanded','false'));
- if(writeHistory&&location.hash.startsWith('#categoria-'))history.pushState(null,'',location.pathname+location.search+'#categorias');
- if(focus&&old&&lastTile?.isConnected)lastTile.focus({preventScroll:true});
- refresh();
+function makeImage(p){
+ const img=elem('img');
+ img.src=p.imagem;img.alt=p.nome+' — foto oficial OSS';img.loading='lazy';img.decoding='async';
+ return img;
 }
-function openDetail(key,scroll=true,writeHistory=true,trigger=null){
- if(!Object.prototype.hasOwnProperty.call(cats,key))return;
- if(current===key&&!detail.hidden){closeDetail(true,writeHistory);return;}
- current=key;
- if(trigger)lastTile=trigger;
- tiles.forEach(t=>t.setAttribute('aria-expanded',String(t.dataset.category===key)));
- title.textContent=cats[key];preview.replaceChildren();preview.hidden=true;
- seePhotos.hidden=key!=='kimonos';
- if(key==='kimonos'){
-  message.textContent='Veja as fotografias originais de kimonos OSS. Modelos, tamanhos, preços e estoque são confirmados pelo atendimento.';
-  preview.hidden=false;
-  for(const p of photos){
-   const button=document.createElement('button');button.type='button';button.dataset.image=p.src;button.dataset.alt=p.name;
-   const img=document.createElement('img');img.src=p.src;img.alt=p.name;img.loading='lazy';
-   const label=document.createElement('span');label.textContent=p.name;button.append(img,label);preview.append(button);
-  }
- }else{
-  message.textContent='Ainda não há fotos oficiais de produtos desta categoria publicadas. Consulte com a equipe quais opções estão disponíveis.';
+function renderProducts(){
+ productsEl.replaceChildren();
+ const selected=state.products.filter(p=>(state.category==='todos'||p.categoria===state.category)&&((p.nome+' '+p.descricao).toLocaleLowerCase('pt-BR').includes(state.search)));
+ countEl.textContent=selected.length===1?'1 registro oficial':selected.length+' registros oficiais';
+ byId('emptyState').hidden=selected.length!==0;
+ for(const p of selected){
+  const card=elem('article','card'),media=elem('div','card-photo'),body=elem('div','card-body'),actions=elem('div','card-actions');
+  media.append(makeImage(p),elem('span','photo-label','FOTO ORIGINAL OSS'));
+  body.append(elem('div','card-meta','OSS KIMONOS · KIMONOS'),elem('h3',null,p.nome),elem('p',null,p.descricao));
+  const price=elem('div','price',pricesAvailable(p)?money(p.preco):'Valor sob consulta');
+  price.append(elem('small',null,pricesAvailable(p)?'Disponibilidade a confirmar':'Tamanhos e disponibilidade a confirmar'));
+  body.append(price);
+  const add=elem('button','add','+ Adicionar à sacola');add.type='button';add.addEventListener('click',()=>addProduct(p.id));
+  const more=elem('button','more','Detalhes');more.type='button';more.addEventListener('click',()=>openDetail(p.id));
+  actions.append(add,more);body.append(actions);card.append(media,body);productsEl.append(card);
  }
- contact.href='https://wa.me/5519997121912?text='+encodeURIComponent('Olá! Gostaria de consultar a categoria '+cats[key]+' da OSS Kimonos. Quais modelos, tamanhos e preços estão disponíveis?');
- detail.hidden=false;
- if(writeHistory&&location.hash!=='#categoria-'+key)history.pushState(null,'',location.pathname+location.search+'#categoria-'+key);
- stop();
- if(scroll)detail.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
 }
-track.addEventListener('click',event=>{
- const tile=event.target.closest('[data-category]');
- if(tile&&track.contains(tile))openDetail(tile.dataset.category,true,true,tile);
+function renderCart(){
+ cartLines.replaceChildren();badge();
+ const entries=Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number(qty)>0);
+ byId('cartEmpty').hidden=entries.length>0;
+ byId('cartSummary').hidden=entries.length===0;
+ for(const [id,qty] of entries){
+  const p=getProduct(id),line=elem('div','cart-line'),right=elem('div');
+  right.append(elem('strong',null,p.nome),elem('div','minor','Valor e tamanho sob consulta'));
+  const controls=elem('div','qty');
+  const minus=elem('button',null,'−');minus.type='button';minus.setAttribute('aria-label','Diminuir '+p.nome);minus.addEventListener('click',()=>changeQty(id,-1));
+  const out=elem('output',null,String(qty));
+  const plus=elem('button',null,'+');plus.type='button';plus.setAttribute('aria-label','Aumentar '+p.nome);plus.disabled=qty>=20;plus.addEventListener('click',()=>changeQty(id,1));
+  const remove=elem('button','remove','Remover');remove.type='button';remove.addEventListener('click',()=>changeQty(id,-Number(qty)));
+  controls.append(minus,out,plus,remove);right.append(controls);line.append(makeImage(p),right);cartLines.append(line);
+ }
+}
+function openDetail(id){
+ const p=getProduct(id);if(!p)return;
+ state.detail=id;byId('detailHeading').textContent=p.nome;byId('detailDescription').textContent=p.descricao;
+ byId('detailPhoto').src=p.imagem;byId('detailPhoto').alt=p.nome;
+ detailDialog.showModal();
+}
+function sendRequest(){
+ const lines=Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number(qty)>0).map(([id,qty])=>{
+ const p=getProduct(id);
+ return '• '+p.nome+' — quantidade para consulta: '+String(qty);
+ });
+ if(!lines.length)return;
+ const text='Olá! Estou conhecendo a loja experimental OSS Kimonos e gostaria de consultar estes produtos:\n\n'+lines.join('\n')+'\n\nPodem confirmar tamanhos, cores, preços, disponibilidade e opções de entrega?';
+ window.open('https://wa.me/5519997121912?text='+encodeURIComponent(text),'_blank','noopener,noreferrer');
+}
+async function load(){
+ countEl.textContent='Carregando registros oficiais...';
+ try{
+  const res=await fetch('/catalogo.json',{cache:'no-store'});
+  if(!res.ok)throw Error('Catálogo indisponível.');
+  const data=await res.json();
+  if(!data||!Array.isArray(data.produtos))throw Error('Formato de catálogo inválido.');
+  state.products=data.produtos.filter(p=>p&&typeof p.id==='string'&&typeof p.nome==='string'&&typeof p.imagem==='string'&&
+   /^\/assets\/[a-z0-9-]+\.(png|webp|jpe?g)$/i.test(p.imagem)&&categories.includes(p.categoria)&&
+   p.status==='publicado'&&p.tipo_registro==='foto_oficial_consulta');
+  for(const id of Object.keys(state.cart)){if(!getProduct(id))delete state.cart[id];}
+  cartSave();errorEl.textContent='';renderProducts();renderCart();
+ }catch(e){
+  state.products=[];state.cart={};errorEl.textContent='Não foi possível carregar o catálogo oficial. Nenhum produto foi inventado. Recarregue a página para tentar novamente.';
+  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();
+ }
+}
+byId('filters').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-filter]');if(!btn||!categories.includes(btn.dataset.filter))return;
+ state.category=btn.dataset.filter;
+ for(const b of byId('filters').querySelectorAll('[data-filter]'))b.setAttribute('aria-pressed',String(b===btn));
+ renderProducts();
 });
-document.getElementById('quick-close').addEventListener('click',()=>closeDetail(true));
-prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
-track.addEventListener('scroll',()=>{
- if(scrollIdle!==null)clearTimeout(scrollIdle);
- scrollIdle=setTimeout(()=>{normalize();scrollIdle=null;},350);
-},{passive:true});
-track.addEventListener('pointerenter',()=>{paused=true;stop();});
-track.addEventListener('pointerleave',()=>{paused=false;refresh();});
-track.addEventListener('focusin',()=>{paused=true;stop();});
-track.addEventListener('focusout',e=>{if(!track.contains(e.relatedTarget)){paused=false;refresh();}});
-track.addEventListener('touchstart',()=>{paused=true;stop();},{passive:true});
-track.addEventListener('touchend',()=>{paused=false;refresh();},{passive:true});
-document.addEventListener('visibilitychange',refresh);
-window.addEventListener('resize',()=>{resetCenter();updateArrows();});
-const showFromHash=()=>{
- const hash=location.hash;
- let key=null;
- try{if(hash.startsWith('#categoria-'))key=decodeURIComponent(hash.slice(11));}catch(_){key=null;}
- if(key&&Object.prototype.hasOwnProperty.call(cats,key)){
-  if(current!==key||detail.hidden)openDetail(key,false,false);
- }else if(!detail.hidden){closeDetail(false,false);}
-};
-window.addEventListener('hashchange',showFromHash);
-window.addEventListener('popstate',showFromHash);
-if('IntersectionObserver' in window){
- const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;refresh();},{threshold:0.25});
- observer.observe(track);
-}else{inView=true;}
-updateArrows();refresh();showFromHash();
-const modal=document.getElementById('photo-viewer');
-const modalImg=document.getElementById('viewer-image');
-const modalLabel=document.getElementById('viewer-caption');
-document.addEventListener('click',event=>{
- const button=event.target.closest?.('[data-image]');
- if(!button)return;
- const path=button.dataset.image;
- if(!/^\/assets\/[a-z0-9-]+\.(?:png|jpe?g|webp)$/i.test(path))return;
- modalImg.src=path;modalImg.alt=button.dataset.alt||'Foto OSS';modalLabel.textContent=modalImg.alt;
- if(typeof modal.showModal==='function')modal.showModal();
-});
-const closeModal=()=>{if(modal.open)modal.close();};
-document.getElementById('viewer-close').addEventListener('click',closeModal);
-modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
-const mobile=document.querySelector('.mobile-nav');
-mobile?.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>mobile.open=false));
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!detail.hidden){closeDetail(true);}});
+byId('search').addEventListener('input',e=>{state.search=String(e.target.value).trim().toLocaleLowerCase('pt-BR');renderProducts();});
+byId('openCart').addEventListener('click',()=>{renderCart();cartDialog.showModal();});
+byId('closeCart').addEventListener('click',()=>cartDialog.close());
+byId('closeProduct').addEventListener('click',()=>detailDialog.close());
+byId('detailAdd').addEventListener('click',()=>{const id=state.detail;detailDialog.close();addProduct(id);});
+byId('sendRequest').addEventListener('click',sendRequest);
+for(const dialog of [cartDialog,detailDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+cartRead();load();
 })();
 </script>
-<script src="/site-editor-runtime.js" defer></script>
-</body></html>
+</body>
+</html>
