@@ -153,6 +153,12 @@ button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:
 .buying-step p{font-size:13px;color:#bbb5ae;line-height:1.6;margin:0}
 .carousel-buttons button{min-width:42px;min-height:42px}
 @media(max-width:700px){.buying-section{padding:52px 0}.buying-grid{grid-template-columns:1fr;gap:9px}.buying-step{padding:16px 18px;min-height:0}.buying-step h3{margin:7px 0 5px}}
+
+/* Loop de carrossel sem barras ou saltos visíveis */
+.collection-track{scrollbar-width:none;scroll-snap-type:x mandatory}
+.collection-card[data-duplicate="1"]{scroll-snap-align:start}
+#collection-detail{scroll-margin-top:118px}
+@media(prefers-reduced-motion:reduce){.collection-track{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -248,21 +254,69 @@ document.getElementById('year').textContent=new Date().getFullYear();
 const cats={"kimonos":"Kimonos","faixas":"Faixas","fight-wear":"Fight Wear","rashguard":"Rashguard","camisas":"Camisas","bones":"Bonés","bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"};
 const photos=[{"name":"Kimono OSS branco","src":"/assets/kimono-branco-detalhe.webp","detail":"Foto oficial da OSS","slug":"branco"},{"name":"Kimono OSS preto","src":"/assets/hero-modelo-preto.webp","detail":"Foto oficial da OSS","slug":"preto"},{"name":"Linha feminina OSS","src":"/assets/modelo-branco-feminino.webp","detail":"Foto oficial da OSS","slug":"feminino"}];
 const track=document.getElementById('category-track');
-const tiles=Array.from(track.querySelectorAll('[data-category]'));
+const initialTiles=Array.from(track.querySelectorAll('[data-category]'));
+const count=initialTiles.length;
 const prev=document.getElementById('cat-prev'),next=document.getElementById('cat-next');
 const detail=document.getElementById('collection-detail'),title=document.getElementById('quick-title'),message=document.getElementById('quick-message'),preview=document.getElementById('quick-preview'),contact=document.getElementById('quick-contact'),seePhotos=document.getElementById('quick-photos');
 const reduced=window.matchMedia('(prefers-reduced-motion:reduce)');
-let current=null,autoplay=null,paused=false;
-const widthStep=()=>{const first=tiles[0];if(!first)return track.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||0;return first.getBoundingClientRect().width+gap;};
-const updateArrows=()=>{prev.disabled=track.scrollLeft<=2;next.disabled=track.scrollLeft+track.clientWidth>=track.scrollWidth-2;};
-const move=dir=>{const max=Math.max(0,track.scrollWidth-track.clientWidth);const step=widthStep();const index=Math.round(track.scrollLeft/step);const target=Math.min(max,Math.max(0,(index+dir)*step));track.scrollTo({left:target,behavior:reduced.matches?'auto':'smooth'});};
+let current=null,autoplay=null,scrollIdle=null,paused=false,inView=false,lastTile=null;
+const makeClone=tile=>{
+ const duplicate=tile.cloneNode(true);
+ duplicate.setAttribute('aria-hidden','true');
+ duplicate.tabIndex=-1;
+ duplicate.dataset.duplicate='1';
+ return duplicate;
+};
+track.prepend(...initialTiles.map(makeClone));
+track.append(...initialTiles.map(makeClone));
+const tiles=Array.from(track.querySelectorAll('[data-category]'));
+const widthStep=()=>{const first=initialTiles[0];if(!first)return track.clientWidth;const gap=parseFloat(getComputedStyle(track).columnGap)||0;return first.getBoundingClientRect().width+gap;};
+function instantScroll(value){
+ const previous=track.style.scrollBehavior;
+ const previousSnap=track.style.scrollSnapType;
+ track.style.scrollBehavior='auto';
+ track.style.scrollSnapType='none';
+ track.scrollLeft=value;
+ track.style.scrollBehavior=previous;
+ track.style.scrollSnapType=previousSnap;
+}
+const resetCenter=()=>instantScroll(widthStep()*count);
+resetCenter();
+const updateArrows=()=>{const enabled=track.scrollWidth>track.clientWidth+5;prev.disabled=!enabled;next.disabled=!enabled;};
+function normalize(){
+ const extent=widthStep()*count;
+ if(!extent)return;
+ const pos=track.scrollLeft;
+ if(pos>=2*extent-2)instantScroll(pos-extent);
+ else if(pos<extent-2)instantScroll(pos+extent);
+}
 function stop(){if(autoplay!==null){clearInterval(autoplay);autoplay=null;}}
-function refresh(){stop();if(paused||current||document.hidden||reduced.matches)return;autoplay=setInterval(()=>{const max=track.scrollWidth-track.clientWidth;if(max<2)return;if(track.scrollLeft>=max-5){track.scrollTo({left:0,behavior:'smooth'});}else move(1);},4000);}
-function closeDetail(focus){const old=current;current=null;detail.hidden=true;tiles.forEach(t=>t.setAttribute('aria-expanded','false'));if(location.hash.startsWith('#categoria-'))history.replaceState(null,'',location.pathname+location.search+'#categorias');if(focus&&old){tiles.find(t=>t.dataset.category===old)?.focus({preventScroll:true});}refresh();}
-function openDetail(key,scroll=true){
+function move(dir){
+ const step=widthStep();
+ if(step<1)return;
+ const index=Math.round(track.scrollLeft/step);
+ track.scrollTo({left:(index+dir)*step,behavior:reduced.matches?'auto':'smooth'});
+}
+function refresh(){
+ stop();
+ if(paused||current||document.hidden||reduced.matches||!inView)return;
+ autoplay=setInterval(()=>move(1),4200);
+}
+function closeDetail(focus,writeHistory=true){
+ const old=current;
+ current=null;
+ detail.hidden=true;
+ tiles.forEach(t=>t.setAttribute('aria-expanded','false'));
+ if(writeHistory&&location.hash.startsWith('#categoria-'))history.pushState(null,'',location.pathname+location.search+'#categorias');
+ if(focus&&old&&lastTile?.isConnected)lastTile.focus({preventScroll:true});
+ refresh();
+}
+function openDetail(key,scroll=true,writeHistory=true,trigger=null){
  if(!Object.prototype.hasOwnProperty.call(cats,key))return;
- if(current===key&&!detail.hidden){closeDetail(true);return;}
- current=key;tiles.forEach(t=>t.setAttribute('aria-expanded',String(t.dataset.category===key)));
+ if(current===key&&!detail.hidden){closeDetail(true,writeHistory);return;}
+ current=key;
+ if(trigger)lastTile=trigger;
+ tiles.forEach(t=>t.setAttribute('aria-expanded',String(t.dataset.category===key)));
  title.textContent=cats[key];preview.replaceChildren();preview.hidden=true;
  seePhotos.hidden=key!=='kimonos';
  if(key==='kimonos'){
@@ -276,14 +330,22 @@ function openDetail(key,scroll=true){
  }else{
   message.textContent='Ainda não há fotos oficiais de produtos desta categoria publicadas. Consulte com a equipe quais opções estão disponíveis.';
  }
- contact.href='https://wa.me/5519997121912?text='+encodeURIComponent('Olá! Gostaria de consultar a categoria '+cats[key]+' da OSS Kimonos. Quais modelos e tamanhos estão disponíveis?');
- detail.hidden=false;stop();
- if(scroll)detail.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'center'});
+ contact.href='https://wa.me/5519997121912?text='+encodeURIComponent('Olá! Gostaria de consultar a categoria '+cats[key]+' da OSS Kimonos. Quais modelos, tamanhos e preços estão disponíveis?');
+ detail.hidden=false;
+ if(writeHistory&&location.hash!=='#categoria-'+key)history.pushState(null,'',location.pathname+location.search+'#categoria-'+key);
+ stop();
+ if(scroll)detail.scrollIntoView({behavior:reduced.matches?'auto':'smooth',block:'start'});
 }
-tiles.forEach(tile=>tile.addEventListener('click',()=>{const key=tile.dataset.category;openDetail(key);if(current===key)history.replaceState(null,'',location.pathname+location.search+'#categoria-'+key);}));
+track.addEventListener('click',event=>{
+ const tile=event.target.closest('[data-category]');
+ if(tile&&track.contains(tile))openDetail(tile.dataset.category,true,true,tile);
+});
 document.getElementById('quick-close').addEventListener('click',()=>closeDetail(true));
 prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
-track.addEventListener('scroll',updateArrows,{passive:true});
+track.addEventListener('scroll',()=>{
+ if(scrollIdle!==null)clearTimeout(scrollIdle);
+ scrollIdle=setTimeout(()=>{normalize();scrollIdle=null;},350);
+},{passive:true});
 track.addEventListener('pointerenter',()=>{paused=true;stop();});
 track.addEventListener('pointerleave',()=>{paused=false;refresh();});
 track.addEventListener('focusin',()=>{paused=true;stop();});
@@ -291,9 +353,21 @@ track.addEventListener('focusout',e=>{if(!track.contains(e.relatedTarget)){pause
 track.addEventListener('touchstart',()=>{paused=true;stop();},{passive:true});
 track.addEventListener('touchend',()=>{paused=false;refresh();},{passive:true});
 document.addEventListener('visibilitychange',refresh);
-window.addEventListener('resize',updateArrows);
-const showFromHash=()=>{const hash=location.hash;const key=hash.startsWith('#categoria-')?hash.slice(11):null;if(key&&cats[key])openDetail(key,false);else if(!detail.hidden)closeDetail(false);};
-window.addEventListener('hashchange',showFromHash);window.addEventListener('popstate',showFromHash);
+window.addEventListener('resize',()=>{resetCenter();updateArrows();});
+const showFromHash=()=>{
+ const hash=location.hash;
+ let key=null;
+ try{if(hash.startsWith('#categoria-'))key=decodeURIComponent(hash.slice(11));}catch(_){key=null;}
+ if(key&&Object.prototype.hasOwnProperty.call(cats,key)){
+  if(current!==key||detail.hidden)openDetail(key,false,false);
+ }else if(!detail.hidden){closeDetail(false,false);}
+};
+window.addEventListener('hashchange',showFromHash);
+window.addEventListener('popstate',showFromHash);
+if('IntersectionObserver' in window){
+ const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;refresh();},{threshold:0.25});
+ observer.observe(track);
+}else{inView=true;}
 updateArrows();refresh();showFromHash();
 const modal=document.getElementById('photo-viewer');
 const modalImg=document.getElementById('viewer-image');
