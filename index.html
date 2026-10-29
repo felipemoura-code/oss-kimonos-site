@@ -389,10 +389,10 @@ async function load(){
    /^\/assets\/[a-z0-9-]+\.(png|webp|jpe?g)$/i.test(p.imagem)&&categories.includes(p.categoria)&&
    p.status==='publicado'&&p.tipo_registro==='foto_oficial_consulta');
   for(const id of Object.keys(state.cart)){if(!getProduct(id))delete state.cart[id];}
-  cartSave();errorEl.textContent='';renderProducts();renderCart();
+  cartSave();errorEl.textContent='';renderProducts();renderCart();demoRenderStock();demoRenderOrders();
  }catch(e){
   state.products=[];state.cart={};errorEl.textContent='Não foi possível carregar o catálogo oficial. Nenhum produto foi inventado. Recarregue a página para tentar novamente.';
-  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();
+  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();demoRenderStock();demoRenderOrders();
  }
 }
 byId('filters').addEventListener('click',e=>{
@@ -408,6 +408,195 @@ byId('closeProduct').addEventListener('click',()=>detailDialog.close());
 byId('detailAdd').addEventListener('click',()=>{const id=state.detail;detailDialog.close();addProduct(id);});
 byId('sendRequest').addEventListener('click',sendRequest);
 for(const dialog of [cartDialog,detailDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
+demoLoad();demoRenderOrders();demoSwitch("payment",false);
+
+/* Simuladores locais: nenhum dado é transmitido como pagamento, frete ou pedido. */
+const demo={orders:[],stock:{},pendingPayment:null};
+const demoKey='oss-commerce-lab-local-tests-v1';
+const allowedModes=['payment','shipping','orders'];
+const modeTitles={payment:'Pagamento demonstrativo',shipping:'Frete demonstrativo por CEP',orders:'Pedidos e estoque de teste'};
+function demoLoad(){
+ try{
+  const parsed=JSON.parse(localStorage.getItem(demoKey)||'{}');
+  if(parsed&&Array.isArray(parsed.orders))demo.orders=parsed.orders.filter(o=>o&&typeof o.id==='string'&&Array.isArray(o.items)).slice(0,30);
+  if(parsed&&parsed.stock&&typeof parsed.stock==='object'&&!Array.isArray(parsed.stock)){
+   for(const [id,n] of Object.entries(parsed.stock)){if(Number.isInteger(n)&&n>=0&&n<=500)demo.stock[id]=n;}
+  }
+ }catch(_){demo.orders=[];demo.stock={};}
+}
+function demoPersist(){
+ try{localStorage.setItem(demoKey,JSON.stringify({orders:demo.orders.slice(0,30),stock:demo.stock}));}catch(_){}
+}
+function demoSwitch(name,scroll){
+ if(!allowedModes.includes(name))return;
+ for(const panel of document.querySelectorAll('[data-demo-panel]'))panel.hidden=panel.dataset.demoPanel!==name;
+ for(const button of document.querySelectorAll('[data-demo-open]'))button.setAttribute('aria-expanded',String(button.dataset.demoOpen===name));
+ byId('demoWorkspaceTitle').textContent=modeTitles[name];
+ if(scroll)byId('demoWorkspace').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}
+function demoFeedback(id,msg){byId(id).textContent=msg;}
+function demoCartItems(){
+ return Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number.isInteger(Number(qty))&&Number(qty)>0)
+  .map(([id,qty])=>({id,nome:getProduct(id).nome,quantidade:Math.min(20,Number(qty))}));
+}
+function demoOrder(status,amount=null,method=null){
+ const items=demoCartItems();
+ if(!items.length)return null;
+ const order={id:'OSS-TESTE-'+Date.now().toString(36).toUpperCase()+'-'+(demo.orders.length+1),
+  created:new Date().toLocaleString('pt-BR'),items,status,amount,method,stockApplied:{}};
+ demo.orders.unshift(order);demo.orders=demo.orders.slice(0,30);demoPersist();demoRenderOrders();
+ return order;
+}
+function demoMakeText(tag,value,cls){
+ const node=elem(tag,cls,value);return node;
+}
+function demoRenderOrders(){
+ const list=byId('demoOrderList');list.replaceChildren();
+ if(!demo.orders.length){list.append(demoMakeText('p','Nenhum pedido de teste neste navegador. Adicione um kimono à sacola e clique em “Criar pedido de teste”.','demo-disclaimer'));return;}
+ for(const order of demo.orders){
+  const entry=elem('article','demo-order-card');
+  const summary=elem('div'),actions=elem('div','lab-toolbar');
+  summary.append(demoMakeText('strong',order.id),demoMakeText('p','Status: '+order.status));
+  summary.append(demoMakeText('p',order.items.length?order.items.map(i=>i.quantidade+'× '+i.nome).join(' · '):'Sem itens vinculados'));
+  if(order.method)summary.append(demoMakeText('p','Método: '+order.method+(order.amount!==null?' · Valor fictício: '+money(order.amount):'')));
+  summary.append(demoMakeText('p',String(order.created||'')+' · Apenas neste navegador'));
+  if(order.status!=='Aprovado (simulado)'&&order.status!=='Cancelado (simulado)'){
+   const approve=demoMakeText('button','Marcar aprovado (teste)','lab-secondary');
+   approve.type='button';approve.dataset.orderApprove=order.id;actions.append(approve);
+  }
+  if(order.status!=='Cancelado (simulado)'){
+   const cancel=demoMakeText('button','Cancelar teste','lab-danger');
+   cancel.type='button';cancel.dataset.orderCancel=order.id;actions.append(cancel);
+  }
+  entry.append(summary,actions);list.append(entry);
+ }
+}
+function demoRenderStock(){
+ const list=byId('demoStockList');list.replaceChildren();
+ if(!state.products.length){list.append(demoMakeText('p','Catálogo não disponível para simulação de estoque.','demo-disclaimer'));return;}
+ for(const p of state.products){
+  const row=elem('div','demo-stock-item');
+  const label=demoMakeText('label',p.nome+' — unidades fictícias');
+  const field=elem('input');field.type='number';field.min='0';field.max='500';field.step='1';
+  field.id='stock-'+p.id;label.htmlFor=field.id;
+  field.dataset.stockId=p.id;field.value=Object.hasOwn(demo.stock,p.id)?String(demo.stock[p.id]):'';
+  field.placeholder='Não definido';
+  row.append(label,field,demoMakeText('small','Não altera os registros oficiais da OSS.'));
+  list.append(row);
+ }
+}
+function demoReadStockInputs(){
+ const next={...demo.stock};
+ for(const input of byId('demoStockList').querySelectorAll('[data-stock-id]')){
+  if(!getProduct(input.dataset.stockId))continue;
+  const raw=input.value.trim();
+  if(raw===''){delete next[input.dataset.stockId];continue;}
+  const n=Number(raw);
+  if(!Number.isInteger(n)||n<0||n>500){demoFeedback('ordersFeedback','Use quantidades inteiras de 0 a 500 para o estoque de teste.');return null;}
+  next[input.dataset.stockId]=n;
+ }
+ return next;
+}
+function demoSaveStock(){
+ const next=demoReadStockInputs();if(!next)return;
+ demo.stock=next;demoPersist();demoFeedback('ordersFeedback','Estoque fictício salvo somente neste navegador.');
+}
+function demoSetOrderStatus(id,nextStatus){
+ const order=demo.orders.find(o=>o.id===id);
+ if(!order||order.status===nextStatus)return;
+ if(nextStatus==='Aprovado (simulado)'&&order.status==='Cancelado (simulado)')return;
+ if(nextStatus==='Aprovado (simulado)'){
+  const applied={};
+  for(const item of order.items){
+   if(!Object.hasOwn(demo.stock,item.id))continue;
+   if(demo.stock[item.id]<item.quantidade){demoFeedback('ordersFeedback','Estoque fictício insuficiente para '+item.nome+'. Ajuste o cenário antes de aprovar.');return;}
+   applied[item.id]=item.quantidade;
+  }
+  for(const [itemId,qty] of Object.entries(applied))demo.stock[itemId]-=qty;
+  order.stockApplied=applied;
+  demoFeedback('ordersFeedback',Object.keys(applied).length?'Pagamento aprovado no teste e unidades fictícias abatidas do cenário.':'Aprovação simulada. Defina estoque fictício se quiser testar a baixa de unidades.');
+ }
+ if(nextStatus==='Cancelado (simulado)'){
+  if(order.status==='Aprovado (simulado)'){
+   for(const [itemId,qty] of Object.entries(order.stockApplied||{}))demo.stock[itemId]=(demo.stock[itemId]||0)+qty;
+  }
+  order.stockApplied={};demoFeedback('ordersFeedback','Pedido cancelado no teste. Eventuais unidades fictícias foram devolvidas.');
+ }
+ order.status=nextStatus;demoPersist();demoRenderOrders();demoRenderStock();
+}
+function demoParseAmount(value){
+ const trimmed=value.trim().replace(',','.');
+ if(!/^\d{1,6}(?:\.\d{1,2})?$/.test(trimmed))return null;
+ const n=Number(trimmed);
+ return Number.isFinite(n)&&n>0&&n<=100000?n:null;
+}
+document.querySelectorAll('[data-demo-open]').forEach(button=>button.addEventListener('click',()=>demoSwitch(button.dataset.demoOpen,true)));
+byId('demoStartPayment').addEventListener('click',()=>{
+ const amount=demoParseAmount(byId('demoAmount').value);
+ if(amount===null){byId('paymentResult').hidden=true;demoFeedback('paymentFeedback','Informe um valor fictício válido, por exemplo 150,00. Não é o preço dos produtos.');return;}
+ const method=document.querySelector('input[name="demoMethod"]:checked')?.value||'Pix';
+ demo.pendingPayment={amount,method};
+ demoFeedback('paymentFeedback','Fluxo de '+method+' gerado exclusivamente para demonstração.');
+ byId('paymentResult').hidden=false;
+ byId('paymentResultTitle').textContent=method==='Pix'?'Pix fictício — aguardando confirmação':'Cartão fictício — aguardando confirmação';
+ byId('paymentResultText').textContent='Valor de teste: '+money(amount)+'. Nenhuma cobrança ou QR Code real foi gerado. Clique abaixo para simular o retorno de pagamento aprovado.';
+ byId('demoApprovePayment').disabled=false;
+ byId('demoApprovePayment').textContent='Simular pagamento aprovado';
+});
+byId('demoApprovePayment').addEventListener('click',()=>{
+ if(!demo.pendingPayment)return;
+ const request=demo.pendingPayment;
+ const order=demoOrder('Aguardando pagamento (teste)',request.amount,request.method);
+ if(order)demoSetOrderStatus(order.id,'Aprovado (simulado)');
+ byId('demoApprovePayment').disabled=true;
+ byId('demoApprovePayment').textContent='Confirmação simulada';
+ byId('paymentResultTitle').textContent='Pagamento aprovado — somente no teste';
+ byId('paymentResultText').textContent=order?
+  'O pedido '+order.id+' foi criado localmente. Veja-o em “Pedidos e estoque”. Nenhuma cobrança aconteceu.':
+  'O fluxo de pagamento terminou sem cobrança. Como sua sacola está vazia, nenhum pedido de produto foi criado.';
+ demoFeedback('paymentFeedback','Simulação concluída. Nenhum valor foi cobrado.');
+ demo.pendingPayment=null;
+});
+byId('demoShippingForm').addEventListener('submit',event=>{
+ event.preventDefault();
+ const raw=byId('demoCep').value.trim(),digits=raw.replace(/\D/g,'');
+ if(!/^\d{8}$/.test(digits)||!/^\d{5}-?\d{3}$/.test(raw)){
+  demoFeedback('shippingResult','CEP inválido para o teste. Digite oito números, com ou sem hífen.');return;
+ }
+ const cep=digits.slice(0,5)+'-'+digits.slice(5);
+ const method=byId('demoShippingMethod').value;
+ demoFeedback('shippingResult','Formato de CEP válido: '+cep+'. Modalidade demonstrada: '+method+'. Próxima etapa de uma loja real: consultar transportadora e disponibilidade. Nenhum valor ou prazo de entrega foi calculado.');
+});
+byId('demoCreateOrder').addEventListener('click',()=>{
+ const order=demoOrder('Aguardando pagamento (teste)');
+ demoFeedback('ordersFeedback',order?'Pedido '+order.id+' criado somente para demonstração. Você pode marcar como aprovado ou cancelar.':'Adicione primeiro um produto oficial à sacola para criar um pedido de teste.');
+});
+byId('demoOpenCart').addEventListener('click',()=>{renderCart();cartDialog.showModal();});
+byId('demoOrderList').addEventListener('click',event=>{
+ const approve=event.target.closest('[data-order-approve]'),cancel=event.target.closest('[data-order-cancel]');
+ if(approve)demoSetOrderStatus(approve.dataset.orderApprove,'Aprovado (simulado)');
+ if(cancel)demoSetOrderStatus(cancel.dataset.orderCancel,'Cancelado (simulado)');
+});
+byId('demoSaveStock').addEventListener('click',demoSaveStock);
+byId('demoStockExample').addEventListener('click',()=>{
+ for(const input of byId('demoStockList').querySelectorAll('[data-stock-id]'))input.value='5';
+ demoSaveStock();
+ demoFeedback('ordersFeedback','Cenário com 5 unidades fictícias por registro criado. Não representa estoque verdadeiro.');
+});
+byId('demoClearStock').addEventListener('click',()=>{
+ demo.stock={};demoPersist();demoRenderStock();
+ demoFeedback('ordersFeedback','Quantidades fictícias apagadas. Os produtos reais não foram alterados.');
+});
+byId('demoClearOrders').addEventListener('click',()=>{
+ for(const order of demo.orders){
+  if(order.status==='Aprovado (simulado)'){
+   for(const [itemId,qty] of Object.entries(order.stockApplied||{}))demo.stock[itemId]=(demo.stock[itemId]||0)+qty;
+  }
+ }
+ demo.orders=[];demoPersist();demoRenderOrders();demoRenderStock();
+ demoFeedback('ordersFeedback','Pedidos de teste apagados. As unidades fictícias debitadas foram restituídas ao cenário.');
+});
+
 cartRead();load();
 })();
 </script>
