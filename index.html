@@ -407,7 +407,8 @@ if(track&&prev&&next&&toggle&&position&&progress){
  detailClose.addEventListener('click',()=>closeDetails(true));
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!details.hidden)closeDetails(true);});
  const syncCategoryFromUrl=()=>{
-  const key=location.hash.startsWith('#colecao-')?decodeURIComponent(location.hash.slice(9)):'';
+  let key='';
+  try{if(location.hash.startsWith('#colecao-'))key=decodeURIComponent(location.hash.slice(9));}catch(_){key='';}
   if(Object.prototype.hasOwnProperty.call(categoryNames,key)){
     const card=cards.find(item=>item.dataset.category===key);
     if(card&&(details.hidden||selectedCategory!==key))selectCategory(key,card,false);
