@@ -209,6 +209,18 @@ button.category-tile[aria-expanded="true"]{border-color:#dec093;box-shadow:0 0 0
  .detail-item-info h4{font-size:16px}
  .detail-close{font-size:11px}
 }
+
+/* Ampliação das fotos originais na página inicial */
+.detail-item img.detail-item-photo[data-oss-zoom-ready="1"]{cursor:zoom-in;transition:filter .15s}
+.detail-item img.detail-item-photo[data-oss-zoom-ready="1"]:hover{filter:brightness(1.08)}
+.detail-item img.detail-item-photo[data-oss-zoom-ready="1"]:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}
+.oss-image-viewer{width:min(94vw,920px);max-height:94dvh;max-width:920px;border:1px solid #8f7453;border-radius:9px;background:#141416;color:#f5f2ec;padding:12px;box-shadow:0 20px 80px #000d;overflow:auto}
+.oss-image-viewer::backdrop{background:#000d;backdrop-filter:blur(5px)}
+.oss-viewer-wrap{display:flex;flex-direction:column;gap:10px;align-items:center}
+.oss-viewer-close{align-self:flex-end;border:1px solid #6a5845;border-radius:5px;padding:8px 14px;background:#2c241e;color:#f1d0a2;font-weight:800;cursor:pointer;min-height:42px}
+.oss-viewer-image{display:block;max-width:100%;max-height:min(73dvh,750px);width:auto;height:auto;object-fit:contain;background:#222124;border-radius:3px}
+.oss-viewer-caption{margin:0 0 6px;color:#c6c0b8;font-size:12px;text-align:center}
+@media(max-width:450px){.oss-image-viewer{padding:8px}.oss-viewer-image{max-height:72dvh}}
 </style></head><body>
 <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
 <header><div class="nav"><a class="mark" href="#inicio" aria-label="OSS Kimonos início"><img src="/assets/oss-logo.webp" alt="Logo oficial OSS Kimonos" width="172" height="60" style="display:block;width:clamp(128px,15vw,172px);height:auto;max-height:68px;object-fit:contain" /></a><nav aria-label="Navegação principal"><a class="store-link" href="/loja.html" aria-label="Abrir a loja OSS Kimonos nesta página">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a class="btn nav-cta" href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener">Fale conosco</a></nav><div class="mobile-actions"><a class="mobile-store" href="/loja.html">Loja</a><details class="mobile-nav"><summary aria-label="Abrir menu de navegação">☰ Menu</summary><div class="mobile-nav-links"><a href="#inicio">Início</a><a href="/loja.html">Loja / Comprar</a><a href="#colecao">Coleção</a><a href="#sobre">Sobre</a><a href="#como-comprar">Como comprar</a><a href="#contato">Contato</a><a href="https://wa.me/5519997121912?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20OSS%20Kimonos" target="_blank" rel="noopener noreferrer">WhatsApp</a></div></details></div></div></header>
@@ -364,27 +376,29 @@ if(track&&prev&&next&&toggle&&position&&progress){
   const list=showFallback?knownOfficialPhotos:products;
   detailTitle.textContent=name;
   detailDescription.textContent=list.length
-   ?'Veja as referências da OSS e consulte os detalhes sem sair da página.'
+   ?'Veja as fotos originais, toque para ampliar e consulte os detalhes sem sair da página.'
    :'Ainda não há itens individuais e fotos oficiais cadastrados para esta categoria.';
   detailItems.replaceChildren(...list.map(makeProductCard));
   detailEmpty.hidden=list.length>0;
   detailContact.href='https://wa.me/5519997121912?text='+encodeURIComponent('Olá! Quero informações sobre a categoria '+name+' da OSS Kimonos. Quais modelos, tamanhos e preços estão disponíveis?');
  };
- const closeDetails=(restoreFocus=false)=>{
+ const closeDetails=(restoreFocus=false,writeHistory=true)=>{
   selectedCategory=null;
   details.hidden=true;
   for(const card of cards)card.setAttribute('aria-expanded','false');
   if(restoreFocus&&lastSelectedCard)lastSelectedCard.focus({preventScroll:true});
+  if(writeHistory&&location.hash!=='#colecao')history.pushState(null,'',location.pathname+location.search+'#colecao');
   refresh();
  };
- const selectCategory=(key,card)=>{
+ const selectCategory=(key,card,writeHistory=true)=>{
   if(!Object.prototype.hasOwnProperty.call(categoryNames,key))return;
-  if(selectedCategory===key&&!details.hidden){closeDetails(true);return;}
+  if(selectedCategory===key&&!details.hidden){closeDetails(true,writeHistory);return;}
   selectedCategory=key;
   lastSelectedCard=card;
   for(const element of cards)element.setAttribute('aria-expanded',String(element===card));
   drawDetails(key);
   details.hidden=false;
+  if(writeHistory&&location.hash!=='#colecao-'+key)history.pushState(null,'',location.pathname+location.search+'#colecao-'+key);
   refresh();
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   details.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
@@ -392,6 +406,18 @@ if(track&&prev&&next&&toggle&&position&&progress){
  for(const card of cards)card.addEventListener('click',()=>selectCategory(card.dataset.category,card));
  detailClose.addEventListener('click',()=>closeDetails(true));
  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!details.hidden)closeDetails(true);});
+ const syncCategoryFromUrl=()=>{
+  const key=location.hash.startsWith('#colecao-')?decodeURIComponent(location.hash.slice(9)):'';
+  if(Object.prototype.hasOwnProperty.call(categoryNames,key)){
+    const card=cards.find(item=>item.dataset.category===key);
+    if(card&&(details.hidden||selectedCategory!==key))selectCategory(key,card,false);
+  }else if(!details.hidden){
+    closeDetails(false,false);
+  }
+ };
+ window.addEventListener('popstate',syncCategoryFromUrl);
+ window.addEventListener('hashchange',syncCategoryFromUrl);
+ syncCategoryFromUrl();
  fetch('/catalogo.json',{cache:'no-store'}).then(response=>{
   if(!response.ok)throw Error('Catálogo não encontrado');
   return response.json();
@@ -465,4 +491,4 @@ if(track&&prev&&next&&toggle&&position&&progress){
  update();
  refresh();
 }
-</script><script src="/site-editor-runtime.js" defer></script></body></html>
+</script><script src="/site-editor-runtime.js" defer></script><script src="/oss-photo-viewer.js" defer></script></body></html>
