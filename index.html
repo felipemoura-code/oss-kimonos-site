@@ -134,64 +134,67 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
 @media(min-width:520px) and (max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card-photo img{transition:none}}
 
-/* Tipografia editorial clara — substitui a fonte condensada de difícil leitura */
+/* OSS — loja experimental: tipografia natural e experiência de compra integrada */
 .hero h1,.section-title,h2,h3,h4{font-family:Inter,"Segoe UI",Arial,Helvetica,sans-serif;font-stretch:normal;font-weight:850;letter-spacing:-.043em}
 .hero h1{font-size:clamp(43px,5vw,72px);line-height:1.075;font-weight:850;text-transform:none;letter-spacing:-.051em}
 .section-title{font-size:clamp(32px,3.6vw,49px);line-height:1.13;font-weight:850;text-transform:none;letter-spacing:-.046em}
 .card h3{font-size:24px;line-height:1.18;letter-spacing:-.035em;text-transform:none;font-weight:800}
-.step h3{font-size:21px;line-height:1.23;letter-spacing:-.03em;margin:12px 0 8px;font-weight:800}
-.future-feature h3{font-size:22px;line-height:1.2;letter-spacing:-.035em;font-weight:800;margin:11px 0}
-.future-feature{display:flex;flex-direction:column;min-height:242px;padding:23px}
-.future-feature .tag{font-size:10px;line-height:1.55;margin:14px 0 14px}
-.lab-icon{display:grid;place-items:center;border:1px solid #725d43;width:37px;height:37px;color:var(--gold2);font-size:11px;font-weight:850;letter-spacing:.06em}
-.demo-open{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;background:transparent;color:var(--gold2);border:1px solid #987b56;padding:11px 13px;border-radius:3px;font-size:12px;font-weight:800;text-align:left}
-.demo-open:hover,.demo-open[aria-expanded="true"]{background:var(--gold);color:#17130e;border-color:var(--gold)}
-.demo-workspace{border:1px solid #6c543c;background:#151311;margin-top:22px;scroll-margin-top:115px}
-.demo-workspace-top{padding:23px 27px;border-bottom:1px solid #514231;display:flex;align-items:center;justify-content:space-between;gap:15px}
-.demo-workspace-top h3{font-size:27px;margin:5px 0 0}
-.demo-safe{border:1px solid #80633f;color:#e0c193;padding:6px 10px;font-size:10px;letter-spacing:.12em;font-weight:850;white-space:nowrap}
-.demo-panels{padding:26px 27px 28px}
-.demo-lead{max-width:750px;color:#c8c0b5;font-size:14px;margin:0 0 22px;line-height:1.7}
-.demo-fields{display:flex;align-items:end;gap:17px;flex-wrap:wrap;margin-bottom:20px}
-.field{display:flex;flex-direction:column;gap:8px;min-width:210px;flex:1}
-.field span,.method-picker legend{font-size:12px;color:#e4d5bf;font-weight:700}
-.field input,.field select{padding:12px 13px;width:100%;background:#23201c;border:1px solid #76644e;color:#fff;min-height:45px;border-radius:3px}
-.method-picker{display:flex;gap:16px;align-items:center;flex:1;min-width:180px;border:1px solid #594c3c;padding:8px 13px 12px;margin:0;min-height:59px}
-.method-picker label{display:flex;gap:7px;align-items:center;font-size:14px}
-.method-picker input{accent-color:var(--gold)}
-.demo-response{border:1px solid #4f4539;background:#201c17;color:#e9ded0;padding:15px 18px;font-size:13px;margin-top:18px;line-height:1.7}
-.demo-response:empty,.demo-feedback:empty{display:none}
-.demo-response p{margin:8px 0;color:#cac0b3}
-.demo-response .main-btn{margin:8px 0 0}
-.demo-feedback{color:#e5c89c;font-size:13px;margin:10px 0}
-.demo-disclaimer{color:#ada194;font-size:12px;margin:19px 0 0}
-.demo-submit{margin:0 0 1px}
-.lab-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 20px}
-.lab-secondary,.lab-danger{background:transparent;color:#e6d4ba;border:1px solid #806b52;border-radius:3px;padding:11px 14px;font-weight:750;font-size:12px}
-.lab-danger{color:#eeb7aa;border-color:#8b5749}
-.lab-secondary:hover{background:#2b241c}.lab-danger:hover{background:#36221f}
-.demo-order-list{display:grid;gap:10px}
-.demo-order-card{border:1px solid #514634;padding:14px 16px;background:#201d18;display:flex;justify-content:space-between;align-items:start;gap:15px;flex-wrap:wrap}
-.demo-order-card strong{display:block;margin-bottom:4px;font-size:13px}
-.demo-order-card p{color:#bcafa0;font-size:12px;margin:3px 0}
-.demo-order-card .lab-toolbar{margin:0;gap:7px}
-.demo-stock-head{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid #483b30;padding-top:24px;margin-top:26px;flex-wrap:wrap}
-.demo-stock-head h4{font-size:22px;margin:0 0 4px}
-.demo-stock-head p{font-size:12px;color:#c3b8a7;margin:0}
-.demo-stock-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:15px}
-.demo-stock-item{padding:14px;background:#231f1a;border:1px solid #534838;display:flex;flex-direction:column;gap:9px}
-.demo-stock-item label{font-size:12px;font-weight:750}
-.demo-stock-item input{width:100%;padding:10px;background:#131311;border:1px solid #7f684a;color:#fff;border-radius:2px}
-.demo-stock-item small{font-size:11px;color:#b7a996}
-@media(max-width:720px){
- .hero h1{font-size:clamp(39px,10vw,54px)}
- .section-title{font-size:clamp(31px,8vw,39px)}
- .future-feature{min-height:0}.demo-workspace-top,.demo-panels{padding:18px 16px}
- .demo-workspace-top{align-items:flex-start;flex-direction:column;gap:10px}
- .demo-workspace-top h3{font-size:23px}.demo-stock-list{grid-template-columns:1fr}
- .demo-fields{flex-direction:column;align-items:stretch}.field,.method-picker{min-width:0;width:100%}
- .demo-submit{width:100%}.demo-order-card{flex-direction:column}
-}
+.checkout-experience{background:#111110;border-top:1px solid #3d352c;padding:75px 0 70px}
+.experience-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:28px}
+.experience-intro{max-width:600px;color:#bdb5aa;font-size:14px;line-height:1.7;margin:16px 0 0}
+.preview-pill{font-size:10px;font-weight:850;letter-spacing:.11em;color:#d9be98;border:1px solid #7a6046;padding:9px 12px;white-space:nowrap}
+.checkout-shell{display:grid;grid-template-columns:275px minmax(0,1fr);border:1px solid #514739;min-height:415px;background:#191715}
+.checkout-progress{background:#211e1a;border-right:1px solid #514739;padding:29px 26px}
+.progress-label{color:#b9a68d;font-size:11px;letter-spacing:.13em;font-weight:850}
+.checkout-progress ol{list-style:none;padding:0;margin:24px 0;display:grid;gap:7px}
+.checkout-progress li{display:flex;align-items:center;gap:14px;min-height:62px;padding:10px;border-radius:4px;opacity:.49}
+.checkout-progress li[aria-current="step"]{background:#383028;opacity:1;color:#fff}
+.checkout-progress li.passed{opacity:.9}
+.checkout-progress li>span{width:36px;height:36px;display:grid;place-items:center;border:1px solid #7b644b;color:var(--gold2);font-size:11px;font-weight:850;flex-shrink:0}
+.checkout-progress strong{display:block;font-size:14px;line-height:1.2}
+.checkout-progress small{display:block;font-size:11px;color:#bfb1a0;margin-top:4px}
+.progress-foot{padding-top:18px;border-top:1px solid #54493c;color:#bdb0a1;font-size:11px}
+.proof-dot{display:inline-block;width:7px;height:7px;background:#d4aa76;border-radius:50%;margin-right:4px}
+.checkout-pane-wrap{padding:32px clamp(24px,3vw,48px)}
+.checkout-pane{max-width:680px}
+.pane-eyebrow{font-weight:850;font-size:10px;letter-spacing:.17em;color:var(--gold2)}
+.checkout-pane h3{font-size:clamp(24px,2.5vw,34px);line-height:1.15;margin:10px 0 12px;font-weight:850}
+.checkout-pane p{font-size:14px;color:#c9bfb2;line-height:1.75;margin:0 0 21px}
+.checkout-items{display:grid;gap:7px;margin-bottom:10px}
+.checkout-line{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #453c31;padding:11px 0;color:#f3ece2;font-size:13px}
+.checkout-line .light{color:#bba98f;font-size:12px}
+.inline-note{background:#29241f;padding:15px 17px;font-size:13px!important;color:#d2c1ab!important;border-left:2px solid var(--gold)}
+.pane-actions{display:flex;align-items:center;gap:21px;flex-wrap:wrap;margin-top:22px}
+.pane-actions .main-btn{min-height:46px}
+.understated-link,.text-action{color:#dcc09c;background:transparent;border:0;font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:8px 0}
+.checkout-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0 18px}
+.checkout-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+.checkout-field span{font-size:12px;font-weight:750;color:#dfceb4}
+.checkout-field input,.checkout-field select{padding:13px;border:1px solid #786248;background:#29241f;color:#fff;width:100%;border-radius:3px;min-height:48px}
+.shipping-note{font-size:12px;line-height:1.7;border-left:2px solid #80694f;background:#26211c;padding:12px 14px;color:#c9b8a2}
+.form-error{color:#ffbda7!important;font-size:12px!important;margin:12px 0!important}
+.payment-choices{border:0;padding:0;margin:23px 0}
+.payment-choices legend{color:#ddcfbc;font-size:12px;font-weight:800;margin-bottom:12px}
+.payment-choice{display:flex;gap:15px;align-items:center;cursor:pointer;border:1px solid #5b4d3b;margin-bottom:9px;background:#231f1a;padding:14px 16px}
+.payment-choice:has(input:checked){border-color:var(--gold);background:#332a20}
+.payment-choice input{accent-color:var(--gold);width:16px;height:16px}
+.payment-symbol{font-size:23px;font-weight:700;color:var(--gold2)}
+.payment-choice strong{display:block;font-size:15px}
+.payment-choice small{display:block;color:#baa995;font-size:12px}
+.done-mark{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;background:#2e4133;border:1px solid #769178;color:#b6dbaf;font-size:26px;margin-bottom:17px}
+.checkout-receipt{background:#221f1a;border:1px solid #5a4835;padding:15px 18px;margin-top:15px}
+.checkout-receipt strong{font-size:13px}.checkout-receipt p{font-size:12px;margin:8px 0;color:#c5b9aa}
+.checkout-bottom{display:flex;justify-content:space-between;align-items:start;gap:22px;padding-top:21px}
+.checkout-bottom>p{color:#a9a095;font-size:12px;max-width:330px;line-height:1.6;margin:0}
+.history-details{width:min(100%,560px);font-size:12px;color:#d8c6ae}
+.history-details summary{cursor:pointer;padding:10px 0;list-style:none;font-weight:750}
+.history-details summary span{padding-left:10px}
+.history-list{display:grid;gap:10px;padding:13px 0}
+.history-entry{border:1px solid #4d3f31;padding:12px 14px;background:#201b17}
+.history-entry strong{display:block;font-size:12px}.history-entry p{margin:7px 0 0;font-size:11px;color:#c5b6a5}
+.clear-history{border:1px solid #664d3b;color:#d9bd9c;background:none;padding:9px 12px;margin:6px 0 4px;font-size:11px}
+@media(max-width:800px){.checkout-shell{grid-template-columns:1fr}.checkout-progress{border-right:0;border-bottom:1px solid #514739;padding:20px 19px}.checkout-progress ol{grid-template-columns:repeat(4,1fr);gap:3px;margin:12px 0}.checkout-progress li{flex-direction:column;text-align:center;gap:7px;padding:7px 3px;min-height:0}.checkout-progress li>span{width:27px;height:27px}.checkout-progress li strong{font-size:11px}.checkout-progress li small{display:none}.progress-foot{padding-top:8px}.checkout-pane-wrap{padding:23px 19px}.experience-heading{flex-direction:column;align-items:start}.checkout-bottom{flex-direction:column}}
+@media(max-width:520px){.hero h1{font-size:clamp(39px,10vw,54px)}.section-title{font-size:clamp(31px,8vw,39px)}.checkout-form-grid{grid-template-columns:1fr}.checkout-experience{padding:52px 0}.checkout-pane-wrap{padding:23px 16px}.pane-actions .main-btn{width:100%}.checkout-progress{padding:15px 12px}}
 </style>
 </head>
 <body>
@@ -200,7 +203,7 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
 <header class="header">
  <div class="container header-inner">
   <a class="brand" href="#inicio" aria-label="OSS Store Lab, início"><img src="/assets/oss-logo.webp" width="122" height="62" alt="Logo OSS Kimonos"><span>STORE LAB</span></a>
-  <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Produtos</a><a href="#como-funciona">Como funciona</a><a href="#futuro">Próximas funções</a></nav>
+  <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Produtos</a><a href="#como-funciona">Como funciona</a><a href="#como-funciona">Experiência de compra</a></nav>
   <div class="header-tools"><a class="official-link" href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Site oficial ↗</a><button type="button" class="bag" id="openCart" aria-label="Abrir sacola de consultas">Sacola <em id="bagCount">0</em></button></div>
  </div>
 </header>
@@ -233,54 +236,42 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
   <p id="catalogError" class="status-note" role="status"></p>
   <p class="status-note">Produtos para consulta: preços, tamanhos e disponibilidade precisam ser confirmados pela OSS. Esta página não efetua pedidos nem pagamentos.</p>
  </div></section>
- <section class="section checkout-section" id="como-funciona"><div class="container">
-  <div class="section-head"><div><div class="eyebrow">SUA EXPERIÊNCIA</div><h2 class="section-title">Simples. Sem pressa.</h2></div><p>Experimente a sacola como ficaria numa loja virtual, com atendimento real no WhatsApp.</p></div>
-  <div class="steps"><div class="step"><span>01 / EXPLORAR</span><h3>Escolha o produto</h3><p>Veja fotos oficiais e detalhes registrados.</p></div><div class="step"><span>02 / SACOLA</span><h3>Junte os favoritos</h3><p>Adicione produtos e informe quantidades para consulta.</p></div><div class="step"><span>03 / CONVERSAR</span><h3>Confirme com a OSS</h3><p>Envie a lista pelo WhatsApp; valores, tamanhos e entrega são confirmados pela equipe.</p></div></div>
- </div></section>
- <section class="future" id="futuro" aria-labelledby="lab-title"><div class="container">
-  <div class="eyebrow">LABORATÓRIO DA FUTURA LOJA</div>
-  <div class="section-head"><div><h2 class="section-title" id="lab-title">Teste as próximas funções.</h2></div><p>Experimente os fluxos que usaremos no futuro. Tudo aqui é demonstração: não há pagamentos, fretes ou pedidos reais.</p></div>
-  <div class="future-grid">
-   <article class="future-feature"><div class="lab-icon" aria-hidden="true">01</div><h3>Pix e cartão</h3><p>Escolha uma forma de pagamento e veja uma confirmação simulada. Não solicitamos dados de cartão.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · SEM COBRANÇA</span><button type="button" class="demo-open" data-demo-open="payment" aria-controls="demoWorkspace" aria-expanded="true">Testar pagamento <span aria-hidden="true">↗</span></button></article>
-   <article class="future-feature"><div class="lab-icon" aria-hidden="true">02</div><h3>Frete por CEP</h3><p>Informe um CEP e percorra a etapa de entrega, sem inventar valores ou prazos de transportadoras.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · SEM COTAÇÃO</span><button type="button" class="demo-open" data-demo-open="shipping" aria-controls="demoWorkspace" aria-expanded="false">Testar frete <span aria-hidden="true">↗</span></button></article>
-   <article class="future-feature"><div class="lab-icon" aria-hidden="true">03</div><h3>Pedidos e estoque</h3><p>Crie pedidos de teste com sua sacola e gerencie quantidades fictícias, somente neste navegador.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · DADOS LOCAIS</span><button type="button" class="demo-open" data-demo-open="orders" aria-controls="demoWorkspace" aria-expanded="false">Testar pedidos <span aria-hidden="true">↗</span></button></article>
-  </div>
-  <div class="demo-workspace" id="demoWorkspace" aria-label="Simuladores da loja OSS">
-   <div class="demo-workspace-top"><div><span class="eyebrow">MODO DE TESTE</span><h3 id="demoWorkspaceTitle">Pagamento demonstrativo</h3></div><span class="demo-safe">NENHUMA TRANSAÇÃO REAL</span></div>
-   <div class="demo-panels">
-    <div class="demo-panel" id="demo-payment" data-demo-panel="payment">
-      <p class="demo-lead">Defina um valor <strong>fictício</strong>, selecione o método e simule o retorno de um checkout. Esse valor não é o preço dos kimonos.</p>
-      <div class="demo-fields">
-       <label class="field"><span>Valor fictício para teste (R$)</span><input id="demoAmount" type="text" inputmode="decimal" placeholder="Ex.: 150,00" maxlength="12" autocomplete="off"></label>
-       <fieldset class="method-picker"><legend>Método de pagamento</legend><label><input type="radio" name="demoMethod" value="Pix" checked> Pix</label><label><input type="radio" name="demoMethod" value="Cartão"> Cartão</label></fieldset>
-      </div>
-      <button type="button" id="demoStartPayment" class="main-btn">Gerar simulação de pagamento</button>
-      <div class="demo-feedback" id="paymentFeedback" role="status" aria-live="polite"></div>
-      <div class="demo-response" id="paymentResult" hidden><strong id="paymentResultTitle">Aguardando confirmação de teste</strong><p id="paymentResultText"></p><button type="button" class="main-btn" id="demoApprovePayment">Simular pagamento aprovado</button></div>
-      <p class="demo-disclaimer">Não informe dados reais de cartão, senhas ou chaves Pix. Nenhum banco ou gateway é acionado.</p>
-    </div>
-    <div class="demo-panel" id="demo-shipping" data-demo-panel="shipping" hidden>
-      <p class="demo-lead">Veja como funciona a etapa de CEP. Verificamos apenas o <strong>formato</strong> do código; não consultamos Correios nem transportadoras.</p>
-      <form id="demoShippingForm" class="demo-fields">
-       <label class="field"><span>CEP para teste</span><input id="demoCep" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" required></label>
-       <label class="field"><span>Modalidade ilustrativa</span><select id="demoShippingMethod"><option value="Entrega padrão">Entrega padrão (exemplo)</option><option value="Retirada">Retirada (exemplo)</option></select></label>
-       <button type="submit" class="main-btn demo-submit">Simular etapa de frete</button>
-      </form>
-      <div class="demo-response" id="shippingResult" role="status" aria-live="polite"></div>
-      <p class="demo-disclaimer">Preço, prazo e disponibilidade de retirada não são calculados. Precisaremos de peso, dimensões e integração real no futuro.</p>
-    </div>
-    <div class="demo-panel" id="demo-orders" data-demo-panel="orders" hidden>
-      <p class="demo-lead">O pedido e o estoque abaixo são <strong>apenas cenários locais</strong>. Abra a sacola, adicione um kimono e volte aqui para testar o fluxo.</p>
-      <div class="lab-toolbar"><button type="button" class="main-btn" id="demoCreateOrder">Criar pedido de teste da sacola</button><button type="button" class="lab-secondary" id="demoOpenCart">Abrir sacola</button><button type="button" class="lab-danger" id="demoClearOrders">Limpar pedidos de teste</button></div>
-      <div class="demo-feedback" id="ordersFeedback" role="status" aria-live="polite"></div>
-      <div class="demo-order-list" id="demoOrderList" aria-live="polite"></div>
-      <div class="demo-stock-head"><div><h4>Estoque de demonstração</h4><p>Os valores abaixo não representam o estoque verdadeiro da OSS.</p></div><button type="button" class="lab-secondary" id="demoStockExample">Preencher 5 unidades fictícias</button></div>
-      <div id="demoStockList" class="demo-stock-list"></div>
-      <div class="lab-toolbar"><button type="button" class="lab-secondary" id="demoSaveStock">Salvar quantidades de teste</button><button type="button" class="lab-danger" id="demoClearStock">Limpar estoque de teste</button></div>
-      <p class="demo-disclaimer">Dados guardados somente neste navegador, por meio do armazenamento local. Isso não é um painel administrativo nem atualiza o estoque da OSS.</p>
-    </div>
+ <section class="checkout-experience" id="como-funciona" aria-labelledby="checkout-heading"><div class="container">
+ <div class="experience-heading"><div><div class="eyebrow">DA VITRINE AO PEDIDO</div><h2 class="section-title" id="checkout-heading">Experimente comprar.</h2><p class="experience-intro">Uma experiência de loja em quatro etapas. Use os kimonos da vitrine, veja como seria escolher a entrega e finalize uma demonstração.</p></div><span class="preview-pill">PRÉVIA SEM COBRANÇA</span></div>
+ <div class="checkout-shell" id="experiencia">
+  <aside class="checkout-progress" aria-label="Etapas da experiência de compra">
+   <div class="progress-label">SEU PERCURSO</div>
+   <ol id="checkoutProgress"><li data-stage-nav="bag" aria-current="step"><span>01</span><div><strong>Sacola</strong><small>Produtos escolhidos</small></div></li><li data-stage-nav="delivery"><span>02</span><div><strong>Entrega</strong><small>CEP e modalidade</small></div></li><li data-stage-nav="payment"><span>03</span><div><strong>Pagamento</strong><small>Escolha ilustrativa</small></div></li><li data-stage-nav="done"><span>04</span><div><strong>Resumo</strong><small>Pedido fictício</small></div></li></ol>
+   <div class="progress-foot"><span class="proof-dot" aria-hidden="true"></span> Nenhum pedido real é gerado.</div>
+  </aside>
+  <div class="checkout-pane-wrap">
+   <div class="checkout-pane" data-checkout-stage="bag" id="checkoutBagPanel">
+    <div class="pane-eyebrow">ETAPA 01 / 04</div><h3>Confira sua escolha.</h3><p>Os produtos escolhidos aparecerão aqui. Para começar, adicione um kimono da vitrine acima.</p>
+    <div id="checkoutItems" class="checkout-items" aria-live="polite"></div>
+    <p id="checkoutBagEmpty" class="inline-note">Sua sacola está vazia. Escolha um kimono primeiro.</p>
+    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutNext" disabled>Continuar para entrega <span aria-hidden="true">→</span></button><a href="#catalogo" class="understated-link">Ver produtos ↑</a></div>
+   </div>
+   <form class="checkout-pane" data-checkout-stage="delivery" id="checkoutDeliveryPanel" hidden>
+    <div class="pane-eyebrow">ETAPA 02 / 04</div><h3>Como seria a entrega?</h3><p>Informe um CEP para testar o formato e selecione a modalidade desejada. Não há cálculo de frete ou prazo real.</p>
+    <div class="checkout-form-grid"><label class="checkout-field"><span>CEP para a demonstração</span><input type="text" id="checkoutCep" inputmode="numeric" autocomplete="off" placeholder="00000-000" maxlength="9" required></label><label class="checkout-field"><span>Modalidade ilustrativa</span><select id="checkoutDeliveryType"><option value="Entrega a combinar">Entrega a combinar</option><option value="Retirada a combinar">Retirada a combinar</option></select></label></div>
+    <div class="shipping-note">A OSS ainda precisará confirmar frete, prazo e disponibilidade. Esta etapa valida somente os oito dígitos do CEP.</div>
+    <p id="checkoutDeliveryError" class="form-error" role="status" aria-live="polite"></p>
+    <div class="pane-actions"><button type="submit" class="main-btn">Continuar para pagamento <span aria-hidden="true">→</span></button><button type="button" class="text-action" data-back="bag">Voltar</button></div>
+   </form>
+   <div class="checkout-pane" data-checkout-stage="payment" id="checkoutPaymentPanel" hidden>
+    <div class="pane-eyebrow">ETAPA 03 / 04</div><h3>Forma de pagamento.</h3><p>Veja como o cliente escolheria pagar. Não será pedido número de cartão, chave Pix ou qualquer valor.</p>
+    <fieldset class="payment-choices"><legend>Escolha apenas para visualização</legend><label class="payment-choice"><input type="radio" name="checkoutMethod" value="Pix" checked><span class="payment-symbol" aria-hidden="true">◇</span><span><strong>Pix</strong><small>Pagamento instantâneo — integração futura</small></span></label><label class="payment-choice"><input type="radio" name="checkoutMethod" value="Cartão"><span class="payment-symbol" aria-hidden="true">▤</span><span><strong>Cartão</strong><small>Crédito ou débito — integração futura</small></span></label></fieldset>
+    <div class="shipping-note">Preços dos kimonos e valor de entrega continuam sob consulta. Nenhuma cobrança será realizada.</div>
+    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutFinish">Concluir demonstração <span aria-hidden="true">→</span></button><button type="button" class="text-action" data-back="delivery">Voltar</button></div>
+   </div>
+   <div class="checkout-pane" data-checkout-stage="done" id="checkoutDonePanel" hidden>
+    <div class="done-mark" aria-hidden="true">✓</div><div class="pane-eyebrow">ETAPA 04 / 04</div><h3>Experiência concluída.</h3><p>Você percorreu as etapas de uma compra. O resumo abaixo é só uma demonstração, guardada neste navegador. Nenhuma venda foi registrada.</p>
+    <div id="checkoutReceipt" class="checkout-receipt" aria-live="polite"></div>
+    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutAgain">Fazer outro teste <span aria-hidden="true">→</span></button><a href="#catalogo" class="understated-link">Escolher produtos</a></div>
    </div>
   </div>
+ </div>
+ <div class="checkout-bottom"><details class="history-details" id="checkoutHistory"><summary>Histórico de demonstrações deste navegador <span aria-hidden="true">⌄</span></summary><div id="checkoutHistoryList" class="history-list"></div><button type="button" class="clear-history" id="checkoutClearHistory">Limpar histórico de teste</button></details><p>Pix, cartão e envio ainda precisam de integrações reais. Esta versão permite avaliar o percurso sem risco.</p></div>
  </div></section>
 </main>
 <footer class="footer"><div class="container footer-inner"><span>© OSS Kimonos · Ambiente experimental independente</span><span>Sem compra ou cobrança neste endereço.</span><a href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Visitar o site oficial ↗</a></div></footer>
