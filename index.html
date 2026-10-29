@@ -300,7 +300,7 @@ function move(dir){
 function refresh(){
  stop();
  if(paused||current||document.hidden||reduced.matches||!inView)return;
- autoplay=setInterval(()=>move(1),4200);
+ autoplay=setInterval(()=>move(1),2500);
 }
 function closeDetail(focus,writeHistory=true){
  const old=current;
