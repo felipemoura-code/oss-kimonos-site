@@ -162,7 +162,7 @@ test('fotos oficiais ampliam na propria pagina com teclado e botao de fechar', (
   assert.match(viewer, /event\.key!=='Enter'/);
   assert.match(viewer, /event\.key!==' '/);
   assert.match(viewer, /aria-label/);
-  assert.match(viewer, /return;\n  try\{/);
+  assert.match(viewer, /const parsed=new URL\(src,location.href\)/);
 });
 
 test('categoria do carrossel aceita link compartilhavel e botao voltar', () => {
