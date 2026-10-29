@@ -149,6 +149,39 @@ test('adaptador do painel da OSS nao altera site sem API configurada', () => {
   assert.match(adapter, /about_image/);
 });
 
+test('fotos oficiais ampliam na propria pagina com teclado e botao de fechar', () => {
+  const viewer = text('oss-photo-viewer.js');
+  new Script(viewer, { filename:'oss-photo-viewer.js' });
+  assert.match(home, /src="\/oss-photo-viewer\.js"/);
+  assert.match(store, /src="\/oss-photo-viewer\.js"/);
+  assert.match(viewer, /\.detail-item img\.detail-item-photo/);
+  assert.match(viewer, /\.card img\.photo/);
+  assert.match(viewer, /\.showModal\(\)/);
+  assert.match(viewer, /\.close\(\)/);
+  assert.match(viewer, /MutationObserver/);
+  assert.match(viewer, /event\.key!=='Enter'/);
+  assert.match(viewer, /event\.key!==' '/);
+  assert.match(viewer, /aria-label/);
+  assert.match(viewer, /return;\n  try\{/);
+});
+
+test('categoria do carrossel aceita link compartilhavel e botao voltar', () => {
+  assert.match(home, /history\.pushState/);
+  assert.match(home, /#colecao-['"]?\+key/);
+  assert.match(home, /window\.addEventListener\('popstate',syncCategoryFromUrl\)/);
+  assert.match(home, /window\.addEventListener\('hashchange',syncCategoryFromUrl\)/);
+  assert.match(home, /closeDetails\(false,false\)/);
+  assert.match(home, /selectCategory\(key,card,false\)/);
+  assert.match(home, /location\.hash\.slice\(9\)/);
+});
+
+test('seletor da loja no celular e horizontal e mostra categoria escolhida', () => {
+  assert.match(store, /\.categories\{display:flex;overflow-x:auto/);
+  assert.match(store, /\.categories \.category\{flex:0 0 auto/);
+  assert.match(store, /categoryStrip\.scrollTo/);
+  assert.match(store, /button\.setAttribute\("aria-pressed",String\(selected\)\)/);
+});
+
 test('imagens HTML usam descricao alternativa', () => {
   for (const page of [home, store]) {
     for (const match of page.matchAll(/<img\b[^>]*>/g)) {
