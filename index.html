@@ -408,7 +408,6 @@ byId('closeProduct').addEventListener('click',()=>detailDialog.close());
 byId('detailAdd').addEventListener('click',()=>{const id=state.detail;detailDialog.close();addProduct(id);});
 byId('sendRequest').addEventListener('click',sendRequest);
 for(const dialog of [cartDialog,detailDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-demoLoad();demoRenderOrders();demoSwitch("payment",false);
 
 /* Simuladores locais: nenhum dado é transmitido como pagamento, frete ou pedido. */
 const demo={orders:[],stock:{},pendingPayment:null};
@@ -597,7 +596,11 @@ byId('demoClearOrders').addEventListener('click',()=>{
  demoFeedback('ordersFeedback','Pedidos de teste apagados. As unidades fictícias debitadas foram restituídas ao cenário.');
 });
 
-cartRead();load();
+demoLoad();
+cartRead();
+demoRenderOrders();
+demoSwitch('payment',false);
+load();
 })();
 </script>
 </body>
