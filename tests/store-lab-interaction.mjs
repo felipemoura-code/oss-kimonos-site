@@ -1,119 +1,117 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import vm from 'node:vm';
+import {runInNewContext} from 'node:vm';
+
 const html=readFileSync('index.html','utf8');
 const catalog=JSON.parse(readFileSync('catalogo.json','utf8'));
-const code=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
-assert.ok(code,'Application script missing');
-class FakeElement{
- constructor(tag='div'){this.tagName=tag.toUpperCase();this.dataset={};this.attrs={};this.children=[];this.handlers=new Map();this.parentElement=null;this.hidden=false;this.disabled=false;this.open=false;this.textContent='';this.value='';this.style={};this.className='';this.classList={toggle:(key,on)=>{this.toggled=this.toggled||{};this.toggled[key]=on;}};}
- addEventListener(type,cb){const a=this.handlers.get(type)||[];a.push(cb);this.handlers.set(type,a);}
- emit(type,extra={}){const e={type,target:this,preventDefault(){this.defaultPrevented=true;},...extra};for(const cb of this.handlers.get(type)||[])cb(e);return e;}
- click(){return this.emit('click');}
- append(...items){for(const x of items){if(x){this.children.push(x);x.parentElement=this;}}}
- replaceChildren(...items){this.children=[];this.append(...items);}
- setAttribute(key,val){this.attrs[key]=String(val);if(key.startsWith('data-'))this.dataset[key.slice(5).replace(/-([a-z])/g,(_,x)=>x.toUpperCase())]=String(val);}
- removeAttribute(key){delete this.attrs[key];}
- getAttribute(key){return this.attrs[key]??null;}
- showModal(){this.open=true;}close(){this.open=false;}scrollIntoView(){this.wasScrolled=true;}
- matches(selector){const key=selector.match(/^\[data-([a-z-]+)\]$/)?.[1];if(key){const k=key.replace(/-([a-z])/g,(_,x)=>x.toUpperCase());return this.dataset[k]!==undefined;}return false;}
- closest(selector){let x=this;while(x){if(x.matches?.(selector))return x;x=x.parentElement;}return null;}
- querySelectorAll(selector){const out=[];const walk=(x)=>{for(const ch of x.children){if(ch.matches?.(selector))out.push(ch);walk(ch);}};walk(this);return out;}
+const script=html.match(/<script>([\s\S]*?)<\/script>/)?.[1];
+assert.ok(script,'App script not found');
+
+class Node {
+ constructor(tag='div'){
+  this.tagName=tag.toUpperCase();this.dataset={};this.attributes={};this.children=[];
+  this.parentElement=null;this.className='';this.textContent='';this.hidden=false;
+  this.disabled=false;this.open=false;this.value='';this.listeners={};this.style={};
+ }
+ append(...nodes){for(const n of nodes){if(n){this.children.push(n);n.parentElement=this;}}}
+ replaceChildren(...nodes){this.children=[];this.append(...nodes);}
+ addEventListener(type,cb){(this.listeners[type]??=[]).push(cb);}
+ emit(type,extra={}){const e={target:this,preventDefault(){},...extra};for(const cb of this.listeners[type]||[])cb(e);}
+ click(){this.emit('click');}
+ setAttribute(name,v){
+  this.attributes[name]=String(v);
+  if(name.startsWith('data-'))this.dataset[name.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase())]=String(v);
+ }
+ getAttribute(name){return this.attributes[name]??null;}
+ closest(selector){if(selector==='[data-filter]'&&this.dataset.filter!==undefined)return this;return null;}
+ matches(selector){return selector==='[data-filter]'&&this.dataset.filter!==undefined;}
+ querySelectorAll(selector){
+  const result=[];
+  const visit=n=>{for(const c of n.children){if(c.matches(selector))result.push(c);visit(c);}};
+  visit(this);return result;
+ }
+ showModal(){this.open=true;}close(){this.open=false;}
 }
-function browser(){
- const ids=new Map(),selectorNodes=[];
- for(const m of html.matchAll(/<([a-z][\w-]*)([^>]*\sid="([^"]+)"[^>]*)>/gi)){
-  const node=new FakeElement(m[1]);node.id=m[3];ids.set(m[3],node);
-  for(const d of m[2].matchAll(/\b(data-[\w-]+)="([^"]+)"/g))node.setAttribute(d[1],d[2]);
- }
- for(const key of ['checkout-stage','stage-nav','back']){
-  const rx=new RegExp('<([a-z][\\w-]*)([^>]*\\sdata-'+key+'="([^"]+)"[^>]*)>','gi');
-  for(const m of html.matchAll(rx)){
-   const id=m[2].match(/\bid="([^"]+)"/)?.[1];
-   const el=(id?ids.get(id):null)||new FakeElement(m[1]);
-   el.setAttribute('data-'+key,m[3]);selectorNodes.push(el);
-  }
- }
+function mockBrowser(){
+ const ids=new Map();
+ for(const m of html.matchAll(/<([a-z][\w-]*)([^>]*\sid="([^"]+)"[^>]*)>/gi)){const n=new Node(m[1]);n.id=m[3];ids.set(m[3],n);}
  const filters=ids.get('filters');
- for(const m of html.matchAll(/<button[^>]*data-filter="([^"]+)"[^>]*>/g)){
-  const btn=new FakeElement('button');btn.dataset.filter=m[1];filters.append(btn);
- }
+ for(const m of html.matchAll(/<button[^>]*data-filter="([^"]+)"[^>]*>/g)){const n=new Node('button');n.dataset.filter=m[1];filters.append(n);}
  const document={
-  getElementById(id){const v=ids.get(id);if(!v)throw Error('Missing DOM #'+id);return v;},
-  createElement(tag){return new FakeElement(tag);},
-  querySelectorAll(selector){return selectorNodes.filter(n=>n.matches(selector));},
-  querySelector(selector){if(selector==='input[name="checkoutMethod"]:checked')return {value:'Pix'};return null;}
+  getElementById(id){const n=ids.get(id);if(!n)throw Error('Missing required element #'+id);return n;},
+  createElement(tag){return new Node(tag);}
  };
- const storage=new Map(),popups=[];
- const localStorage={getItem(k){return storage.get(k)??null;},setItem(k,v){storage.set(k,String(v));}};
- const window={matchMedia(){return {matches:false};},open(...args){popups.push(args);}};
- const fetch=async u=>{if(u!=='/catalogo.json')throw Error('Network call blocked: '+u);return {ok:true,json:async()=>catalog};};
- return {ids,selectorNodes,document,localStorage,window,fetch,popups,storage};
+ const store=new Map(),popups=[];
+ const localStorage={getItem(k){return store.get(k)??null;},setItem(k,v){store.set(k,String(v));}};
+ const window={open(...args){popups.push(args);}};
+ const fetch=async url=>{assert.equal(url,'/catalogo.json');return {ok:true,json:async()=>catalog};};
+ return {ids,document,window,localStorage,fetch,popups,store};
 }
 async function boot(){
- const app=browser();
- vm.runInNewContext(code,{document:app.document,window:app.window,localStorage:app.localStorage,fetch:app.fetch,Date,Intl,console,encodeURIComponent},{filename:'OSS Store Lab',timeout:6000});
+ const ctx=mockBrowser();
+ runInNewContext(script,{document:ctx.document,window:ctx.window,fetch:ctx.fetch,localStorage:ctx.localStorage,encodeURIComponent,Intl,Date,console},
+  {filename:'oss-shop.js',timeout:6000});
  await new Promise(resolve=>setImmediate(resolve));
- return app;
+ return ctx;
 }
-function addFirstProduct(app){
- const card=app.ids.get('products').children[0];
- const body=card.children.find(x=>x.className==='card-body');
- const buttons=body.children.find(x=>x.className==='card-actions');
- buttons.children.find(x=>x.className==='add').click();
-}
-test('page really boots, fetches official records and initializes checkout panes',async()=>{
- const app=await boot();
- assert.equal(app.ids.get('products').children.length,3);
- assert.equal(app.ids.get('catalogCount').textContent,'3 registros oficiais');
- assert.equal(app.ids.get('checkoutBagPanel').hidden,false);
- assert.equal(app.ids.get('checkoutDeliveryPanel').hidden,true);
- assert.equal(app.ids.get('checkoutNext').disabled,true);
- assert.equal(app.ids.get('checkoutHistoryList').children.length,1);
-});
-test('one coherent customer flow: add kimono, review bag, type CEP, preview Pix and finish without charge',async()=>{
- const app=await boot(),n=app.ids;
- addFirstProduct(app);
- assert.equal(n.get('bagCount').textContent,1);
- assert.equal(n.get('cartDialog').open,true);
- n.get('checkoutFromBag').click();
- assert.equal(n.get('cartDialog').open,false);
- assert.equal(n.get('checkoutItems').children.length,1);
- assert.equal(n.get('checkoutNext').disabled,false);
- n.get('checkoutNext').click();
- assert.equal(n.get('checkoutDeliveryPanel').hidden,false);
- n.get('checkoutCep').value='bad';
- n.get('checkoutDeliveryPanel').emit('submit');
- assert.match(n.get('checkoutDeliveryError').textContent,/CEP/);
- n.get('checkoutCep').value='13010-110';
- n.get('checkoutDeliveryType').value='Entrega a combinar';
- n.get('checkoutDeliveryPanel').emit('submit');
- assert.equal(n.get('checkoutPaymentPanel').hidden,false);
- n.get('checkoutFinish').click();
- assert.equal(n.get('checkoutDonePanel').hidden,false);
- assert.match(n.get('checkoutReceipt').children.map(x=>x.textContent).join(' '),/nenhum pagamento ou pedido real/i);
- assert.equal(n.get('bagCount').textContent,0);
- assert.equal(n.get('checkoutHistoryList').children.length,1);
- assert.ok(app.storage.has('oss-store-lab-journey-v2'));
+function productCard(app,index=0){return app.ids.get('products').children[index];}
+function actions(card){const info=card.children.find(x=>x.className==='product-info');return info.children.find(x=>x.className==='product-actions');}
+test('page boots, loads all official photo records and renders real product cards',async()=>{
+ const app=await boot();const ids=app.ids;
+ assert.equal(ids.get('products').children.length,3);
+ assert.equal(ids.get('catalogCount').textContent,'3 modelos em destaque');
+ assert.equal(ids.get('bagCount').textContent,'0');
+ assert.equal(ids.get('emptyState').hidden,true);
  assert.equal(app.popups.length,0);
 });
-test('flow protects empty bag, allows back navigation and can reset local history',async()=>{
- const app=await boot(),n=app.ids;
- n.get('checkoutNext').click();
- assert.equal(n.get('checkoutDeliveryPanel').hidden,true);
- addFirstProduct(app);n.get('closeCart').click();
- n.get('checkoutNext').click();
- const back=app.selectorNodes.find(x=>x.dataset.back==='bag');
- back.click();assert.equal(n.get('checkoutBagPanel').hidden,false);
- n.get('checkoutClearHistory').click();
- assert.equal(n.get('checkoutHistoryList').children.length,1);
+test('detail view opens and selection cart persists a real product',async()=>{
+ const app=await boot(),ids=app.ids;
+ actions(productCard(app)).children.find(x=>x.className==='ghost').click();
+ assert.equal(ids.get('detailDialog').open,true);
+ assert.match(ids.get('detailHeading').textContent,/Kimono OSS/);
+ ids.get('detailAdd').click();
+ assert.equal(ids.get('detailDialog').open,false);
+ assert.equal(ids.get('bagDialog').open,true);
+ assert.equal(ids.get('bagCount').textContent,'1');
+ assert.equal(ids.get('bagLines').children.length,1);
+ assert.ok(app.store.get('oss-shop-favorites-v1')?.includes('FOTO-OSS-'));
 });
-test('real consultative WhatsApp remains separate from the no-payment checkout',async()=>{
- const app=await boot(),n=app.ids;
- addFirstProduct(app);
- n.get('sendRequest').click();
+test('quantities increase and decrease and a WhatsApp inquiry contains the real product name',async()=>{
+ const app=await boot(),ids=app.ids;
+ actions(productCard(app)).children.find(x=>x.className==='primary').click();
+ const qty=ids.get('bagLines').children[0].children[1].children.find(x=>x.className==='qty');
+ qty.children[2].click();assert.equal(ids.get('bagCount').textContent,'2');
+ ids.get('sendQuote').click();
  assert.equal(app.popups.length,1);
- assert.match(app.popups[0][0],/^https:\/\/wa\.me\/5519997121912/);
- assert.equal(n.get('checkoutDonePanel').hidden,true);
+ assert.match(app.popups[0][0],/^https:\/\/wa\.me\/5519997121912\?text=/);
+ const msg=decodeURIComponent(app.popups[0][0].split('?text=')[1]);
+ assert.match(msg,/2x Kimono OSS/);
+ assert.match(msg,/tamanhos, preços/);
+ qty.children[0].click();assert.equal(ids.get('bagCount').textContent,'1');
+ ids.get('bagLines').children[0].children[1].children.find(x=>x.className==='qty').children[3].click();
+ assert.equal(ids.get('bagCount').textContent,'0');
+ assert.equal(ids.get('bagEmpty').hidden,false);
+});
+test('search actually filters products and empty state appears for unrelated terms',async()=>{
+ const app=await boot(),ids=app.ids;
+ ids.get('search').emit('input',{target:{value:'feminina'}});
+ assert.equal(ids.get('products').children.length,1);
+ ids.get('search').emit('input',{target:{value:'não existe xyz'}});
+ assert.equal(ids.get('products').children.length,0);
+ assert.equal(ids.get('emptyState').hidden,false);
+ ids.get('search').emit('input',{target:{value:''}});
+ assert.equal(ids.get('products').children.length,3);
+});
+test('category filter updates pressed state and photo gallery is authentic',async()=>{
+ const app=await boot(),ids=app.ids;
+ const btn=ids.get('filters').children[1];
+ ids.get('filters').emit('click',{target:btn});
+ assert.equal(btn.getAttribute('aria-pressed'),'true');
+ assert.equal(ids.get('products').children.length,3);
+ for(const card of ids.get('products').children){
+  const image=card.children.find(x=>x.className==='product-visual').children[0];
+  assert.match(image.src,/^\/assets\/[a-z0-9-]+\.webp$/);
+  assert.match(image.alt,/oficial OSS/);
+ }
 });
