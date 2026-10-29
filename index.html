@@ -3,496 +3,313 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10100e">
+<meta name="theme-color" content="#10100f">
 <meta name="robots" content="noindex,nofollow">
-<meta name="description" content="Ambiente de testes da futura loja OSS Kimonos. Explore produtos reais e monte uma consulta sem pagamento online.">
-<title>OSS Store Lab — Loja experimental</title>
+<meta name="description" content="Conheça a coleção de kimonos OSS, selecione seus favoritos e consulte a equipe pelo WhatsApp. Loja em preparação para vendas online.">
+<title>Loja OSS Kimonos | Kimonos e coleção</title>
 <link rel="icon" href="/assets/oss-logo.png" type="image/png">
 <link rel="preload" as="image" href="/assets/banner-oss-tres-modelos.webp">
 <style>
-:root{--bg:#0e0e0e;--panel:#171614;--panel2:#201d1a;--ink:#f8f5ef;--muted:#b6b0a7;--gold:#cbb18b;--gold2:#e4d2b6;--line:#453e34;--max:1230px;color-scheme:dark}
+:root{color-scheme:light;--black:#121311;--dark:#191a17;--line:#e3ded6;--paper:#f8f6f1;--white:#fff;--ink:#20211f;--sub:#67645e;--gold:#c9a678;--mutedgold:#9b7752}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth;scroll-padding-top:91px}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-button,input{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
-button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold2);outline-offset:4px}
-img{max-width:100%}
-[hidden]{display:none!important}
-.container{width:min(var(--max),calc(100% - 60px));margin-inline:auto}
-.skip{position:absolute;left:9px;top:-80px;background:var(--gold);color:#17130b;padding:12px;z-index:20}
-.skip:focus{top:9px}
-.sandbox{display:flex;justify-content:center;align-items:center;gap:12px;background:#4c3320;color:#f9e4c8;font-size:11px;font-weight:800;letter-spacing:.11em;text-align:center;padding:8px 14px}
-.sandbox .dot{height:7px;width:7px;background:#e9c98b;border-radius:50%}
-.header{position:sticky;top:0;background:#10100ff5;z-index:10;border-bottom:1px solid #3d342c;backdrop-filter:blur(15px)}
-.header-inner{height:82px;display:flex;align-items:center;gap:28px;justify-content:space-between}
-.brand{display:flex;align-items:center;gap:11px;min-width:0}.brand img{width:122px;height:62px;object-fit:contain}.brand span{border-left:1px solid #4d4439;padding-left:12px;font-size:10px;color:var(--gold2);letter-spacing:.22em;font-weight:900;white-space:nowrap}
-.nav{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:700;color:#e2ded8}.nav a:hover{color:var(--gold)}
-.header-tools{display:flex;align-items:center;gap:10px}
-.bag{display:inline-flex;align-items:center;gap:13px;padding:11px 15px;border:1px solid var(--gold);color:var(--gold2);background:transparent;border-radius:3px;font-weight:800;font-size:13px;white-space:nowrap}
-.bag em{font-style:normal;background:var(--gold);color:#191510;border-radius:50%;width:21px;height:21px;display:grid;place-items:center;font-size:11px}
-.official-link{font-size:12px;color:#dbd2c6;text-decoration:underline;text-underline-offset:4px}
-.hero{background:radial-gradient(ellipse at 87% 42%,#463423,#151412 58%,#0e0e0e);border-bottom:1px solid #39312b;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 1.02fr;align-items:center;gap:35px;min-height:540px}
-.eyebrow{color:var(--gold);letter-spacing:.18em;font-size:11px;font-weight:900;text-transform:uppercase}
-.hero h1,.section-title,h2,h3{font-family:Impact,"Arial Narrow",system-ui,sans-serif;font-stretch:condensed;letter-spacing:.025em}
-.hero h1{font-size:clamp(48px,5.4vw,85px);line-height:1.04;margin:17px 0 19px;font-weight:800;max-width:680px;text-transform:uppercase}
-.hero h1 span{display:block;color:var(--gold2)}
-.hero p{max-width:480px;color:#c8c0b6;font-size:16px;margin-bottom:27px}
-.hero-cta,.main-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;background:var(--gold);color:#19160f;font-size:13px;font-weight:900;letter-spacing:.04em;padding:14px 20px;border:1px solid var(--gold);border-radius:3px}
-.hero-cta:hover,.main-btn:hover{background:#e2cba7}
-.hero-visual{position:relative;display:flex;align-items:center;justify-content:center;height:520px;background:radial-gradient(ellipse at 50% 50%,#493b2c,#1c1915 70%,transparent);overflow:hidden}
-.hero-visual img{width:100%;height:100%;object-fit:contain;object-position:center bottom;filter:saturate(.98)}
-.hero-label{position:absolute;bottom:15px;right:17px;font-weight:900;letter-spacing:.18em;font-size:10px;background:#100e0bbc;padding:10px 12px}
-.hero-tags{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;color:#bcae98;font-size:11px}
-.hero-tags span{border-left:1px solid var(--gold);padding-left:9px}
-.section{padding:75px 0}
-.section-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:27px}
-.section-title{font-size:clamp(37px,4.5vw,62px);line-height:1.08;text-transform:uppercase;margin:10px 0 0}
-.section-head p{max-width:375px;margin:0;color:var(--muted);font-size:13px}
-.catalog{background:#141310}
-.filters{display:flex;gap:9px;overflow-x:auto;padding:5px 0 17px;scrollbar-width:thin}
-.chip{border:1px solid #51483c;background:#1f1c18;color:#d9d2c7;border-radius:2px;padding:10px 14px;white-space:nowrap;font-size:12px;font-weight:800}
-.chip[aria-pressed="true"]{background:var(--gold);color:#16130e;border-color:var(--gold)}
-.searchbar{display:flex;gap:12px;align-items:center;margin-bottom:24px}
-.searchbar label{font-size:12px;color:var(--muted);font-weight:700}
-.searchbar input{width:min(390px,100%);padding:12px 14px;background:#211f1b;border:1px solid #51483c;color:#fff;border-radius:3px}
-.catalog-count{margin-left:auto;font-size:12px;color:var(--gold2);white-space:nowrap}
-.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
-.card{border:1px solid #3f3930;background:#1c1a17;display:flex;flex-direction:column;min-width:0}
-.card-photo{background:radial-gradient(ellipse at center,#5b4f42,#2b2926);position:relative;overflow:hidden;aspect-ratio:4/4.4;min-height:260px;display:flex}
-.card-photo img{width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .4s}
-.card:hover .card-photo img{transform:scale(1.025)}
-.photo-label{position:absolute;top:14px;left:14px;font-size:10px;letter-spacing:.1em;font-weight:800;color:#fff;background:#100f0edb;border:1px solid #7d7163;padding:6px 9px}
-.card-body{padding:20px;display:flex;flex-direction:column;flex:1}
-.card-meta{font-size:10px;letter-spacing:.12em;color:var(--gold);font-weight:800}
-.card h3{font-size:27px;line-height:1.1;font-weight:700;margin:9px 0 9px;text-transform:uppercase}
-.card p{font-size:12px;color:#bfb5aa;line-height:1.6;margin:0 0 18px}
-.price{margin-top:auto;font-size:14px;font-weight:800}
-.price small{display:block;font-size:11px;color:#afa499;font-weight:400;margin-top:3px}
-.card-actions{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:18px}
-.add{border:1px solid var(--gold);background:var(--gold);color:#14120e;padding:12px 10px;font-size:12px;font-weight:900;border-radius:3px}
-.more{border:1px solid #8a7860;color:#f3e8d6;background:transparent;border-radius:3px;font-size:12px;font-weight:700;padding:10px 13px}
-.empty{background:#201d19;padding:35px;border:1px solid #4f4438;text-align:center;color:#d8cfc4}
-.empty strong{display:block;font-size:23px;margin-bottom:7px;color:#fff}
-.status-note{margin:18px 0 0;color:#aea496;font-size:12px}
-.checkout-section{border-top:1px solid #3d362e;background:#100f0e}
-.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
-.step{background:#1e1b17;border:1px solid #43392f;padding:22px}
-.step span{font-size:10px;color:var(--gold);letter-spacing:.17em;font-weight:900}
-.step h3{font-size:25px;margin:12px 0 8px}
-.step p{font-size:13px;color:#bcb2a5;margin:0}
-.future{padding:70px 0;background:#181612}
-.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:24px}
-.future-feature{border:1px solid #43392f;padding:20px;background:#211e19}
-.future-feature h3{font-size:23px;margin:0 0 8px}
-.future-feature p{margin:0;font-size:12px;color:#bcb2a5}
-.future-feature .tag{color:var(--gold2);display:block;font-weight:800;font-size:10px;letter-spacing:.13em;margin-top:16px}
-.footer{border-top:1px solid #3b342b;background:#0c0c0c;padding:32px 0}
-.footer-inner{display:flex;justify-content:space-between;align-items:center;gap:15px;color:#a69b8d;font-size:12px}
-.footer a{text-decoration:underline;text-underline-offset:3px}
-dialog{padding:0;max-width:calc(100% - 20px);color:var(--ink);border:1px solid #675840;background:#171614;box-shadow:0 20px 90px #000c}
-dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
-#cartDialog{margin:0 0 0 auto;width:min(480px,100vw);height:100dvh;max-height:100dvh;border-radius:0;overflow:auto}
-.drawer-header{padding:23px;border-bottom:1px solid #40382f;display:flex;align-items:center;justify-content:space-between}
-.drawer-header h2{font-size:30px;margin:0}
-.close{background:transparent;color:#fff;border:1px solid #655641;padding:7px 12px;font-weight:800}
-.drawer-body{padding:22px}
-.drawer-empty{color:#c4b7a7}
-.cart-line{display:grid;grid-template-columns:80px minmax(0,1fr);gap:15px;margin-bottom:14px;border-bottom:1px solid #39322a;padding:0 0 16px}
-.cart-line img{width:80px;height:96px;object-fit:contain;background:#302a23}
-.cart-line strong{font-size:13px}
-.cart-line .minor{font-size:11px;color:#b9aa94;margin:5px 0}
-.qty{display:flex;align-items:center;gap:12px}
-.qty button{border:1px solid #685a48;background:#28231d;color:#fff;width:29px;height:29px}
-.qty output{min-width:13px;text-align:center}
-.remove{margin-left:auto;background:transparent;border:0;color:#e3be98;font-size:11px;text-decoration:underline}
-.drawer-summary{border-top:1px solid #544637;padding-top:20px;margin-top:15px}
-.drawer-summary p{color:#bcb2a5;font-size:13px}
-.drawer-summary .main-btn{width:100%}
-.drawer-summary small{display:block;margin:13px 0;color:#aaa097;font-size:11px;text-align:center}
-#productDialog{width:min(760px,95vw);max-height:85dvh;overflow:auto}
-.detail-layout{display:grid;grid-template-columns:1fr 1fr;gap:25px;padding:22px}
-.detail-layout img{width:100%;height:370px;object-fit:contain;background:#322d26}
-.detail-layout h2{font-size:36px;margin:8px 0}
-.detail-layout p{color:#c6bdb1;font-size:13px}
-.detail-layout .main-btn{margin-top:24px}
-.loading{color:#cfc0a5;padding:32px;text-align:center}
-@media(max-width:980px){.nav{gap:13px}.hero-grid{gap:10px}.brand span{display:none}.card h3{font-size:23px}}
-@media(max-width:720px){
- .container{width:calc(100% - 30px)}.header-inner{height:66px;gap:8px}.brand img{width:106px;height:52px}.nav{display:none}.bag{padding:9px;font-size:12px;gap:7px}.official-link{font-size:11px}
- .hero-grid{display:flex;flex-direction:column;min-height:0;align-items:stretch;gap:0}
- .hero-text{padding:42px 0 18px}.hero h1{font-size:clamp(40px,10.5vw,60px);margin:13px 0}.hero p{font-size:14px}
- .hero-tags{margin-top:22px;gap:10px}.hero-visual{height:320px;border-top:1px solid #3c3329}
- .hero-visual img{height:100%;width:100%;object-fit:contain}
- .section{padding:53px 0}.section-head{flex-direction:column;align-items:flex-start;gap:10px}
- .section-title{font-size:41px}.filters{margin-right:-15px}.searchbar{flex-wrap:wrap}.searchbar label{width:100%}.searchbar input{width:100%}.catalog-count{margin-left:0}
- .products{grid-template-columns:1fr;gap:14px}.card-photo{aspect-ratio:1.25;min-height:260px}.card h3{font-size:27px}
- .steps,.future-grid{grid-template-columns:1fr}.future,.checkout-section{padding:53px 0}
- .footer-inner{flex-wrap:wrap}.detail-layout{grid-template-columns:1fr}.detail-layout img{height:250px}
+html{scroll-behavior:smooth;scroll-padding-top:85px}
+body{margin:0;color:var(--ink);background:var(--paper);font-family:Inter,"Segoe UI",Arial,Helvetica,sans-serif;font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+img{max-width:100%;display:block}[hidden]{display:none!important}
+.wrap{width:min(1230px,calc(100% - 48px));margin-inline:auto}
+.skip{position:absolute;left:10px;top:-90px;z-index:100;background:#f6ddaf;color:#15130f;padding:12px}.skip:focus{top:10px}
+.preview{background:#30271d;color:#e8d2b4;text-align:center;padding:7px 15px;font-size:10px;font-weight:700;letter-spacing:.035em}
+.header{position:sticky;top:0;z-index:20;background:#101110f7;color:#f6f4ef;border-bottom:1px solid #302f2b;backdrop-filter:blur(14px)}
+.header-row{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:79px}
+.brand{display:inline-flex;align-items:center;min-width:115px}
+.brand img{width:126px;height:59px;object-fit:contain}
+.nav{display:flex;align-items:center;gap:32px;font-size:12px;letter-spacing:.015em;font-weight:700}
+.nav a{color:#e3dfd8}.nav a:hover{color:#dab993}
+.header-actions{display:flex;align-items:center;gap:19px}
+.header-whatsapp{font-size:12px;color:#d2bb98;font-weight:700;white-space:nowrap}
+.header-bag{display:flex;gap:11px;align-items:center;background:none;border:1px solid #695744;color:#f0e8dd;border-radius:2px;padding:10px 14px;font-weight:750;font-size:12px;white-space:nowrap}
+.header-bag:hover{border-color:#d9b487}
+.header-bag span{min-width:21px;height:21px;display:grid;place-items:center;border-radius:50%;background:#d9bd94;color:#191714;font-size:11px}
+.hero{color:#f4f1eb;background:#141514;overflow:hidden}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);min-height:515px;align-items:center;gap:35px}
+.kicker{font-size:10px;font-weight:850;letter-spacing:.23em;text-transform:uppercase;color:#d6b588}
+.hero-copy{padding:48px 0}
+.hero h1{font-size:clamp(46px,5.35vw,77px);letter-spacing:-.057em;line-height:1.04;font-weight:800;margin:16px 0 19px}
+.hero h1 span{color:#ddc09b}
+.hero p{font-size:16px;line-height:1.8;color:#c7c3bc;max-width:460px;margin:0 0 27px}
+.hero-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap}
+.primary{display:inline-flex;align-items:center;justify-content:center;gap:12px;background:var(--black);color:#fff;border:1px solid var(--black);padding:12px 17px;border-radius:2px;font-size:12px;font-weight:800;min-height:46px}
+.primary:hover{background:#37302a}
+.primary.light{background:#d6b88f;color:#1a1714;border-color:#d6b88f}
+.primary.light:hover{background:#f0d3ad}
+.soft-link{font-size:12px;text-decoration:underline;text-underline-offset:5px;font-weight:750}
+.hero-photo{height:515px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:radial-gradient(ellipse at center,#3f3830,#1d1b18 68%,#121312)}
+.hero-photo img{height:100%;width:100%;object-fit:contain;object-position:center bottom}
+.section{padding:70px 0}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:27px}
+.eyebrow{font-size:10px;font-weight:850;letter-spacing:.19em;text-transform:uppercase;color:#9e7852}
+h2,h3,h4,p{margin-top:0}
+.section h2,.brand-copy h2,.contact h2{font-size:clamp(30px,3.4vw,48px);line-height:1.15;letter-spacing:-.045em;font-weight:800;margin:8px 0 0}
+.section-head p{font-size:13px;color:var(--sub);max-width:365px;line-height:1.7;margin:0}
+.catalog-tools{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:0 0 23px}
+.filters{display:flex;gap:9px}
+.filter{background:transparent;border:1px solid #c7c0b5;color:#463f39;padding:10px 17px;font-size:12px;font-weight:750;border-radius:2px}
+.filter[aria-pressed="true"]{background:#211f1c;color:white;border-color:#211f1c}
+.search{display:flex;gap:9px;align-items:center;min-width:min(310px,100%)}
+.search label{color:#706b64;font-size:12px;font-weight:700}
+.search input{border:1px solid #c8c1b6;background:#fff;padding:11px 13px;min-height:44px;width:100%;border-radius:2px;color:#1e1c1a}
+.count{color:#8a8176;font-size:11px;margin:-4px 0 15px}
+.products{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.product{min-width:0;background:#fff;border:1px solid #e1ded7;display:flex;flex-direction:column}
+.product-visual{position:relative;aspect-ratio:1/1.07;background:#e8e6e1;overflow:hidden}
+.product-visual img{width:100%;height:100%;object-fit:contain;transition:transform .35s ease}
+.product:hover .product-visual img{transform:scale(1.025)}
+.product-info{padding:19px 19px 20px;display:flex;flex:1;flex-direction:column}
+.product-line{font-size:10px;letter-spacing:.08em;color:#9a8066;font-weight:850;text-transform:uppercase}
+.product h3{font-size:22px;letter-spacing:-.035em;line-height:1.2;font-weight:800;margin:7px 0}
+.product-desc{font-size:12px;color:#716b63;line-height:1.6;margin-bottom:19px}
+.product-price{margin-top:auto;font-size:13px;font-weight:750;color:#2d2c29}
+.product-price span{font-size:11px;color:#77706a;display:block;font-weight:400;margin-top:2px}
+.product-actions{display:grid;grid-template-columns:1fr auto;gap:9px;margin-top:16px}
+.product-actions .primary{padding:11px 13px}
+.ghost{background:#fff;color:#302c28;border:1px solid #afa79c;padding:10px 14px;border-radius:2px;font-size:12px;font-weight:750}
+.ghost:hover{background:#f5f1e9}
+.empty{padding:30px;background:white;border:1px solid var(--line);color:#5d564f}
+.empty strong{display:block;margin-bottom:5px}
+.catalog-status{color:#7b5b3d;font-size:12px}
+.lines{padding:49px 0 58px;background:#eeeae3;border-top:1px solid #e3ddd4;border-bottom:1px solid #e3ddd4}
+.lines-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:21px}
+.lines h2{font-size:clamp(26px,2.8vw,38px);font-weight:800;letter-spacing:-.035em;line-height:1.2;margin:8px 0 0}
+.lines-head p{font-size:12px;color:#777066;max-width:360px;margin:0}
+.line-links{display:flex;gap:9px;flex-wrap:wrap}
+.line-links a{display:inline-flex;gap:16px;justify-content:space-between;align-items:center;background:#faf9f5;border:1px solid #d5cbbf;color:#38322d;padding:11px 14px;font-size:12px;font-weight:700;min-width:131px}
+.line-links a:hover{border-color:#aa8767;color:#8b5a31}
+.journey{background:#fff;padding:58px 0;border-bottom:1px solid #e7e1d9}
+.journey-row{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.journey-title{font-size:clamp(29px,3.4vw,43px);font-weight:800;letter-spacing:-.045em;line-height:1.2;margin:11px 0 12px}
+.journey p{color:#666059;font-size:13px;max-width:470px;line-height:1.7}
+.journey-steps{display:grid;grid-template-columns:1fr 1fr;gap:20px 25px}
+.journey-step{border-top:1px solid #d9cbbc;padding-top:14px}
+.journey-step span{color:#96724e;font-size:11px;font-weight:850;letter-spacing:.07em}
+.journey-step strong{display:block;font-size:15px;margin:9px 0 4px}
+.journey-step p{font-size:12px;margin:0}
+.contact{background:#161716;color:#fff;padding:68px 0}
+.contact-row{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.contact h2{max-width:650px}
+.contact p{margin:13px 0 0;color:#b9b8b4;font-size:14px}
+.contact .primary{white-space:nowrap}
+.footer{background:#0e0f0e;border-top:1px solid #45413b;color:#bfb8ae;padding:29px 0}
+.footer-row{display:flex;align-items:center;justify-content:space-between;gap:19px;font-size:11px}
+.footer a{color:#e9d2b5;text-decoration:underline;text-underline-offset:4px}
+dialog{border:1px solid #d2c3ad;color:#25221f;background:#f8f6f2;box-shadow:0 28px 90px #000a;padding:0}
+dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}
+#bagDialog{width:min(480px,100vw);height:100dvh;max-height:100dvh;margin:0 0 0 auto;overflow:auto;border-radius:0}
+.drawer-title{padding:23px 23px 19px;border-bottom:1px solid #ddd6ca;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.drawer-title h2{margin:0;font-size:23px;letter-spacing:-.035em}
+.close{border:1px solid #c9bba7;background:transparent;color:#2e2923;font-size:12px;padding:8px 12px}
+.drawer-content{padding:22px}
+.bag-empty{font-size:13px;color:#777068}
+.bag-entry{display:grid;grid-template-columns:75px minmax(0,1fr);gap:14px;padding:0 0 17px;margin:0 0 17px;border-bottom:1px solid #e2dad1}
+.bag-entry img{height:85px;width:75px;object-fit:contain;background:#e7e2d9}
+.bag-entry h3{font-size:13px;margin:0 0 4px}
+.bag-entry small{color:#8b7b6c;font-size:11px}
+.qty{display:flex;align-items:center;gap:9px;margin-top:10px}
+.qty button{background:#fff;color:#27211d;border:1px solid #c7b7a7;width:29px;height:29px}
+.qty output{min-width:17px;text-align:center}
+.qty .remove{margin-left:auto;color:#986c47;border:0;background:none;width:auto;font-size:11px;text-decoration:underline}
+.bag-footer{padding-top:8px}
+.bag-footer p{font-size:12px;color:#70685d;margin-bottom:17px}
+.bag-footer .primary{width:100%}
+.bag-footer small{display:block;margin:14px 0;color:#887f73;font-size:11px}
+#detailDialog{width:min(780px,calc(100% - 22px));max-height:92dvh;overflow:auto}
+.detail-body{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:25px}
+.detail-photo{background:#eae6df;min-height:310px;display:flex;align-items:center;justify-content:center}
+.detail-photo img{height:370px;width:100%;object-fit:contain}
+.detail-copy{padding:10px 6px 14px 0}
+.detail-copy h2{font-size:29px;line-height:1.2;letter-spacing:-.04em;margin:9px 0 14px}
+.detail-copy p{font-size:13px;color:#70685e;line-height:1.7}
+.detail-copy .primary{margin-top:21px}
+.detail-top{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ddd6cc;padding:14px 22px}
+.detail-top span{font-size:11px;font-weight:800;text-transform:uppercase;color:#8e704f;letter-spacing:.14em}
+@media(max-width:1050px){.nav{gap:18px}.header-whatsapp{display:none}.hero-inner{gap:14px}}
+@media(max-width:770px){
+ .wrap{width:calc(100% - 30px)}.preview{font-size:9px}.header-row{min-height:67px}.brand img{width:110px;height:50px}.nav{display:none}.header-actions{gap:8px}
+ .hero-inner{display:flex;flex-direction:column;align-items:stretch;min-height:0;gap:0}
+ .hero-copy{padding:45px 0 28px}.hero h1{font-size:clamp(42px,10vw,60px)}.hero p{font-size:14px}
+ .hero-photo{height:300px;border-top:1px solid #36302b}
+ .section{padding:49px 0}.section-head{flex-direction:column;align-items:start;gap:11px;margin-bottom:22px}
+ .catalog-tools{flex-direction:column;align-items:stretch;gap:16px}.search{width:100%}.search input{width:100%}
+ .products{grid-template-columns:1fr;gap:14px}.product-visual{aspect-ratio:1.28}.product-info{padding:17px}
+ .lines-head,.journey-row,.contact-row{display:flex;flex-direction:column;align-items:stretch;gap:18px}
+ .journey-steps{gap:17px}.contact .primary{width:fit-content}.footer-row{flex-wrap:wrap}
+ .detail-body{grid-template-columns:1fr;gap:13px;padding:17px}.detail-photo{min-height:240px}.detail-photo img{height:250px}.detail-copy{padding:7px}.detail-top{padding:14px 17px}
 }
-@media(min-width:520px) and (max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card-photo img{transition:none}}
-
-/* OSS — loja experimental: tipografia natural e experiência de compra integrada */
-.hero h1,.section-title,h2,h3,h4{font-family:Inter,"Segoe UI",Arial,Helvetica,sans-serif;font-stretch:normal;font-weight:850;letter-spacing:-.043em}
-.hero h1{font-size:clamp(43px,5vw,72px);line-height:1.075;font-weight:850;text-transform:none;letter-spacing:-.051em}
-.section-title{font-size:clamp(32px,3.6vw,49px);line-height:1.13;font-weight:850;text-transform:none;letter-spacing:-.046em}
-.card h3{font-size:24px;line-height:1.18;letter-spacing:-.035em;text-transform:none;font-weight:800}
-.checkout-experience{background:#111110;border-top:1px solid #3d352c;padding:75px 0 70px}
-.experience-heading{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:28px}
-.experience-intro{max-width:600px;color:#bdb5aa;font-size:14px;line-height:1.7;margin:16px 0 0}
-.preview-pill{font-size:10px;font-weight:850;letter-spacing:.11em;color:#d9be98;border:1px solid #7a6046;padding:9px 12px;white-space:nowrap}
-.checkout-shell{display:grid;grid-template-columns:275px minmax(0,1fr);border:1px solid #514739;min-height:415px;background:#191715}
-.checkout-progress{background:#211e1a;border-right:1px solid #514739;padding:29px 26px}
-.progress-label{color:#b9a68d;font-size:11px;letter-spacing:.13em;font-weight:850}
-.checkout-progress ol{list-style:none;padding:0;margin:24px 0;display:grid;gap:7px}
-.checkout-progress li{display:flex;align-items:center;gap:14px;min-height:62px;padding:10px;border-radius:4px;opacity:.49}
-.checkout-progress li[aria-current="step"]{background:#383028;opacity:1;color:#fff}
-.checkout-progress li.passed{opacity:.9}
-.checkout-progress li>span{width:36px;height:36px;display:grid;place-items:center;border:1px solid #7b644b;color:var(--gold2);font-size:11px;font-weight:850;flex-shrink:0}
-.checkout-progress strong{display:block;font-size:14px;line-height:1.2}
-.checkout-progress small{display:block;font-size:11px;color:#bfb1a0;margin-top:4px}
-.progress-foot{padding-top:18px;border-top:1px solid #54493c;color:#bdb0a1;font-size:11px}
-.proof-dot{display:inline-block;width:7px;height:7px;background:#d4aa76;border-radius:50%;margin-right:4px}
-.checkout-pane-wrap{padding:32px clamp(24px,3vw,48px)}
-.checkout-pane{max-width:680px}
-.pane-eyebrow{font-weight:850;font-size:10px;letter-spacing:.17em;color:var(--gold2)}
-.checkout-pane h3{font-size:clamp(24px,2.5vw,34px);line-height:1.15;margin:10px 0 12px;font-weight:850}
-.checkout-pane p{font-size:14px;color:#c9bfb2;line-height:1.75;margin:0 0 21px}
-.checkout-items{display:grid;gap:7px;margin-bottom:10px}
-.checkout-line{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #453c31;padding:11px 0;color:#f3ece2;font-size:13px}
-.checkout-line .light{color:#bba98f;font-size:12px}
-.inline-note{background:#29241f;padding:15px 17px;font-size:13px!important;color:#d2c1ab!important;border-left:2px solid var(--gold)}
-.pane-actions{display:flex;align-items:center;gap:21px;flex-wrap:wrap;margin-top:22px}
-.pane-actions .main-btn{min-height:46px}
-.understated-link,.text-action{color:#dcc09c;background:transparent;border:0;font-size:13px;font-weight:750;text-decoration:underline;text-underline-offset:4px;cursor:pointer;padding:8px 0}
-.checkout-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0 18px}
-.checkout-field{display:flex;flex-direction:column;gap:8px;min-width:0}
-.checkout-field span{font-size:12px;font-weight:750;color:#dfceb4}
-.checkout-field input,.checkout-field select{padding:13px;border:1px solid #786248;background:#29241f;color:#fff;width:100%;border-radius:3px;min-height:48px}
-.shipping-note{font-size:12px;line-height:1.7;border-left:2px solid #80694f;background:#26211c;padding:12px 14px;color:#c9b8a2}
-.form-error{color:#ffbda7!important;font-size:12px!important;margin:12px 0!important}
-.payment-choices{border:0;padding:0;margin:23px 0}
-.payment-choices legend{color:#ddcfbc;font-size:12px;font-weight:800;margin-bottom:12px}
-.payment-choice{display:flex;gap:15px;align-items:center;cursor:pointer;border:1px solid #5b4d3b;margin-bottom:9px;background:#231f1a;padding:14px 16px}
-.payment-choice:has(input:checked){border-color:var(--gold);background:#332a20}
-.payment-choice input{accent-color:var(--gold);width:16px;height:16px}
-.payment-symbol{font-size:23px;font-weight:700;color:var(--gold2)}
-.payment-choice strong{display:block;font-size:15px}
-.payment-choice small{display:block;color:#baa995;font-size:12px}
-.done-mark{display:grid;place-items:center;width:50px;height:50px;border-radius:50%;background:#2e4133;border:1px solid #769178;color:#b6dbaf;font-size:26px;margin-bottom:17px}
-.checkout-receipt{background:#221f1a;border:1px solid #5a4835;padding:15px 18px;margin-top:15px}
-.checkout-receipt strong{font-size:13px}.checkout-receipt p{font-size:12px;margin:8px 0;color:#c5b9aa}
-.checkout-bottom{display:flex;justify-content:space-between;align-items:start;gap:22px;padding-top:21px}
-.checkout-bottom>p{color:#a9a095;font-size:12px;max-width:330px;line-height:1.6;margin:0}
-.history-details{width:min(100%,560px);font-size:12px;color:#d8c6ae}
-.history-details summary{cursor:pointer;padding:10px 0;list-style:none;font-weight:750}
-.history-details summary span{padding-left:10px}
-.history-list{display:grid;gap:10px;padding:13px 0}
-.history-entry{border:1px solid #4d3f31;padding:12px 14px;background:#201b17}
-.history-entry strong{display:block;font-size:12px}.history-entry p{margin:7px 0 0;font-size:11px;color:#c5b6a5}
-.clear-history{border:1px solid #664d3b;color:#d9bd9c;background:none;padding:9px 12px;margin:6px 0 4px;font-size:11px}
-@media(max-width:800px){.checkout-shell{grid-template-columns:1fr}.checkout-progress{border-right:0;border-bottom:1px solid #514739;padding:20px 19px}.checkout-progress ol{grid-template-columns:repeat(4,1fr);gap:3px;margin:12px 0}.checkout-progress li{flex-direction:column;text-align:center;gap:7px;padding:7px 3px;min-height:0}.checkout-progress li>span{width:27px;height:27px}.checkout-progress li strong{font-size:11px}.checkout-progress li small{display:none}.progress-foot{padding-top:8px}.checkout-pane-wrap{padding:23px 19px}.experience-heading{flex-direction:column;align-items:start}.checkout-bottom{flex-direction:column}}
-@media(max-width:520px){.hero h1{font-size:clamp(39px,10vw,54px)}.section-title{font-size:clamp(31px,8vw,39px)}.checkout-form-grid{grid-template-columns:1fr}.checkout-experience{padding:52px 0}.checkout-pane-wrap{padding:23px 16px}.pane-actions .main-btn{width:100%}.checkout-progress{padding:15px 12px}}
+@media(min-width:560px) and (max-width:970px){.products{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:410px){.journey-steps{grid-template-columns:1fr}.line-links a{flex:1;min-width:130px}.header-bag{padding:9px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.product-visual img{transition:none}}
 </style>
 </head>
 <body>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-<div class="sandbox"><span class="dot" aria-hidden="true"></span> LOJA EXPERIMENTAL OSS · SEM PAGAMENTO ONLINE · NÃO É A LOJA OFICIAL</div>
-<header class="header">
- <div class="container header-inner">
-  <a class="brand" href="#inicio" aria-label="OSS Store Lab, início"><img src="/assets/oss-logo.webp" width="122" height="62" alt="Logo OSS Kimonos"><span>STORE LAB</span></a>
-  <nav class="nav" aria-label="Navegação principal"><a href="#catalogo">Produtos</a><a href="#como-funciona">Como funciona</a><a href="#como-funciona">Experiência de compra</a></nav>
-  <div class="header-tools"><a class="official-link" href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Site oficial ↗</a><button type="button" class="bag" id="openCart" aria-label="Abrir sacola de consultas">Sacola <em id="bagCount">0</em></button></div>
- </div>
-</header>
+<div class="preview">PRÉVIA DA LOJA OSS · COMPRAS E VALORES PELO ATENDIMENTO</div>
+<header class="header"><div class="wrap header-row">
+ <a class="brand" href="#inicio" aria-label="OSS Kimonos, início"><img src="/assets/oss-logo.webp" alt="OSS Kimonos" width="126" height="59"></a>
+ <nav class="nav" aria-label="Menu principal"><a href="#catalogo">Kimonos</a><a href="#linhas">Outras linhas</a><a href="#sobre">A OSS</a><a href="#contato">Atendimento</a></nav>
+ <div class="header-actions"><a class="header-whatsapp" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Falar com a OSS ↗</a><button type="button" class="header-bag" id="openBag" aria-label="Abrir produtos selecionados">Minha seleção <span id="bagCount">0</span></button></div>
+</div></header>
 <main id="conteudo">
- <section class="hero" id="inicio"><div class="container hero-grid">
-  <div class="hero-text"><div class="eyebrow">OSS KIMONOS / STORE LAB</div><h1>Sua próxima evolução <span>começa no tatame.</span></h1>
-   <p>Explore os produtos com fotos originais da OSS. Monte sua sacola de interesse e envie uma única consulta para a equipe.</p>
-   <a class="hero-cta" href="#catalogo">Explorar produtos <span aria-hidden="true">↗</span></a>
-   <div class="hero-tags"><span>Fotos originais</span><span>Consulta sem compromisso</span><span>Sem cobrança online</span></div>
-  </div>
-  <div class="hero-visual"><img src="/assets/banner-oss-tres-modelos.webp" width="880" height="620" alt="Três modelos com kimonos da OSS Kimonos" fetchpriority="high"><span class="hero-label">OSS / NO TATAME</span></div>
- </div></section>
- <section class="section catalog" id="catalogo" aria-labelledby="catalogTitle"><div class="container">
-  <div class="section-head"><div><div class="eyebrow">EXPLORE A COLEÇÃO</div><h2 class="section-title" id="catalogTitle">Produtos OSS.</h2></div><p>Apenas fotos e registros oficiais publicados. Categorias sem produtos ainda não exibem anúncios fictícios.</p></div>
-  <div class="filters" id="filters" role="group" aria-label="Filtrar categorias">
-   <button class="chip" type="button" data-filter="todos" aria-pressed="true">Todos</button>
-   <button class="chip" type="button" data-filter="kimonos" aria-pressed="false">Kimonos</button>
-   <button class="chip" type="button" data-filter="faixas" aria-pressed="false">Faixas</button>
-   <button class="chip" type="button" data-filter="fight-wear" aria-pressed="false">Fight Wear</button>
-   <button class="chip" type="button" data-filter="rashguard" aria-pressed="false">Rashguard</button>
-   <button class="chip" type="button" data-filter="camisas" aria-pressed="false">Camisas</button>
-   <button class="chip" type="button" data-filter="bones" aria-pressed="false">Bonés</button>
-   <button class="chip" type="button" data-filter="bermuda" aria-pressed="false">Bermuda</button>
-   <button class="chip" type="button" data-filter="moletom" aria-pressed="false">Moletom</button>
-   <button class="chip" type="button" data-filter="mochilas" aria-pressed="false">Mochilas</button>
-  </div>
-  <div class="searchbar"><label for="search">Buscar produto</label><input id="search" type="search" placeholder="Ex.: kimono branco" autocomplete="off"><span id="catalogCount" class="catalog-count" aria-live="polite">Carregando catálogo...</span></div>
-  <div class="products" id="products" aria-live="polite"></div>
-  <div id="emptyState" class="empty" hidden><strong>Sem produtos cadastrados nesta seleção.</strong><span>A equipe OSS pode confirmar opções pelo WhatsApp. Não exibimos produtos ou estoque sem dados reais.</span></div>
-  <p id="catalogError" class="status-note" role="status"></p>
-  <p class="status-note">Produtos para consulta: preços, tamanhos e disponibilidade precisam ser confirmados pela OSS. Esta página não efetua pedidos nem pagamentos.</p>
- </div></section>
- <section class="checkout-experience" id="como-funciona" aria-labelledby="checkout-heading"><div class="container">
- <div class="experience-heading"><div><div class="eyebrow">DA VITRINE AO PEDIDO</div><h2 class="section-title" id="checkout-heading">Experimente comprar.</h2><p class="experience-intro">Uma experiência de loja em quatro etapas. Use os kimonos da vitrine, veja como seria escolher a entrega e finalize uma demonstração.</p></div><span class="preview-pill">PRÉVIA SEM COBRANÇA</span></div>
- <div class="checkout-shell" id="experiencia">
-  <aside class="checkout-progress" aria-label="Etapas da experiência de compra">
-   <div class="progress-label">SEU PERCURSO</div>
-   <ol id="checkoutProgress"><li data-stage-nav="bag" aria-current="step"><span>01</span><div><strong>Sacola</strong><small>Produtos escolhidos</small></div></li><li data-stage-nav="delivery"><span>02</span><div><strong>Entrega</strong><small>CEP e modalidade</small></div></li><li data-stage-nav="payment"><span>03</span><div><strong>Pagamento</strong><small>Escolha ilustrativa</small></div></li><li data-stage-nav="done"><span>04</span><div><strong>Resumo</strong><small>Pedido fictício</small></div></li></ol>
-   <div class="progress-foot"><span class="proof-dot" aria-hidden="true"></span> Nenhum pedido real é gerado.</div>
-  </aside>
-  <div class="checkout-pane-wrap">
-   <div class="checkout-pane" data-checkout-stage="bag" id="checkoutBagPanel">
-    <div class="pane-eyebrow">ETAPA 01 / 04</div><h3>Confira sua escolha.</h3><p>Os produtos escolhidos aparecerão aqui. Para começar, adicione um kimono da vitrine acima.</p>
-    <div id="checkoutItems" class="checkout-items" aria-live="polite"></div>
-    <p id="checkoutBagEmpty" class="inline-note">Sua sacola está vazia. Escolha um kimono primeiro.</p>
-    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutNext" disabled>Continuar para entrega <span aria-hidden="true">→</span></button><a href="#catalogo" class="understated-link">Ver produtos ↑</a></div>
-   </div>
-   <form class="checkout-pane" data-checkout-stage="delivery" id="checkoutDeliveryPanel" hidden>
-    <div class="pane-eyebrow">ETAPA 02 / 04</div><h3>Como seria a entrega?</h3><p>Informe um CEP para testar o formato e selecione a modalidade desejada. Não há cálculo de frete ou prazo real.</p>
-    <div class="checkout-form-grid"><label class="checkout-field"><span>CEP para a demonstração</span><input type="text" id="checkoutCep" inputmode="numeric" autocomplete="off" placeholder="00000-000" maxlength="9" required></label><label class="checkout-field"><span>Modalidade ilustrativa</span><select id="checkoutDeliveryType"><option value="Entrega a combinar">Entrega a combinar</option><option value="Retirada a combinar">Retirada a combinar</option></select></label></div>
-    <div class="shipping-note">A OSS ainda precisará confirmar frete, prazo e disponibilidade. Esta etapa valida somente os oito dígitos do CEP.</div>
-    <p id="checkoutDeliveryError" class="form-error" role="status" aria-live="polite"></p>
-    <div class="pane-actions"><button type="submit" class="main-btn">Continuar para pagamento <span aria-hidden="true">→</span></button><button type="button" class="text-action" data-back="bag">Voltar</button></div>
-   </form>
-   <div class="checkout-pane" data-checkout-stage="payment" id="checkoutPaymentPanel" hidden>
-    <div class="pane-eyebrow">ETAPA 03 / 04</div><h3>Forma de pagamento.</h3><p>Veja como o cliente escolheria pagar. Não será pedido número de cartão, chave Pix ou qualquer valor.</p>
-    <fieldset class="payment-choices"><legend>Escolha apenas para visualização</legend><label class="payment-choice"><input type="radio" name="checkoutMethod" value="Pix" checked><span class="payment-symbol" aria-hidden="true">◇</span><span><strong>Pix</strong><small>Pagamento instantâneo — integração futura</small></span></label><label class="payment-choice"><input type="radio" name="checkoutMethod" value="Cartão"><span class="payment-symbol" aria-hidden="true">▤</span><span><strong>Cartão</strong><small>Crédito ou débito — integração futura</small></span></label></fieldset>
-    <div class="shipping-note">Preços dos kimonos e valor de entrega continuam sob consulta. Nenhuma cobrança será realizada.</div>
-    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutFinish">Concluir demonstração <span aria-hidden="true">→</span></button><button type="button" class="text-action" data-back="delivery">Voltar</button></div>
-   </div>
-   <div class="checkout-pane" data-checkout-stage="done" id="checkoutDonePanel" hidden>
-    <div class="done-mark" aria-hidden="true">✓</div><div class="pane-eyebrow">ETAPA 04 / 04</div><h3>Experiência concluída.</h3><p>Você percorreu as etapas de uma compra. O resumo abaixo é só uma demonstração, guardada neste navegador. Nenhuma venda foi registrada.</p>
-    <div id="checkoutReceipt" class="checkout-receipt" aria-live="polite"></div>
-    <div class="pane-actions"><button type="button" class="main-btn" id="checkoutAgain">Fazer outro teste <span aria-hidden="true">→</span></button><a href="#catalogo" class="understated-link">Escolher produtos</a></div>
-   </div>
-  </div>
+<section class="hero" id="inicio"><div class="wrap hero-inner">
+ <div class="hero-copy"><div class="kicker">OSS KIMONOS · JIU-JITSU</div><h1>Feito para <span>o tatame.</span></h1><p>Conheça os kimonos OSS e escolha seus favoritos. Nossa equipe confirma modelos, tamanhos e valores pelo WhatsApp.</p>
+ <div class="hero-actions"><a class="primary light" href="#catalogo">Conheça os kimonos <span aria-hidden="true">↗</span></a><a class="soft-link" href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Conhecer a marca</a></div></div>
+ <div class="hero-photo"><img src="/assets/banner-oss-tres-modelos.webp" alt="Três modelos usando kimonos OSS" width="880" height="600" fetchpriority="high"></div>
+</div></section>
+<section class="section" id="catalogo"><div class="wrap">
+ <div class="section-head"><div><div class="eyebrow">COLEÇÃO OSS</div><h2>Kimonos em destaque</h2></div><p>Encontre a linha que combina com seu treino. As fotos são da OSS; os detalhes de cada modelo são confirmados no atendimento.</p></div>
+ <div class="catalog-tools"><div class="filters" id="filters" role="group" aria-label="Filtrar produtos"><button type="button" class="filter" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="filter" data-filter="kimonos" aria-pressed="false">Kimonos</button></div><div class="search"><label for="search">Buscar</label><input id="search" type="search" placeholder="Nome ou cor do kimono" autocomplete="off"></div></div>
+ <div class="count" id="catalogCount" role="status" aria-live="polite">Carregando a coleção...</div>
+ <div id="products" class="products"></div>
+ <div class="empty" id="emptyState" hidden><strong>Nenhum produto encontrado.</strong><span>Tente outra palavra ou consulte a OSS pelo WhatsApp.</span></div>
+ <p class="catalog-status" id="catalogError" role="status"></p>
+</div></section>
+<section class="lines" id="linhas"><div class="wrap">
+ <div class="lines-head"><div><div class="eyebrow">ALÉM DOS KIMONOS</div><h2>Conheça outras linhas</h2></div><p>Consulte opções e disponibilidade de cada categoria diretamente com a OSS.</p></div>
+ <div id="otherLines" class="line-links">
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20as%20faixas%20OSS." target="_blank" rel="noopener noreferrer">Faixas <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20a%20linha%20fight%20wear%20OSS." target="_blank" rel="noopener noreferrer">Fight Wear <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20as%20rashguards%20OSS." target="_blank" rel="noopener noreferrer">Rashguards <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20as%20camisas%20OSS." target="_blank" rel="noopener noreferrer">Camisas <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20os%20bon%C3%A9s%20OSS." target="_blank" rel="noopener noreferrer">Bonés <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20as%20bermudas%20OSS." target="_blank" rel="noopener noreferrer">Bermudas <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20os%20moletons%20OSS." target="_blank" rel="noopener noreferrer">Moletons <span>↗</span></a>
+ <a href="https://wa.me/5519997121912?text=Ol%C3%A1%21%20Quero%20consultar%20as%20mochilas%20OSS." target="_blank" rel="noopener noreferrer">Mochilas <span>↗</span></a>
  </div>
- <div class="checkout-bottom"><details class="history-details" id="checkoutHistory"><summary>Histórico de demonstrações deste navegador <span aria-hidden="true">⌄</span></summary><div id="checkoutHistoryList" class="history-list"></div><button type="button" class="clear-history" id="checkoutClearHistory">Limpar histórico de teste</button></details><p>Pix, cartão e envio ainda precisam de integrações reais. Esta versão permite avaliar o percurso sem risco.</p></div>
- </div></section>
+</div></section>
+<section class="journey" id="sobre"><div class="wrap journey-row"><div><div class="eyebrow">SEU PRÓXIMO KIMONO</div><h2 class="journey-title">Escolher com calma.<br>Conversar com a OSS.</h2><p>Uma seleção simples para reunir seus favoritos e consultar tudo de uma vez, sem precisar trocar de página a cada produto.</p></div><div class="journey-steps"><div class="journey-step"><span>01</span><strong>Explore os modelos</strong><p>Veja as fotos e abra os detalhes.</p></div><div class="journey-step"><span>02</span><strong>Monte sua seleção</strong><p>Adicione os modelos de interesse.</p></div><div class="journey-step"><span>03</span><strong>Envie uma mensagem</strong><p>A equipe recebe sua lista pelo WhatsApp.</p></div><div class="journey-step"><span>04</span><strong>Confirme os detalhes</strong><p>Consulte tamanhos, valores e disponibilidade.</p></div></div></div></section>
+<section class="contact" id="contato"><div class="wrap contact-row"><div><div class="kicker">ATENDIMENTO OSS KIMONOS</div><h2>Tem dúvidas sobre um modelo?</h2><p>Fale diretamente com a equipe e confira as opções disponíveis.</p></div><a class="primary light" href="https://wa.me/5519997121912" target="_blank" rel="noopener noreferrer">Conversar no WhatsApp ↗</a></div></section>
 </main>
-<footer class="footer"><div class="container footer-inner"><span>© OSS Kimonos · Ambiente experimental independente</span><span>Sem compra ou cobrança neste endereço.</span><a href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Visitar o site oficial ↗</a></div></footer>
-
-<dialog id="cartDialog" aria-labelledby="cartHeading">
- <div class="drawer-header"><h2 id="cartHeading">Sua sacola</h2><button type="button" id="closeCart" class="close" aria-label="Fechar sacola">Fechar ×</button></div>
- <div class="drawer-body"><p class="drawer-empty" id="cartEmpty">Sua sacola está vazia. Adicione produtos para montar uma consulta.</p><div id="cartLines"></div><div class="drawer-summary" id="cartSummary" hidden><strong>Valores e tamanhos sob consulta</strong><p>Esta sacola é apenas uma lista de interesse. Nenhuma cobrança ou reserva de estoque será realizada.</p><button type="button" class="main-btn" id="sendRequest">Solicitar orçamento no WhatsApp ↗</button><button type="button" class="text-action" id="checkoutFromBag">Experimentar como seria comprar →</button><small>Você poderá revisar a mensagem antes de enviar.</small></div></div>
-</dialog>
-<dialog id="productDialog" aria-labelledby="detailHeading"><div class="drawer-header"><h2>Detalhes do produto</h2><button type="button" id="closeProduct" class="close" aria-label="Fechar detalhes">Fechar ×</button></div><div class="detail-layout"><img id="detailPhoto" src="/assets/kimono-branco-detalhe.webp" alt=""><div><div class="eyebrow">FOTO OFICIAL OSS</div><h2 id="detailHeading"></h2><p id="detailDescription"></p><p>Cor, tamanhos, valores e estoque a confirmar no atendimento.</p><button type="button" id="detailAdd" class="main-btn">Adicionar à sacola de consulta</button></div></div></dialog>
-
+<footer class="footer"><div class="wrap footer-row"><span>OSS Kimonos · Prévia independente da futura loja</span><span>Vendas online ainda não ativadas.</span><a href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Site oficial da OSS ↗</a><a href="https://www.instagram.com/osskimonos/" target="_blank" rel="noopener noreferrer">Instagram ↗</a></div></footer>
+<dialog id="bagDialog" aria-labelledby="bagHeading"><div class="drawer-title"><h2 id="bagHeading">Minha seleção</h2><button type="button" class="close" id="closeBag">Fechar ×</button></div><div class="drawer-content"><p class="bag-empty" id="bagEmpty">Nenhum kimono selecionado ainda.</p><div id="bagLines"></div><div class="bag-footer" id="bagFooter" hidden><p>Envie os produtos para consultar cores, tamanhos, valores e disponibilidade com a OSS.</p><button class="primary" type="button" id="sendQuote">Consultar pelo WhatsApp ↗</button><small>Você poderá revisar a mensagem antes de enviar. Não há pagamento pelo site.</small></div></div></dialog>
+<dialog id="detailDialog" aria-labelledby="detailHeading"><div class="detail-top"><span>OSS Kimonos</span><button type="button" class="close" id="closeDetail">Fechar ×</button></div><div class="detail-body"><div class="detail-photo"><img src="/assets/kimono-branco-detalhe.webp" alt="" id="detailImage"></div><div class="detail-copy"><div class="eyebrow">KIMONOS OSS</div><h2 id="detailHeading"></h2><p id="detailText"></p><p>Preço, tamanhos e estoque sob consulta.</p><button type="button" class="primary" id="detailAdd">Adicionar à minha seleção</button></div></div></dialog>
 <script>
 (function(){
 'use strict';
-const byId=id=>document.getElementById(id);
-const productsEl=byId('products'),countEl=byId('catalogCount'),errorEl=byId('catalogError');
-const cartDialog=byId('cartDialog'),detailDialog=byId('productDialog'),cartLines=byId('cartLines');
-const categories=['todos','kimonos','faixas','fight-wear','rashguard','camisas','bones','bermuda','moletom','mochilas'];
-const state={products:[],cart:{},category:'todos',search:'',detail:null};
-const money=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(n);
-function cartRead(){
- try{const saved=JSON.parse(localStorage.getItem('oss-commerce-lab-bag')||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))state.cart=saved;}catch(_){state.cart={};}
+const $=id=>document.getElementById(id);
+const grid=$('products'),counter=$('catalogCount'),error=$('catalogError'),drawer=$('bagDialog'),details=$('detailDialog');
+const state={products:[],cart:{},filter:'todos',query:'',selected:null};
+const storageKey='oss-shop-favorites-v1';
+function make(tag,cls,text){
+ const el=document.createElement(tag);
+ if(cls)el.className=cls;
+ if(text!==undefined)el.textContent=text;
+ return el;
 }
-function cartSave(){try{localStorage.setItem('oss-commerce-lab-bag',JSON.stringify(state.cart));}catch(_){}}
-const getProduct=id=>state.products.find(p=>p.id===id);
-function pricesAvailable(p){return p.preco_confirmado===true&&typeof p.preco==='number'&&Number.isFinite(p.preco)&&p.preco>=0;}
-function cartCount(){return Object.values(state.cart).reduce((sum,q)=>sum+Math.max(0,Number(q)||0),0);}
-function badge(){byId('bagCount').textContent=cartCount();}
-function addProduct(id){
- if(!getProduct(id))return;
- const n=Math.min(20,Math.max(0,Number(state.cart[id])||0)+1);
- state.cart[id]=n;cartSave();renderCart();cartDialog.showModal();
+function readCart(){
+ try{const saved=JSON.parse(localStorage.getItem(storageKey)||'{}');if(saved&&typeof saved==='object'&&!Array.isArray(saved))state.cart=saved;}
+ catch(_){state.cart={};}
 }
-function changeQty(id,dir){
- if(!getProduct(id))return;
- const n=Math.min(20,Math.max(0,(Number(state.cart[id])||0)+dir));
- if(!n)delete state.cart[id];else state.cart[id]=n;
- cartSave();renderCart();
+function saveCart(){try{localStorage.setItem(storageKey,JSON.stringify(state.cart));}catch(_){}}
+function productById(id){return state.products.find(p=>p.id===id);}
+function entryCount(){return Object.values(state.cart).reduce((sum,n)=>sum+Math.max(0,Number(n)||0),0);}
+function productDescription(p){
+ const n=String(p.nome||'').toLowerCase();
+ if(n.includes('feminina'))return 'Linha feminina OSS · confira os detalhes com a equipe.';
+ if(n.includes('branco'))return 'Kimono branco OSS · consulte os tamanhos disponíveis.';
+ if(n.includes('preto'))return 'Kimono preto OSS · consulte os tamanhos disponíveis.';
+ return 'Consulte os detalhes e a disponibilidade com a OSS.';
 }
-function elem(tag,cls,content){
- const node=document.createElement(tag);
- if(cls)node.className=cls;
- if(content!==undefined)node.textContent=content;
- return node;
-}
-function makeImage(p){
- const img=elem('img');
- img.src=p.imagem;img.alt=p.nome+' — foto oficial OSS';img.loading='lazy';img.decoding='async';
- return img;
+function photo(p){
+ const img=make('img');img.src=p.imagem;img.alt=p.nome+' — imagem oficial OSS';img.loading='lazy';img.decoding='async';return img;
 }
 function renderProducts(){
- productsEl.replaceChildren();
- const selected=state.products.filter(p=>(state.category==='todos'||p.categoria===state.category)&&((p.nome+' '+p.descricao).toLocaleLowerCase('pt-BR').includes(state.search)));
- countEl.textContent=selected.length===1?'1 registro oficial':selected.length+' registros oficiais';
- byId('emptyState').hidden=selected.length!==0;
- for(const p of selected){
-  const card=elem('article','card'),media=elem('div','card-photo'),body=elem('div','card-body'),actions=elem('div','card-actions');
-  media.append(makeImage(p),elem('span','photo-label','FOTO ORIGINAL OSS'));
-  body.append(elem('div','card-meta','OSS KIMONOS · KIMONOS'),elem('h3',null,p.nome),elem('p',null,p.descricao));
-  const price=elem('div','price',pricesAvailable(p)?money(p.preco):'Valor sob consulta');
-  price.append(elem('small',null,pricesAvailable(p)?'Disponibilidade a confirmar':'Tamanhos e disponibilidade a confirmar'));
-  body.append(price);
-  const add=elem('button','add','+ Adicionar à sacola');add.type='button';add.addEventListener('click',()=>addProduct(p.id));
-  const more=elem('button','more','Detalhes');more.type='button';more.addEventListener('click',()=>openDetail(p.id));
-  actions.append(add,more);body.append(actions);card.append(media,body);productsEl.append(card);
+ grid.replaceChildren();
+ const matches=state.products.filter(p=>(state.filter==='todos'||p.categoria===state.filter)&&
+ (p.nome+' '+p.descricao).toLocaleLowerCase('pt-BR').includes(state.query));
+ counter.textContent=matches.length===1?'1 modelo em destaque':matches.length+' modelos em destaque';
+ $('emptyState').hidden=matches.length!==0;
+ for(const p of matches){
+  const article=make('article','product'),visual=make('div','product-visual'),info=make('div','product-info'),acts=make('div','product-actions');
+  visual.append(photo(p));
+  info.append(make('div','product-line','OSS Kimonos'),make('h3',null,p.nome),make('p','product-desc',productDescription(p)));
+  const price=make('div','product-price','Valor sob consulta');
+  price.append(make('span',null,'Disponibilidade confirmada no atendimento.'));
+  const add=make('button','primary','Adicionar à seleção');add.type='button';add.addEventListener('click',()=>addToCart(p.id));
+  const view=make('button','ghost','Detalhes');view.type='button';view.addEventListener('click',()=>showProduct(p.id));
+  acts.append(add,view);info.append(price,acts);article.append(visual,info);grid.append(article);
  }
 }
 function renderCart(){
- cartLines.replaceChildren();badge();renderCheckoutItems();
- const entries=Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number(qty)>0);
- byId('cartEmpty').hidden=entries.length>0;
- byId('cartSummary').hidden=entries.length===0;
- for(const [id,qty] of entries){
-  const p=getProduct(id),line=elem('div','cart-line'),right=elem('div');
-  right.append(elem('strong',null,p.nome),elem('div','minor','Valor e tamanho sob consulta'));
-  const controls=elem('div','qty');
-  const minus=elem('button',null,'−');minus.type='button';minus.setAttribute('aria-label','Diminuir '+p.nome);minus.addEventListener('click',()=>changeQty(id,-1));
-  const out=elem('output',null,String(qty));
-  const plus=elem('button',null,'+');plus.type='button';plus.setAttribute('aria-label','Aumentar '+p.nome);plus.disabled=qty>=20;plus.addEventListener('click',()=>changeQty(id,1));
-  const remove=elem('button','remove','Remover');remove.type='button';remove.addEventListener('click',()=>changeQty(id,-Number(qty)));
-  controls.append(minus,out,plus,remove);right.append(controls);line.append(makeImage(p),right);cartLines.append(line);
+ $('bagLines').replaceChildren();$('bagCount').textContent=String(entryCount());
+ const lines=Object.entries(state.cart).filter(([id,n])=>productById(id)&&Number(n)>0);
+ $('bagEmpty').hidden=lines.length!==0;$('bagFooter').hidden=lines.length===0;
+ for(const [id,n] of lines){
+  const p=productById(id),row=make('div','bag-entry'),right=make('div'),qty=make('div','qty');
+  right.append(make('h3',null,p.nome),make('small',null,'Valores e tamanhos sob consulta'));
+  const minus=make('button',null,'−');minus.type='button';minus.setAttribute('aria-label','Diminuir '+p.nome);minus.addEventListener('click',()=>changeQty(id,-1));
+  const out=make('output',null,String(n));out.setAttribute('aria-label','Quantidade');
+  const plus=make('button',null,'+');plus.type='button';plus.setAttribute('aria-label','Aumentar '+p.nome);plus.disabled=n>=20;plus.addEventListener('click',()=>changeQty(id,1));
+  const remove=make('button','remove','Remover');remove.type='button';remove.addEventListener('click',()=>removeFromCart(id));
+  qty.append(minus,out,plus,remove);right.append(qty);
+  row.append(photo(p),right);$('bagLines').append(row);
  }
 }
-function openDetail(id){
- const p=getProduct(id);if(!p)return;
- state.detail=id;byId('detailHeading').textContent=p.nome;byId('detailDescription').textContent=p.descricao;
- byId('detailPhoto').src=p.imagem;byId('detailPhoto').alt=p.nome;
- detailDialog.showModal();
+function addToCart(id){
+ if(!productById(id))return;
+ state.cart[id]=Math.min(20,Math.max(0,Number(state.cart[id])||0)+1);
+ saveCart();renderCart();drawer.showModal();
 }
-function sendRequest(){
- const lines=Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number(qty)>0).map(([id,qty])=>{
- const p=getProduct(id);
- return '• '+p.nome+' — quantidade para consulta: '+String(qty);
- });
+function changeQty(id,delta){
+ if(!productById(id))return;
+ const next=Math.max(0,Math.min(20,(Number(state.cart[id])||0)+delta));
+ if(!next)delete state.cart[id];else state.cart[id]=next;
+ saveCart();renderCart();
+}
+function removeFromCart(id){delete state.cart[id];saveCart();renderCart();}
+function showProduct(id){
+ const p=productById(id);if(!p)return;
+ state.selected=id;$('detailHeading').textContent=p.nome;$('detailImage').src=p.imagem;
+ $('detailImage').alt=p.nome+' — imagem oficial OSS';$('detailText').textContent=productDescription(p);
+ details.showModal();
+}
+function requestQuote(){
+ const lines=Object.entries(state.cart).filter(([id,n])=>productById(id)&&Number(n)>0).map(([id,n])=>String(n)+'x '+productById(id).nome);
  if(!lines.length)return;
- const text='Olá! Estou conhecendo a loja experimental OSS Kimonos e gostaria de consultar estes produtos:\n\n'+lines.join('\n')+'\n\nPodem confirmar tamanhos, cores, preços, disponibilidade e opções de entrega?';
- window.open('https://wa.me/5519997121912?text='+encodeURIComponent(text),'_blank','noopener,noreferrer');
+ const msg='Olá! Gostaria de consultar estes produtos da OSS Kimonos:\n\n'+lines.join('\n')+
+ '\n\nPoderiam confirmar os tamanhos, preços, cores e disponibilidade?';
+ window.open('https://wa.me/5519997121912?text='+encodeURIComponent(msg),'_blank','noopener,noreferrer');
 }
-async function load(){
- countEl.textContent='Carregando registros oficiais...';
+async function loadCatalog(){
+ counter.textContent='Carregando coleção...';
  try{
-  const res=await fetch('/catalogo.json',{cache:'no-store'});
-  if(!res.ok)throw Error('Catálogo indisponível.');
-  const data=await res.json();
-  if(!data||!Array.isArray(data.produtos))throw Error('Formato de catálogo inválido.');
+  const response=await fetch('/catalogo.json',{cache:'no-store'});
+  if(!response.ok)throw Error('O catálogo não respondeu.');
+  const data=await response.json();
+  if(!Array.isArray(data.produtos))throw Error('Formato de catálogo inválido.');
   state.products=data.produtos.filter(p=>p&&typeof p.id==='string'&&typeof p.nome==='string'&&typeof p.imagem==='string'&&
-   /^\/assets\/[a-z0-9-]+\.(png|webp|jpe?g)$/i.test(p.imagem)&&categories.includes(p.categoria)&&
-   p.status==='publicado'&&p.tipo_registro==='foto_oficial_consulta');
-  for(const id of Object.keys(state.cart)){if(!getProduct(id))delete state.cart[id];}
-  cartSave();errorEl.textContent='';renderProducts();renderCart();renderCheckoutItems();
- }catch(e){
-  state.products=[];state.cart={};errorEl.textContent='Não foi possível carregar o catálogo oficial. Nenhum produto foi inventado. Recarregue a página para tentar novamente.';
-  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();renderCheckoutItems();
+  /^\/assets\/[a-z0-9-]+\.(webp|png|jpe?g)$/i.test(p.imagem)&&p.categoria==='kimonos'&&p.status==='publicado'&&p.tipo_registro==='foto_oficial_consulta');
+  for(const id of Object.keys(state.cart))if(!productById(id))delete state.cart[id];
+  saveCart();error.textContent='';renderProducts();renderCart();
+ }catch(_){
+  state.products=[];error.textContent='Não foi possível carregar a coleção. Atualize a página para tentar novamente.';
+  renderProducts();renderCart();
  }
 }
-byId('filters').addEventListener('click',e=>{
- const btn=e.target.closest('[data-filter]');if(!btn||!categories.includes(btn.dataset.filter))return;
- state.category=btn.dataset.filter;
- for(const b of byId('filters').querySelectorAll('[data-filter]'))b.setAttribute('aria-pressed',String(b===btn));
+$('filters').addEventListener('click',e=>{
+ const b=e.target.closest('[data-filter]');if(!b)return;
+ state.filter=b.dataset.filter;
+ for(const button of $('filters').querySelectorAll('[data-filter]'))button.setAttribute('aria-pressed',String(button===b));
  renderProducts();
 });
-byId('search').addEventListener('input',e=>{state.search=String(e.target.value).trim().toLocaleLowerCase('pt-BR');renderProducts();});
-byId('openCart').addEventListener('click',()=>{renderCart();cartDialog.showModal();});
-byId('closeCart').addEventListener('click',()=>cartDialog.close());
-byId('closeProduct').addEventListener('click',()=>detailDialog.close());
-byId('detailAdd').addEventListener('click',()=>{const id=state.detail;detailDialog.close();addProduct(id);});
-byId('sendRequest').addEventListener('click',sendRequest);
-for(const dialog of [cartDialog,detailDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
-
-/* Uma jornada única, com recibos locais: nenhuma compra real é criada */
-const checkout={stage:'bag',cep:'',delivery:'Entrega a combinar',history:[]};
-const checkoutKey='oss-store-lab-journey-v2';
-const stages=['bag','delivery','payment','done'];
-function loadReceipts(){
- try{const value=JSON.parse(localStorage.getItem(checkoutKey)||'[]');checkout.history=Array.isArray(value)?value.filter(r=>r&&typeof r.id==='string'&&Array.isArray(r.items)).slice(0,15):[];}
- catch(_){checkout.history=[];}
-}
-function saveReceipts(){try{localStorage.setItem(checkoutKey,JSON.stringify(checkout.history));}catch(_){}}
-function selectedItems(){
- return Object.entries(state.cart).filter(([id,q])=>getProduct(id)&&Number.isInteger(Number(q))&&Number(q)>0).map(([id,q])=>({nome:getProduct(id).nome,quantidade:Math.min(20,Number(q))}));
-}
-function renderCheckoutItems(){
- const items=selectedItems(),target=byId('checkoutItems');target.replaceChildren();
- byId('checkoutBagEmpty').hidden=items.length>0;byId('checkoutNext').disabled=!items.length;
- for(const item of items){
-  const row=elem('div','checkout-line');
-  row.append(elem('strong',null,item.nome),elem('span','light',item.quantidade+' unidade(s) · valor sob consulta'));
-  target.append(row);
- }
-}
-function showCheckout(stage,scroll=false){
- if(!stages.includes(stage))return;
- checkout.stage=stage;
- for(const panel of document.querySelectorAll('[data-checkout-stage]'))panel.hidden=panel.dataset.checkoutStage!==stage;
- for(const node of document.querySelectorAll('[data-stage-nav]')){
-  node.removeAttribute('aria-current');
-  node.classList.toggle('passed',stages.indexOf(node.dataset.stageNav)<stages.indexOf(stage));
-  if(node.dataset.stageNav===stage)node.setAttribute('aria-current','step');
- }
- if(stage==='bag')renderCheckoutItems();
- if(scroll)byId('experiencia').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
-}
-function renderHistory(){
- const target=byId('checkoutHistoryList');target.replaceChildren();
- if(!checkout.history.length){target.append(elem('p',null,'Nenhuma demonstração concluída neste navegador.'));return;}
- for(const receipt of checkout.history){
-  const card=elem('div','history-entry');
-  card.append(elem('strong',null,receipt.id+' · simulado'));
-  card.append(elem('p',null,receipt.items.map(i=>i.quantidade+'× '+i.nome).join(' · ')));
-  card.append(elem('p',null,receipt.method+' · '+receipt.delivery+' · '+receipt.created));
-  target.append(card);
- }
-}
-function renderReceipt(receipt){
- const target=byId('checkoutReceipt');target.replaceChildren();
- target.append(elem('strong',null,receipt.id+' · DEMONSTRAÇÃO'));
- target.append(elem('p',null,receipt.created));
- for(const item of receipt.items)target.append(elem('p',null,item.quantidade+'× '+item.nome));
- target.append(elem('p',null,'Entrega ilustrativa: '+receipt.delivery));
- target.append(elem('p',null,'Opção de pagamento: '+receipt.method));
- target.append(elem('p',null,'Nenhum preço ou frete calculado; nenhum pagamento ou pedido real.'));
-}
-byId('checkoutNext').addEventListener('click',()=>{if(selectedItems().length)showCheckout('delivery');});
-byId('checkoutDeliveryPanel').addEventListener('submit',event=>{
- event.preventDefault();if(!selectedItems().length){showCheckout('bag');return;}
- const raw=byId('checkoutCep').value.trim(),digits=raw.replace(/\D/g,'');
- if(!/^\d{5}-?\d{3}$/.test(raw)||digits.length!==8){
-  byId('checkoutDeliveryError').textContent='Digite um CEP válido com oito números (ex.: 13010-110).';return;
- }
- checkout.cep=digits.slice(0,5)+'-'+digits.slice(5);
- checkout.delivery=byId('checkoutDeliveryType').value;
- byId('checkoutDeliveryError').textContent='';showCheckout('payment');
+$('search').addEventListener('input',e=>{
+ state.query=String(e.target.value).trim().toLocaleLowerCase('pt-BR');renderProducts();
 });
-document.querySelectorAll('[data-back]').forEach(button=>button.addEventListener('click',()=>showCheckout(button.dataset.back)));
-byId('checkoutFinish').addEventListener('click',()=>{
- const items=selectedItems();if(!items.length){showCheckout('bag');return;}
- if(!checkout.cep){showCheckout('delivery');return;}
- const requested=document.querySelector('input[name="checkoutMethod"]:checked')?.value;
- const receipt={id:'OSS-DEMO-'+Date.now().toString(36).toUpperCase(),
-  created:new Date().toLocaleString('pt-BR'),items,delivery:checkout.delivery,
-  method:requested==='Cartão'?'Cartão':'Pix'};
- checkout.history.unshift(receipt);checkout.history=checkout.history.slice(0,15);saveReceipts();
- renderReceipt(receipt);renderHistory();
- state.cart={};cartSave();renderCart();showCheckout('done');
-});
-byId('checkoutAgain').addEventListener('click',()=>{
- checkout.cep='';byId('checkoutCep').value='';showCheckout('bag');
- byId('catalogo').scrollIntoView({behavior:'smooth',block:'start'});
-});
-byId('checkoutClearHistory').addEventListener('click',()=>{
- checkout.history=[];saveReceipts();renderHistory();
-});
-byId('checkoutFromBag').addEventListener('click',()=>{
- if(!selectedItems().length)return;
- cartDialog.close();showCheckout('bag',true);
-});
-loadReceipts();
-cartRead();
-renderHistory();
-showCheckout('bag');
-load();
+$('openBag').addEventListener('click',()=>{renderCart();drawer.showModal();});
+$('closeBag').addEventListener('click',()=>drawer.close());
+$('closeDetail').addEventListener('click',()=>details.close());
+$('detailAdd').addEventListener('click',()=>{const id=state.selected;details.close();addToCart(id);});
+$('sendQuote').addEventListener('click',requestQuote);
+for(const modal of [drawer,details])modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
+readCart();loadCatalog();
 })();
 </script>
-</body>
-</html>
+</body></html>
