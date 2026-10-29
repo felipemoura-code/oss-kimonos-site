@@ -22,21 +22,30 @@ const applySite=(site,origin)=>{
  const home=!!document.querySelector('#inicio .hero-content');
  if(home){
    const pairs=[
-     ['.hero .eyebrow','hero_eyebrow'],['.hero h1','hero_title'],['.hero-content p','hero_description'],
-     ['#colecao .heading h2','collection_title'],['#colecao .heading .muted','collection_description'],
-     ['#sobre h2','about_title'],['#sobre p','about_text'],
+     ['.hero .eyebrow','hero_eyebrow'],['.hero h1','hero_title'],['.hero-content .hero-sub, .hero-content p','hero_description'],
+     ['#categorias .section-head h2, #colecao .heading h2','collection_title'],
+     ['#categorias .section-head p, #colecao .heading .muted','collection_description'],
+     ['#sobre h2','about_title'],['#sobre .story-copy p, #sobre p','about_text'],
      ['#contato h2','contact_title'],['#contato p','contact_text'],
    ];
    for(const [selector,key] of pairs)applyText(selector,site[key]);
    const h=document.querySelector('.hero h1');
    if(h&&typeof site.hero_title==='string'&&site.hero_title.trim())h.style.whiteSpace='pre-line';
    if(validImage(site.banner_image,origin)){
-     const el=document.querySelector('.hero');
-     if(el)el.style.backgroundImage='linear-gradient(90deg,rgba(8,8,9,.87),rgba(8,8,9,.21)),url("'+site.banner_image+'")';
+     const visual=document.querySelector('.hero-visual');
+     if(visual)visual.style.backgroundImage='url("'+site.banner_image+'")';
+     else{
+       const el=document.querySelector('.hero');
+       if(el)el.style.backgroundImage='linear-gradient(90deg,rgba(8,8,9,.87),rgba(8,8,9,.21)),url("'+site.banner_image+'")';
+     }
    }
    if(validImage(site.about_image,origin)){
-     const img=document.querySelector('.about .graphic img');
-     if(img)img.src=site.about_image;
+     const story=document.querySelector('.story-image');
+     if(story)story.style.backgroundImage='url("'+site.about_image+'")';
+     else{
+       const img=document.querySelector('.about .graphic img');
+       if(img)img.src=site.about_image;
+     }
    }
  }
  if(/^#[a-f0-9]{6}$/i.test(site.accent_color||'')){
