@@ -188,6 +188,12 @@ test('pre-visualizacao premium OSS utiliza somente fotos oficiais e consulta rea
   assert.match(preview, /name="robots" content="noindex,nofollow"/);
   assert.match(preview, /assets\/oss-logo\.webp/);
   assert.match(preview, /assets\/hero-modelo-preto\.png/);
+  assert.match(preview, /class="shell hero-shell"/);
+  assert.match(preview, /class="hero-visual" aria-hidden="true"><img src="\/assets\/hero-modelo-preto\.png"/);
+  assert.match(preview, /\.hero-visual img\{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom/);
+  assert.doesNotMatch(preview, /background-image:url\('\/assets\/hero-modelo-preto\.png'\)/);
+  assert.match(preview, /\.hero-shell\{display:flex;flex-direction:column/);
+
   assert.match(preview, /assets\/banner-oss-tres-modelos\.webp/);
   const scripts = [...preview.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
   assert.equal(scripts.length, 1);
