@@ -128,7 +128,9 @@ test('navegacao interna usa mesma aba e WhatsApp oficial permanece correto',()=>
     assert.doesNotMatch(page,/5519999832458/);
     assert.doesNotMatch(page,/href="\/loja\.html"[^>]*target="_blank"/);
   }
-  assert.match(home,/href="\/loja\.html"/);
+  assert.doesNotMatch(home,/href="\/loja\.html(?:#[^"]*)?"/);
+  assert.match(home,/href="#categorias"/);
+  assert.match(home,/href="#como-comprar"/);
   assert.match(home,/class="mobile-nav"/);
   assert.match(home,/href="https:\/\/www\.instagram\.com\/osskimonos\//);
 });
@@ -172,10 +174,27 @@ test('zoom abre foto oficial sem navegar',()=>{
 });
 
 test('metadados basicos e sitemap presentes',()=>{
-  assert.match(read('sitemap.xml'),/oss-kimonos-site\.onrender\.com\/loja\.html/);
+  assert.match(read('sitemap.xml'),/oss-kimonos-site\.onrender\.com\/<\/loc>/);
+  assert.doesNotMatch(read('sitemap.xml'),/\/loja\.html/);
+  assert.match(store,/name="robots" content="noindex,follow"/);
+  assert.match(store,/class="catalog-legacy-note"/);
+  assert.match(store,/href="\/#categorias"/);
   assert.match(read('robots.txt'),/Sitemap:/);
   assert.match(home,/property="og:site_name"/);
   assert.match(home,/rel="icon"/);
+});
+
+test('a navegacao principal oferece produtos na propria pagina sem duplicar a loja',()=>{
+  assert.doesNotMatch(home,/Loja completa/);
+  assert.doesNotMatch(home,/Ver catálogo de kimonos/);
+  assert.match(home,/Explorar outras categorias/);
+  assert.match(home,/href="#categorias"/);
+  assert.match(home,/href="#destaques"/);
+  assert.match(home,/href="#como-comprar"/);
+  assert.match(home,/id="quick-contact"/);
+  assert.equal((home.match(/class="collection-card"/g)||[]).length,9);
+  assert.equal((home.match(/class="product-card"/g)||[]).length,3);
+  assert.equal(catalog.produtos.length,3);
 });
 
 test('imagens html possuem texto alternativo',()=>{
