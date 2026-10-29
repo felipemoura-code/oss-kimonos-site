@@ -182,6 +182,31 @@ test('seletor da loja no celular e horizontal e mostra categoria escolhida', () 
   assert.match(store, /button\.setAttribute\("aria-pressed",String\(selected\)\)/);
 });
 
+test('pre-visualizacao premium OSS utiliza somente fotos oficiais e consulta real', () => {
+  const preview = text('nova-versao.html');
+  assert.match(preview, /<title>Nova versão · OSS Kimonos \| Prévia<\/title>/);
+  assert.match(preview, /name="robots" content="noindex,nofollow"/);
+  assert.match(preview, /assets\/oss-logo\.webp/);
+  assert.match(preview, /assets\/hero-modelo-preto\.png/);
+  assert.match(preview, /assets\/banner-oss-tres-modelos\.webp/);
+  const scripts = [...preview.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
+  assert.equal(scripts.length, 1);
+  new Script(scripts[0][1], {filename:'nova-versao.html'});
+  assert.equal((preview.match(/class="collection-card"/g) || []).length, 9);
+  assert.equal((preview.match(/class="product-card"/g) || []).length, 3);
+  for (const key of categories) assert.ok(preview.includes('data-category="' + key + '"'),key);
+  assert.match(preview, /id="collection-detail"/);
+  assert.match(preview, /id="quick-close"/);
+  assert.match(preview, /id="photo-viewer"/);
+  assert.match(preview, /class="mobile-nav"/);
+  assert.match(preview, /const move=dir=>/);
+  assert.match(preview, /autoplay=setInterval/);
+  assert.match(preview, /target="_blank" rel="noopener noreferrer"/);
+  assert.doesNotMatch(preview, /R\$ ?(?:49|599|649|199)/);
+  assert.doesNotMatch(preview, /parcele|frete grátis|compra segura/i);
+  assert.match(preview, /5519997121912/);
+});
+
 test('imagens HTML usam descricao alternativa', () => {
   for (const page of [home, store]) {
     for (const match of page.matchAll(/<img\b[^>]*>/g)) {
