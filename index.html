@@ -133,6 +133,65 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
 }
 @media(min-width:520px) and (max-width:900px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card-photo img{transition:none}}
+
+/* Tipografia editorial clara — substitui a fonte condensada de difícil leitura */
+.hero h1,.section-title,h2,h3,h4{font-family:Inter,"Segoe UI",Arial,Helvetica,sans-serif;font-stretch:normal;font-weight:850;letter-spacing:-.043em}
+.hero h1{font-size:clamp(43px,5vw,72px);line-height:1.075;font-weight:850;text-transform:none;letter-spacing:-.051em}
+.section-title{font-size:clamp(32px,3.6vw,49px);line-height:1.13;font-weight:850;text-transform:none;letter-spacing:-.046em}
+.card h3{font-size:24px;line-height:1.18;letter-spacing:-.035em;text-transform:none;font-weight:800}
+.step h3{font-size:21px;line-height:1.23;letter-spacing:-.03em;margin:12px 0 8px;font-weight:800}
+.future-feature h3{font-size:22px;line-height:1.2;letter-spacing:-.035em;font-weight:800;margin:11px 0}
+.future-feature{display:flex;flex-direction:column;min-height:242px;padding:23px}
+.future-feature .tag{font-size:10px;line-height:1.55;margin:14px 0 14px}
+.lab-icon{display:grid;place-items:center;border:1px solid #725d43;width:37px;height:37px;color:var(--gold2);font-size:11px;font-weight:850;letter-spacing:.06em}
+.demo-open{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:auto;background:transparent;color:var(--gold2);border:1px solid #987b56;padding:11px 13px;border-radius:3px;font-size:12px;font-weight:800;text-align:left}
+.demo-open:hover,.demo-open[aria-expanded="true"]{background:var(--gold);color:#17130e;border-color:var(--gold)}
+.demo-workspace{border:1px solid #6c543c;background:#151311;margin-top:22px;scroll-margin-top:115px}
+.demo-workspace-top{padding:23px 27px;border-bottom:1px solid #514231;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.demo-workspace-top h3{font-size:27px;margin:5px 0 0}
+.demo-safe{border:1px solid #80633f;color:#e0c193;padding:6px 10px;font-size:10px;letter-spacing:.12em;font-weight:850;white-space:nowrap}
+.demo-panels{padding:26px 27px 28px}
+.demo-lead{max-width:750px;color:#c8c0b5;font-size:14px;margin:0 0 22px;line-height:1.7}
+.demo-fields{display:flex;align-items:end;gap:17px;flex-wrap:wrap;margin-bottom:20px}
+.field{display:flex;flex-direction:column;gap:8px;min-width:210px;flex:1}
+.field span,.method-picker legend{font-size:12px;color:#e4d5bf;font-weight:700}
+.field input,.field select{padding:12px 13px;width:100%;background:#23201c;border:1px solid #76644e;color:#fff;min-height:45px;border-radius:3px}
+.method-picker{display:flex;gap:16px;align-items:center;flex:1;min-width:180px;border:1px solid #594c3c;padding:8px 13px 12px;margin:0;min-height:59px}
+.method-picker label{display:flex;gap:7px;align-items:center;font-size:14px}
+.method-picker input{accent-color:var(--gold)}
+.demo-response{border:1px solid #4f4539;background:#201c17;color:#e9ded0;padding:15px 18px;font-size:13px;margin-top:18px;line-height:1.7}
+.demo-response:empty,.demo-feedback:empty{display:none}
+.demo-response p{margin:8px 0;color:#cac0b3}
+.demo-response .main-btn{margin:8px 0 0}
+.demo-feedback{color:#e5c89c;font-size:13px;margin:10px 0}
+.demo-disclaimer{color:#ada194;font-size:12px;margin:19px 0 0}
+.demo-submit{margin:0 0 1px}
+.lab-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0 20px}
+.lab-secondary,.lab-danger{background:transparent;color:#e6d4ba;border:1px solid #806b52;border-radius:3px;padding:11px 14px;font-weight:750;font-size:12px}
+.lab-danger{color:#eeb7aa;border-color:#8b5749}
+.lab-secondary:hover{background:#2b241c}.lab-danger:hover{background:#36221f}
+.demo-order-list{display:grid;gap:10px}
+.demo-order-card{border:1px solid #514634;padding:14px 16px;background:#201d18;display:flex;justify-content:space-between;align-items:start;gap:15px;flex-wrap:wrap}
+.demo-order-card strong{display:block;margin-bottom:4px;font-size:13px}
+.demo-order-card p{color:#bcafa0;font-size:12px;margin:3px 0}
+.demo-order-card .lab-toolbar{margin:0;gap:7px}
+.demo-stock-head{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid #483b30;padding-top:24px;margin-top:26px;flex-wrap:wrap}
+.demo-stock-head h4{font-size:22px;margin:0 0 4px}
+.demo-stock-head p{font-size:12px;color:#c3b8a7;margin:0}
+.demo-stock-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-top:15px}
+.demo-stock-item{padding:14px;background:#231f1a;border:1px solid #534838;display:flex;flex-direction:column;gap:9px}
+.demo-stock-item label{font-size:12px;font-weight:750}
+.demo-stock-item input{width:100%;padding:10px;background:#131311;border:1px solid #7f684a;color:#fff;border-radius:2px}
+.demo-stock-item small{font-size:11px;color:#b7a996}
+@media(max-width:720px){
+ .hero h1{font-size:clamp(39px,10vw,54px)}
+ .section-title{font-size:clamp(31px,8vw,39px)}
+ .future-feature{min-height:0}.demo-workspace-top,.demo-panels{padding:18px 16px}
+ .demo-workspace-top{align-items:flex-start;flex-direction:column;gap:10px}
+ .demo-workspace-top h3{font-size:23px}.demo-stock-list{grid-template-columns:1fr}
+ .demo-fields{flex-direction:column;align-items:stretch}.field,.method-picker{min-width:0;width:100%}
+ .demo-submit{width:100%}.demo-order-card{flex-direction:column}
+}
 </style>
 </head>
 <body>
@@ -178,9 +237,50 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
   <div class="section-head"><div><div class="eyebrow">SUA EXPERIÊNCIA</div><h2 class="section-title">Simples. Sem pressa.</h2></div><p>Experimente a sacola como ficaria numa loja virtual, com atendimento real no WhatsApp.</p></div>
   <div class="steps"><div class="step"><span>01 / EXPLORAR</span><h3>Escolha o produto</h3><p>Veja fotos oficiais e detalhes registrados.</p></div><div class="step"><span>02 / SACOLA</span><h3>Junte os favoritos</h3><p>Adicione produtos e informe quantidades para consulta.</p></div><div class="step"><span>03 / CONVERSAR</span><h3>Confirme com a OSS</h3><p>Envie a lista pelo WhatsApp; valores, tamanhos e entrega são confirmados pela equipe.</p></div></div>
  </div></section>
- <section class="future" id="futuro"><div class="container">
-  <div class="eyebrow">ESTRUTURA PARA EVOLUIR</div><h2 class="section-title">Próximas funcionalidades.</h2>
-  <div class="future-grid"><div class="future-feature"><h3>Pix e cartão</h3><p>Checkout seguro por provedor de pagamentos, somente após cadastrar produtos, preços e credenciais válidos.</p><span class="tag">NÃO ATIVO NO TESTE</span></div><div class="future-feature"><h3>Frete por CEP</h3><p>Cálculo real quando existirem pesos, medidas, origem de postagem e integração de entrega.</p><span class="tag">NÃO ATIVO NO TESTE</span></div><div class="future-feature"><h3>Pedidos e estoque</h3><p>Área administrativa autenticada, banco de dados e rastreamento de pedidos reais.</p><span class="tag">NÃO ATIVO NO TESTE</span></div></div>
+ <section class="future" id="futuro" aria-labelledby="lab-title"><div class="container">
+  <div class="eyebrow">LABORATÓRIO DA FUTURA LOJA</div>
+  <div class="section-head"><div><h2 class="section-title" id="lab-title">Teste as próximas funções.</h2></div><p>Experimente os fluxos que usaremos no futuro. Tudo aqui é demonstração: não há pagamentos, fretes ou pedidos reais.</p></div>
+  <div class="future-grid">
+   <article class="future-feature"><div class="lab-icon" aria-hidden="true">01</div><h3>Pix e cartão</h3><p>Escolha uma forma de pagamento e veja uma confirmação simulada. Não solicitamos dados de cartão.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · SEM COBRANÇA</span><button type="button" class="demo-open" data-demo-open="payment" aria-controls="demoWorkspace" aria-expanded="true">Testar pagamento <span aria-hidden="true">↗</span></button></article>
+   <article class="future-feature"><div class="lab-icon" aria-hidden="true">02</div><h3>Frete por CEP</h3><p>Informe um CEP e percorra a etapa de entrega, sem inventar valores ou prazos de transportadoras.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · SEM COTAÇÃO</span><button type="button" class="demo-open" data-demo-open="shipping" aria-controls="demoWorkspace" aria-expanded="false">Testar frete <span aria-hidden="true">↗</span></button></article>
+   <article class="future-feature"><div class="lab-icon" aria-hidden="true">03</div><h3>Pedidos e estoque</h3><p>Crie pedidos de teste com sua sacola e gerencie quantidades fictícias, somente neste navegador.</p><span class="tag">SIMULAÇÃO DISPONÍVEL · DADOS LOCAIS</span><button type="button" class="demo-open" data-demo-open="orders" aria-controls="demoWorkspace" aria-expanded="false">Testar pedidos <span aria-hidden="true">↗</span></button></article>
+  </div>
+  <div class="demo-workspace" id="demoWorkspace" aria-label="Simuladores da loja OSS">
+   <div class="demo-workspace-top"><div><span class="eyebrow">MODO DE TESTE</span><h3 id="demoWorkspaceTitle">Pagamento demonstrativo</h3></div><span class="demo-safe">NENHUMA TRANSAÇÃO REAL</span></div>
+   <div class="demo-panels">
+    <div class="demo-panel" id="demo-payment" data-demo-panel="payment">
+      <p class="demo-lead">Defina um valor <strong>fictício</strong>, selecione o método e simule o retorno de um checkout. Esse valor não é o preço dos kimonos.</p>
+      <div class="demo-fields">
+       <label class="field"><span>Valor fictício para teste (R$)</span><input id="demoAmount" type="text" inputmode="decimal" placeholder="Ex.: 150,00" maxlength="12" autocomplete="off"></label>
+       <fieldset class="method-picker"><legend>Método de pagamento</legend><label><input type="radio" name="demoMethod" value="Pix" checked> Pix</label><label><input type="radio" name="demoMethod" value="Cartão"> Cartão</label></fieldset>
+      </div>
+      <button type="button" id="demoStartPayment" class="main-btn">Gerar simulação de pagamento</button>
+      <div class="demo-feedback" id="paymentFeedback" role="status" aria-live="polite"></div>
+      <div class="demo-response" id="paymentResult" hidden><strong id="paymentResultTitle">Aguardando confirmação de teste</strong><p id="paymentResultText"></p><button type="button" class="main-btn" id="demoApprovePayment">Simular pagamento aprovado</button></div>
+      <p class="demo-disclaimer">Não informe dados reais de cartão, senhas ou chaves Pix. Nenhum banco ou gateway é acionado.</p>
+    </div>
+    <div class="demo-panel" id="demo-shipping" data-demo-panel="shipping" hidden>
+      <p class="demo-lead">Veja como funciona a etapa de CEP. Verificamos apenas o <strong>formato</strong> do código; não consultamos Correios nem transportadoras.</p>
+      <form id="demoShippingForm" class="demo-fields">
+       <label class="field"><span>CEP para teste</span><input id="demoCep" type="text" inputmode="numeric" autocomplete="postal-code" maxlength="9" placeholder="00000-000" required></label>
+       <label class="field"><span>Modalidade ilustrativa</span><select id="demoShippingMethod"><option value="Entrega padrão">Entrega padrão (exemplo)</option><option value="Retirada">Retirada (exemplo)</option></select></label>
+       <button type="submit" class="main-btn demo-submit">Simular etapa de frete</button>
+      </form>
+      <div class="demo-response" id="shippingResult" role="status" aria-live="polite"></div>
+      <p class="demo-disclaimer">Preço, prazo e disponibilidade de retirada não são calculados. Precisaremos de peso, dimensões e integração real no futuro.</p>
+    </div>
+    <div class="demo-panel" id="demo-orders" data-demo-panel="orders" hidden>
+      <p class="demo-lead">O pedido e o estoque abaixo são <strong>apenas cenários locais</strong>. Abra a sacola, adicione um kimono e volte aqui para testar o fluxo.</p>
+      <div class="lab-toolbar"><button type="button" class="main-btn" id="demoCreateOrder">Criar pedido de teste da sacola</button><button type="button" class="lab-secondary" id="demoOpenCart">Abrir sacola</button><button type="button" class="lab-danger" id="demoClearOrders">Limpar pedidos de teste</button></div>
+      <div class="demo-feedback" id="ordersFeedback" role="status" aria-live="polite"></div>
+      <div class="demo-order-list" id="demoOrderList" aria-live="polite"></div>
+      <div class="demo-stock-head"><div><h4>Estoque de demonstração</h4><p>Os valores abaixo não representam o estoque verdadeiro da OSS.</p></div><button type="button" class="lab-secondary" id="demoStockExample">Preencher 5 unidades fictícias</button></div>
+      <div id="demoStockList" class="demo-stock-list"></div>
+      <div class="lab-toolbar"><button type="button" class="lab-secondary" id="demoSaveStock">Salvar quantidades de teste</button><button type="button" class="lab-danger" id="demoClearStock">Limpar estoque de teste</button></div>
+      <p class="demo-disclaimer">Dados guardados somente neste navegador, por meio do armazenamento local. Isso não é um painel administrativo nem atualiza o estoque da OSS.</p>
+    </div>
+   </div>
+  </div>
  </div></section>
 </main>
 <footer class="footer"><div class="container footer-inner"><span>© OSS Kimonos · Ambiente experimental independente</span><span>Sem compra ou cobrança neste endereço.</span><a href="https://oss-kimonos-site.onrender.com/" target="_blank" rel="noopener noreferrer">Visitar o site oficial ↗</a></div></footer>
