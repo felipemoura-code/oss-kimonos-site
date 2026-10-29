@@ -84,7 +84,7 @@ test('carrossel premium contem nove categorias sem concorrentes e sem fotos inve
 test('carrossel avanca automaticamente em loop com copias e sem retorno visivel abrupto',()=>{
   assert.match(home,/track\.prepend\(\.\.\.initialTiles\.map\(makeClone\)\)/);
   assert.match(home,/track\.append\(\.\.\.initialTiles\.map\(makeClone\)\)/);
-  assert.match(home,/autoplay=setInterval\(\(\)=>move\(1\),4200\)/);
+  assert.match(home,/autoplay=setInterval\(\(\)=>move\(1\),2500\)/);
   assert.match(home,/function normalize\(\)/);
   assert.match(home,/instantScroll\(pos-extent\)/);
   assert.match(home,/instantScroll\(pos\+extent\)/);
