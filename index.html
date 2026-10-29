@@ -278,7 +278,7 @@ dialog::backdrop{background:#000b;backdrop-filter:blur(4px)}
 
 <dialog id="cartDialog" aria-labelledby="cartHeading">
  <div class="drawer-header"><h2 id="cartHeading">Sua sacola</h2><button type="button" id="closeCart" class="close" aria-label="Fechar sacola">Fechar ×</button></div>
- <div class="drawer-body"><p class="drawer-empty" id="cartEmpty">Sua sacola está vazia. Adicione produtos para montar uma consulta.</p><div id="cartLines"></div><div class="drawer-summary" id="cartSummary" hidden><strong>Valores e tamanhos sob consulta</strong><p>Esta sacola é apenas uma lista de interesse. Nenhuma cobrança ou reserva de estoque será realizada.</p><button type="button" class="main-btn" id="sendRequest">Solicitar orçamento no WhatsApp ↗</button><small>Você poderá revisar a mensagem antes de enviar.</small></div></div>
+ <div class="drawer-body"><p class="drawer-empty" id="cartEmpty">Sua sacola está vazia. Adicione produtos para montar uma consulta.</p><div id="cartLines"></div><div class="drawer-summary" id="cartSummary" hidden><strong>Valores e tamanhos sob consulta</strong><p>Esta sacola é apenas uma lista de interesse. Nenhuma cobrança ou reserva de estoque será realizada.</p><button type="button" class="main-btn" id="sendRequest">Solicitar orçamento no WhatsApp ↗</button><button type="button" class="text-action" id="checkoutFromBag">Experimentar como seria comprar →</button><small>Você poderá revisar a mensagem antes de enviar.</small></div></div>
 </dialog>
 <dialog id="productDialog" aria-labelledby="detailHeading"><div class="drawer-header"><h2>Detalhes do produto</h2><button type="button" id="closeProduct" class="close" aria-label="Fechar detalhes">Fechar ×</button></div><div class="detail-layout"><img id="detailPhoto" src="/assets/kimono-branco-detalhe.webp" alt=""><div><div class="eyebrow">FOTO OFICIAL OSS</div><h2 id="detailHeading"></h2><p id="detailDescription"></p><p>Cor, tamanhos, valores e estoque a confirmar no atendimento.</p><button type="button" id="detailAdd" class="main-btn">Adicionar à sacola de consulta</button></div></div></dialog>
 
@@ -339,7 +339,7 @@ function renderProducts(){
  }
 }
 function renderCart(){
- cartLines.replaceChildren();badge();
+ cartLines.replaceChildren();badge();renderCheckoutItems();
  const entries=Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number(qty)>0);
  byId('cartEmpty').hidden=entries.length>0;
  byId('cartSummary').hidden=entries.length===0;
@@ -380,10 +380,10 @@ async function load(){
    /^\/assets\/[a-z0-9-]+\.(png|webp|jpe?g)$/i.test(p.imagem)&&categories.includes(p.categoria)&&
    p.status==='publicado'&&p.tipo_registro==='foto_oficial_consulta');
   for(const id of Object.keys(state.cart)){if(!getProduct(id))delete state.cart[id];}
-  cartSave();errorEl.textContent='';renderProducts();renderCart();demoRenderStock();demoRenderOrders();
+  cartSave();errorEl.textContent='';renderProducts();renderCart();renderCheckoutItems();
  }catch(e){
   state.products=[];state.cart={};errorEl.textContent='Não foi possível carregar o catálogo oficial. Nenhum produto foi inventado. Recarregue a página para tentar novamente.';
-  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();demoRenderStock();demoRenderOrders();
+  countEl.textContent='Catálogo indisponível';renderProducts();renderCart();renderCheckoutItems();
  }
 }
 byId('filters').addEventListener('click',e=>{
@@ -400,197 +400,97 @@ byId('detailAdd').addEventListener('click',()=>{const id=state.detail;detailDial
 byId('sendRequest').addEventListener('click',sendRequest);
 for(const dialog of [cartDialog,detailDialog])dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close();});
 
-/* Simuladores locais: nenhum dado é transmitido como pagamento, frete ou pedido. */
-const demo={orders:[],stock:{},pendingPayment:null};
-const demoKey='oss-commerce-lab-local-tests-v1';
-const allowedModes=['payment','shipping','orders'];
-const modeTitles={payment:'Pagamento demonstrativo',shipping:'Frete demonstrativo por CEP',orders:'Pedidos e estoque de teste'};
-function demoLoad(){
- try{
-  const parsed=JSON.parse(localStorage.getItem(demoKey)||'{}');
-  if(parsed&&Array.isArray(parsed.orders))demo.orders=parsed.orders.filter(o=>o&&typeof o.id==='string'&&Array.isArray(o.items)).slice(0,30);
-  if(parsed&&parsed.stock&&typeof parsed.stock==='object'&&!Array.isArray(parsed.stock)){
-   for(const [id,n] of Object.entries(parsed.stock)){if(Number.isInteger(n)&&n>=0&&n<=500)demo.stock[id]=n;}
-  }
- }catch(_){demo.orders=[];demo.stock={};}
+/* Uma jornada única, com recibos locais: nenhuma compra real é criada */
+const checkout={stage:'bag',cep:'',delivery:'Entrega a combinar',history:[]};
+const checkoutKey='oss-store-lab-journey-v2';
+const stages=['bag','delivery','payment','done'];
+function loadReceipts(){
+ try{const value=JSON.parse(localStorage.getItem(checkoutKey)||'[]');checkout.history=Array.isArray(value)?value.filter(r=>r&&typeof r.id==='string'&&Array.isArray(r.items)).slice(0,15):[];}
+ catch(_){checkout.history=[];}
 }
-function demoPersist(){
- try{localStorage.setItem(demoKey,JSON.stringify({orders:demo.orders.slice(0,30),stock:demo.stock}));}catch(_){}
+function saveReceipts(){try{localStorage.setItem(checkoutKey,JSON.stringify(checkout.history));}catch(_){}}
+function selectedItems(){
+ return Object.entries(state.cart).filter(([id,q])=>getProduct(id)&&Number.isInteger(Number(q))&&Number(q)>0).map(([id,q])=>({nome:getProduct(id).nome,quantidade:Math.min(20,Number(q))}));
 }
-function demoSwitch(name,scroll){
- if(!allowedModes.includes(name))return;
- for(const panel of document.querySelectorAll('[data-demo-panel]'))panel.hidden=panel.dataset.demoPanel!==name;
- for(const button of document.querySelectorAll('[data-demo-open]'))button.setAttribute('aria-expanded',String(button.dataset.demoOpen===name));
- byId('demoWorkspaceTitle').textContent=modeTitles[name];
- if(scroll)byId('demoWorkspace').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
-}
-function demoFeedback(id,msg){byId(id).textContent=msg;}
-function demoCartItems(){
- return Object.entries(state.cart).filter(([id,qty])=>getProduct(id)&&Number.isInteger(Number(qty))&&Number(qty)>0)
-  .map(([id,qty])=>({id,nome:getProduct(id).nome,quantidade:Math.min(20,Number(qty))}));
-}
-function demoOrder(status,amount=null,method=null){
- const items=demoCartItems();
- if(!items.length)return null;
- const order={id:'OSS-TESTE-'+Date.now().toString(36).toUpperCase()+'-'+(demo.orders.length+1),
-  created:new Date().toLocaleString('pt-BR'),items,status,amount,method,stockApplied:{}};
- demo.orders.unshift(order);demo.orders=demo.orders.slice(0,30);demoPersist();demoRenderOrders();
- return order;
-}
-function demoMakeText(tag,value,cls){
- const node=elem(tag,cls,value);return node;
-}
-function demoRenderOrders(){
- const list=byId('demoOrderList');list.replaceChildren();
- if(!demo.orders.length){list.append(demoMakeText('p','Nenhum pedido de teste neste navegador. Adicione um kimono à sacola e clique em “Criar pedido de teste”.','demo-disclaimer'));return;}
- for(const order of demo.orders){
-  const entry=elem('article','demo-order-card');
-  const summary=elem('div'),actions=elem('div','lab-toolbar');
-  summary.append(demoMakeText('strong',order.id),demoMakeText('p','Status: '+order.status));
-  summary.append(demoMakeText('p',order.items.length?order.items.map(i=>i.quantidade+'× '+i.nome).join(' · '):'Sem itens vinculados'));
-  if(order.method)summary.append(demoMakeText('p','Método: '+order.method+(order.amount!==null?' · Valor fictício: '+money(order.amount):'')));
-  summary.append(demoMakeText('p',String(order.created||'')+' · Apenas neste navegador'));
-  if(order.status!=='Aprovado (simulado)'&&order.status!=='Cancelado (simulado)'){
-   const approve=demoMakeText('button','Marcar aprovado (teste)','lab-secondary');
-   approve.type='button';approve.dataset.orderApprove=order.id;actions.append(approve);
-  }
-  if(order.status!=='Cancelado (simulado)'){
-   const cancel=demoMakeText('button','Cancelar teste','lab-danger');
-   cancel.type='button';cancel.dataset.orderCancel=order.id;actions.append(cancel);
-  }
-  entry.append(summary,actions);list.append(entry);
+function renderCheckoutItems(){
+ const items=selectedItems(),target=byId('checkoutItems');target.replaceChildren();
+ byId('checkoutBagEmpty').hidden=items.length>0;byId('checkoutNext').disabled=!items.length;
+ for(const item of items){
+  const row=elem('div','checkout-line');
+  row.append(elem('strong',null,item.nome),elem('span','light',item.quantidade+' unidade(s) · valor sob consulta'));
+  target.append(row);
  }
 }
-function demoRenderStock(){
- const list=byId('demoStockList');list.replaceChildren();
- if(!state.products.length){list.append(demoMakeText('p','Catálogo não disponível para simulação de estoque.','demo-disclaimer'));return;}
- for(const p of state.products){
-  const row=elem('div','demo-stock-item');
-  const label=demoMakeText('label',p.nome+' — unidades fictícias');
-  const field=elem('input');field.type='number';field.min='0';field.max='500';field.step='1';
-  field.id='stock-'+p.id;label.htmlFor=field.id;
-  field.dataset.stockId=p.id;field.value=Object.hasOwn(demo.stock,p.id)?String(demo.stock[p.id]):'';
-  field.placeholder='Não definido';
-  row.append(label,field,demoMakeText('small','Não altera os registros oficiais da OSS.'));
-  list.append(row);
+function showCheckout(stage,scroll=false){
+ if(!stages.includes(stage))return;
+ checkout.stage=stage;
+ for(const panel of document.querySelectorAll('[data-checkout-stage]'))panel.hidden=panel.dataset.checkoutStage!==stage;
+ for(const node of document.querySelectorAll('[data-stage-nav]')){
+  node.removeAttribute('aria-current');
+  node.classList.toggle('passed',stages.indexOf(node.dataset.stageNav)<stages.indexOf(stage));
+  if(node.dataset.stageNav===stage)node.setAttribute('aria-current','step');
+ }
+ if(stage==='bag')renderCheckoutItems();
+ if(scroll)byId('experiencia').scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});
+}
+function renderHistory(){
+ const target=byId('checkoutHistoryList');target.replaceChildren();
+ if(!checkout.history.length){target.append(elem('p',null,'Nenhuma demonstração concluída neste navegador.'));return;}
+ for(const receipt of checkout.history){
+  const card=elem('div','history-entry');
+  card.append(elem('strong',null,receipt.id+' · simulado'));
+  card.append(elem('p',null,receipt.items.map(i=>i.quantidade+'× '+i.nome).join(' · ')));
+  card.append(elem('p',null,receipt.method+' · '+receipt.delivery+' · '+receipt.created));
+  target.append(card);
  }
 }
-function demoReadStockInputs(){
- const next={...demo.stock};
- for(const input of byId('demoStockList').querySelectorAll('[data-stock-id]')){
-  if(!getProduct(input.dataset.stockId))continue;
-  const raw=input.value.trim();
-  if(raw===''){delete next[input.dataset.stockId];continue;}
-  const n=Number(raw);
-  if(!Number.isInteger(n)||n<0||n>500){demoFeedback('ordersFeedback','Use quantidades inteiras de 0 a 500 para o estoque de teste.');return null;}
-  next[input.dataset.stockId]=n;
- }
- return next;
+function renderReceipt(receipt){
+ const target=byId('checkoutReceipt');target.replaceChildren();
+ target.append(elem('strong',null,receipt.id+' · DEMONSTRAÇÃO'));
+ target.append(elem('p',null,receipt.created));
+ for(const item of receipt.items)target.append(elem('p',null,item.quantidade+'× '+item.nome));
+ target.append(elem('p',null,'Entrega ilustrativa: '+receipt.delivery));
+ target.append(elem('p',null,'Opção de pagamento: '+receipt.method));
+ target.append(elem('p',null,'Nenhum preço ou frete calculado; nenhum pagamento ou pedido real.'));
 }
-function demoSaveStock(){
- const next=demoReadStockInputs();if(!next)return;
- demo.stock=next;demoPersist();demoFeedback('ordersFeedback','Estoque fictício salvo somente neste navegador.');
-}
-function demoSetOrderStatus(id,nextStatus){
- const order=demo.orders.find(o=>o.id===id);
- if(!order||order.status===nextStatus)return;
- if(nextStatus==='Aprovado (simulado)'&&order.status==='Cancelado (simulado)')return;
- if(nextStatus==='Aprovado (simulado)'){
-  const applied={};
-  for(const item of order.items){
-   if(!Object.hasOwn(demo.stock,item.id))continue;
-   if(demo.stock[item.id]<item.quantidade){demoFeedback('ordersFeedback','Estoque fictício insuficiente para '+item.nome+'. Ajuste o cenário antes de aprovar.');return;}
-   applied[item.id]=item.quantidade;
-  }
-  for(const [itemId,qty] of Object.entries(applied))demo.stock[itemId]-=qty;
-  order.stockApplied=applied;
-  demoFeedback('ordersFeedback',Object.keys(applied).length?'Pagamento aprovado no teste e unidades fictícias abatidas do cenário.':'Aprovação simulada. Defina estoque fictício se quiser testar a baixa de unidades.');
+byId('checkoutNext').addEventListener('click',()=>{if(selectedItems().length)showCheckout('delivery');});
+byId('checkoutDeliveryPanel').addEventListener('submit',event=>{
+ event.preventDefault();if(!selectedItems().length){showCheckout('bag');return;}
+ const raw=byId('checkoutCep').value.trim(),digits=raw.replace(/\D/g,'');
+ if(!/^\d{5}-?\d{3}$/.test(raw)||digits.length!==8){
+  byId('checkoutDeliveryError').textContent='Digite um CEP válido com oito números (ex.: 13010-110).';return;
  }
- if(nextStatus==='Cancelado (simulado)'){
-  if(order.status==='Aprovado (simulado)'){
-   for(const [itemId,qty] of Object.entries(order.stockApplied||{}))demo.stock[itemId]=(demo.stock[itemId]||0)+qty;
-  }
-  order.stockApplied={};demoFeedback('ordersFeedback','Pedido cancelado no teste. Eventuais unidades fictícias foram devolvidas.');
- }
- order.status=nextStatus;demoPersist();demoRenderOrders();demoRenderStock();
-}
-function demoParseAmount(value){
- const trimmed=value.trim().replace(',','.');
- if(!/^\d{1,6}(?:\.\d{1,2})?$/.test(trimmed))return null;
- const n=Number(trimmed);
- return Number.isFinite(n)&&n>0&&n<=100000?n:null;
-}
-document.querySelectorAll('[data-demo-open]').forEach(button=>button.addEventListener('click',()=>demoSwitch(button.dataset.demoOpen,true)));
-byId('demoStartPayment').addEventListener('click',()=>{
- const amount=demoParseAmount(byId('demoAmount').value);
- if(amount===null){byId('paymentResult').hidden=true;demoFeedback('paymentFeedback','Informe um valor fictício válido, por exemplo 150,00. Não é o preço dos produtos.');return;}
- const method=document.querySelector('input[name="demoMethod"]:checked')?.value||'Pix';
- demo.pendingPayment={amount,method};
- demoFeedback('paymentFeedback','Fluxo de '+method+' gerado exclusivamente para demonstração.');
- byId('paymentResult').hidden=false;
- byId('paymentResultTitle').textContent=method==='Pix'?'Pix fictício — aguardando confirmação':'Cartão fictício — aguardando confirmação';
- byId('paymentResultText').textContent='Valor de teste: '+money(amount)+'. Nenhuma cobrança ou QR Code real foi gerado. Clique abaixo para simular o retorno de pagamento aprovado.';
- byId('demoApprovePayment').disabled=false;
- byId('demoApprovePayment').textContent='Simular pagamento aprovado';
+ checkout.cep=digits.slice(0,5)+'-'+digits.slice(5);
+ checkout.delivery=byId('checkoutDeliveryType').value;
+ byId('checkoutDeliveryError').textContent='';showCheckout('payment');
 });
-byId('demoApprovePayment').addEventListener('click',()=>{
- if(!demo.pendingPayment)return;
- const request=demo.pendingPayment;
- const order=demoOrder('Aguardando pagamento (teste)',request.amount,request.method);
- if(order)demoSetOrderStatus(order.id,'Aprovado (simulado)');
- byId('demoApprovePayment').disabled=true;
- byId('demoApprovePayment').textContent='Confirmação simulada';
- byId('paymentResultTitle').textContent='Pagamento aprovado — somente no teste';
- byId('paymentResultText').textContent=order?
-  'O pedido '+order.id+' foi criado localmente. Veja-o em “Pedidos e estoque”. Nenhuma cobrança aconteceu.':
-  'O fluxo de pagamento terminou sem cobrança. Como sua sacola está vazia, nenhum pedido de produto foi criado.';
- demoFeedback('paymentFeedback','Simulação concluída. Nenhum valor foi cobrado.');
- demo.pendingPayment=null;
+document.querySelectorAll('[data-back]').forEach(button=>button.addEventListener('click',()=>showCheckout(button.dataset.back)));
+byId('checkoutFinish').addEventListener('click',()=>{
+ const items=selectedItems();if(!items.length){showCheckout('bag');return;}
+ if(!checkout.cep){showCheckout('delivery');return;}
+ const requested=document.querySelector('input[name="checkoutMethod"]:checked')?.value;
+ const receipt={id:'OSS-DEMO-'+Date.now().toString(36).toUpperCase(),
+  created:new Date().toLocaleString('pt-BR'),items,delivery:checkout.delivery,
+  method:requested==='Cartão'?'Cartão':'Pix'};
+ checkout.history.unshift(receipt);checkout.history=checkout.history.slice(0,15);saveReceipts();
+ renderReceipt(receipt);renderHistory();
+ state.cart={};cartSave();renderCart();showCheckout('done');
 });
-byId('demoShippingForm').addEventListener('submit',event=>{
- event.preventDefault();
- const raw=byId('demoCep').value.trim(),digits=raw.replace(/\D/g,'');
- if(!/^\d{8}$/.test(digits)||!/^\d{5}-?\d{3}$/.test(raw)){
-  demoFeedback('shippingResult','CEP inválido para o teste. Digite oito números, com ou sem hífen.');return;
- }
- const cep=digits.slice(0,5)+'-'+digits.slice(5);
- const method=byId('demoShippingMethod').value;
- demoFeedback('shippingResult','Formato de CEP válido: '+cep+'. Modalidade demonstrada: '+method+'. Próxima etapa de uma loja real: consultar transportadora e disponibilidade. Nenhum valor ou prazo de entrega foi calculado.');
+byId('checkoutAgain').addEventListener('click',()=>{
+ checkout.cep='';byId('checkoutCep').value='';showCheckout('bag');
+ byId('catalogo').scrollIntoView({behavior:'smooth',block:'start'});
 });
-byId('demoCreateOrder').addEventListener('click',()=>{
- const order=demoOrder('Aguardando pagamento (teste)');
- demoFeedback('ordersFeedback',order?'Pedido '+order.id+' criado somente para demonstração. Você pode marcar como aprovado ou cancelar.':'Adicione primeiro um produto oficial à sacola para criar um pedido de teste.');
+byId('checkoutClearHistory').addEventListener('click',()=>{
+ checkout.history=[];saveReceipts();renderHistory();
 });
-byId('demoOpenCart').addEventListener('click',()=>{renderCart();cartDialog.showModal();});
-byId('demoOrderList').addEventListener('click',event=>{
- const approve=event.target.closest('[data-order-approve]'),cancel=event.target.closest('[data-order-cancel]');
- if(approve)demoSetOrderStatus(approve.dataset.orderApprove,'Aprovado (simulado)');
- if(cancel)demoSetOrderStatus(cancel.dataset.orderCancel,'Cancelado (simulado)');
+byId('checkoutFromBag').addEventListener('click',()=>{
+ if(!selectedItems().length)return;
+ cartDialog.close();showCheckout('bag',true);
 });
-byId('demoSaveStock').addEventListener('click',demoSaveStock);
-byId('demoStockExample').addEventListener('click',()=>{
- for(const input of byId('demoStockList').querySelectorAll('[data-stock-id]'))input.value='5';
- demoSaveStock();
- demoFeedback('ordersFeedback','Cenário com 5 unidades fictícias por registro criado. Não representa estoque verdadeiro.');
-});
-byId('demoClearStock').addEventListener('click',()=>{
- demo.stock={};demoPersist();demoRenderStock();
- demoFeedback('ordersFeedback','Quantidades fictícias apagadas. Os produtos reais não foram alterados.');
-});
-byId('demoClearOrders').addEventListener('click',()=>{
- for(const order of demo.orders){
-  if(order.status==='Aprovado (simulado)'){
-   for(const [itemId,qty] of Object.entries(order.stockApplied||{}))demo.stock[itemId]=(demo.stock[itemId]||0)+qty;
-  }
- }
- demo.orders=[];demoPersist();demoRenderOrders();demoRenderStock();
- demoFeedback('ordersFeedback','Pedidos de teste apagados. As unidades fictícias debitadas foram restituídas ao cenário.');
-});
-
-demoLoad();
+loadReceipts();
 cartRead();
-demoRenderOrders();
-demoSwitch('payment',false);
+renderHistory();
+showCheckout('bag');
 load();
 })();
 </script>
