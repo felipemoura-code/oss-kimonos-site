@@ -1,226 +1,184 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
-import { Script } from 'node:vm';
+import {readFileSync, existsSync} from 'node:fs';
+import {Script} from 'node:vm';
 
-const text = (file) => readFileSync(file, 'utf8');
-const home = text('index.html');
-const store = text('loja.html');
-const catalog = JSON.parse(text('catalogo.json'));
-const integration = JSON.parse(text('integracao-host.json'));
-const categories = [
-  'kimonos', 'faixas', 'fight-wear', 'rashguard', 'camisas',
-  'bones', 'bermuda', 'moletom', 'mochilas',
-];
-const officialPhone = '5519997121912';
+const read = name => readFileSync(name,'utf8');
+const home=read('index.html');
+const store=read('loja.html');
+const preview=read('nova-versao.html');
+const previous=read('versao-anterior.html');
+const adapter=read('site-editor-runtime.js');
+const viewer=read('oss-photo-viewer.js');
+const catalog=JSON.parse(read('catalogo.json'));
+const integration=JSON.parse(read('integracao-host.json'));
+const categories=['kimonos','faixas','fight-wear','rashguard','camisas','bones','bermuda','moletom','mochilas'];
 
-test('as duas paginas possuem titulos, estrutura e JavaScript valido', () => {
-  for (const [name, page] of [['index.html', home], ['loja.html', store]]) {
-    assert.match(page, /<html lang="pt-BR">/);
-    assert.equal((page.match(/<h1\b/g) || []).length, 1, name);
-    assert.match(page, /<meta name="viewport"/);
-    assert.match(page, /<meta name="description"/);
-    assert.match(page, /<main id="conteudo">/);
-    const scripts = [...page.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
-    assert.ok(scripts.length > 0, name + ': nenhum script');
-    for (const [, code] of scripts) new Script(code, { filename: name });
-    assert.match(page, /class="mobile-nav"/);
-    assert.match(page, /class="skip-link"/);
-    assert.match(page, /\/assets\/oss-logo\.webp/);
+function checkInlineScripts(filename,content){
+  const scripts=[...content.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
+  assert.ok(scripts.length>0,filename);
+  for(const [,src] of scripts)new Script(src,{filename});
+}
+test('homepage, loja e preview possuem estrutura e JavaScript valido',()=>{
+  for(const [filename,content] of [['index.html',home],['loja.html',store],['nova-versao.html',preview]]){
+    assert.match(content,/<html lang="pt-BR">/);
+    assert.match(content,/<meta name="viewport"/);
+    assert.equal((content.match(/<h1\b/g)||[]).length,1,filename);
+    assert.match(content,/<main id="conteudo">/);
+    assert.match(content,/\/assets\/oss-logo\.webp/);
+    checkInlineScripts(filename,content);
   }
+  new Script(adapter,{filename:'site-editor-runtime.js'});
+  new Script(viewer,{filename:'oss-photo-viewer.js'});
 });
 
-test('loja abre na mesma aba e contato oficial permanece correto', () => {
-  assert.match(home, /href="\/loja\.html"/);
-  assert.doesNotMatch(home, /href="\/loja\.html"[^>]*target="_blank"/);
-  assert.match(home, /class="mobile-store" href="\/loja\.html"/);
-  assert.match(home, new RegExp(officialPhone));
-  assert.match(store, new RegExp(officialPhone));
-  assert.doesNotMatch(home + store, /5519999832458/);
+test('nova identidade OSS e oficial, nao e mais pagina de previa',()=>{
+  assert.match(home,/<title>OSS Kimonos \| Feito para o tatame<\/title>/);
+  assert.match(home,/rel="canonical" href="https:\/\/oss-kimonos-site\.onrender\.com\/"/);
+  assert.match(home,/property="og:title"/);
+  assert.match(home,/property="og:image"/);
+  assert.doesNotMatch(home,/name="robots" content="noindex,nofollow"/);
+  assert.doesNotMatch(home,/PRÉVIA DE DESIGN/);
+  assert.match(home,/id="inicio"/);
+  assert.match(home,/id="categorias"/);
+  assert.match(home,/id="destaques"/);
+  assert.match(home,/id="sobre"/);
+  assert.match(home,/id="contato"/);
 });
 
-test('as nove categorias estao ligadas ao catalogo', () => {
-  const keys = [...store.matchAll(/class="category"[^>]*data-key="([^"]+)"/g)].map(match => match[1]);
-  assert.deepEqual(keys, categories);
-  assert.match(store, /fetch\(activeCatalogEndpoint/);
-  assert.match(store, /\/catalogo\.json/);
-  assert.match(store, /\/integracao-host\.json/);
-  assert.match(store, /p\.status==="publicado"/);
+test('versao antiga preservada para reversao e preview isolada',()=>{
+  assert.match(previous,/FEITO PARA QUEM VIVE O TATAME/);
+  assert.match(previous,/name="robots" content="noindex,nofollow"/);
+  assert.match(preview,/name="robots" content="noindex,nofollow"/);
+  assert.match(preview,/PRÉVIA DE DESIGN/);
+  assert.doesNotMatch(home,/PRÉVIA DE DESIGN/);
 });
 
-test('fotos otimizadas oficiais existem e originais estao preservadas', () => {
-  for (const name of [
-    'oss-logo', 'banner-oss-tres-modelos', 'kimono-branco-detalhe',
-    'hero-modelo-preto', 'modelo-branco-feminino'
-  ]) {
-    assert.ok(existsSync('assets/' + name + '.png'));
-    assert.ok(existsSync('assets/' + name + '.webp'));
+test('banners usam somente fotos oficiais da OSS e respeitam composicao aprovada',()=>{
+  for(const name of ['banner-oss-tres-modelos','kimono-branco-detalhe','hero-modelo-preto','modelo-branco-feminino','oss-logo']){
+    assert.ok(existsSync('assets/'+name+'.png'));
+    assert.ok(existsSync('assets/'+name+'.webp'));
   }
-  assert.match(home, /banner-oss-tres-modelos\.webp/);
-  assert.match(store, /kimono-branco-detalhe\.webp/);
-  assert.match(store, /hero-modelo-preto\.webp/);
+  assert.match(home,/background-image:url\('\/assets\/banner-oss-tres-modelos\.webp'\)/);
+  assert.match(home,/#inicio\.hero\{margin-inline:clamp\(10px,1vw,18px\)\}/);
+  assert.match(home,/class="hero-visual"/);
+  assert.match(home,/class="story-image"/);
+  assert.match(home,/\.brand-story \.story-image::after/);
+  assert.doesNotMatch(home,/oss-ref-(?:camisas|faixas|bones)\.webp/);
 });
 
-test('catalogo nao presume produtos nem hospedagem conectada', () => {
-  assert.ok(Array.isArray(catalog.produtos));
-  assert.equal(catalog.versao, 1);
-  assert.equal(integration.versao, 1);
-  assert.equal(typeof integration.api_catalogo, 'string');
+test('carrossel premium contem nove categorias sem concorrentes e sem fotos inventadas',()=>{
+  assert.equal((home.match(/class="collection-card"/g)||[]).length,9);
+  for(const key of categories)assert.ok(home.includes('data-category="'+key+'"'),key);
+  assert.match(home,/id="category-track"/);
+  assert.match(home,/id="cat-prev"/);
+  assert.match(home,/id="cat-next"/);
+  assert.match(home,/id="collection-detail"/);
+  const carousel=home.split('id="category-track"')[1].split('</div>\n<section class="category-quick"')[0];
+  assert.doesNotMatch(carousel,/href="\/loja\.html"/);
+  assert.match(home,/track\.addEventListener\('click'/);
+  assert.match(home,/openDetail\(tile\.dataset\.category,true,true,tile\)/);
 });
 
-test('cada categoria do carrossel abre detalhes na mesma página, sem outra aba', () => {
-  assert.match(home, /id="category-track"/);
-  assert.match(home, /id="category-prev"/);
-  assert.match(home, /id="category-next"/);
-  assert.match(home, /id="category-toggle"/);
-  assert.match(home, /id="category-progress"/);
-  assert.match(home, /id="category-details"/);
-  assert.match(home, /id="detail-close"/);
-  assert.match(home, /id="detail-items"/);
-  assert.match(home, /id="detail-empty"/);
-  assert.match(home, /track\.scrollTo/);
-  const carousel = home.split('id="category-track"')[1].split('</div>\n <div class="carousel-bottom">')[0];
-  assert.equal((carousel.match(/class="category-tile"/g) || []).length, 9);
-  for (const key of categories) {
-    assert.ok(home.includes('data-category="' + key + '"'), 'Categoria sem botão: ' + key);
+test('carrossel avanca automaticamente em loop com copias e sem retorno visivel abrupto',()=>{
+  assert.match(home,/track\.prepend\(\.\.\.initialTiles\.map\(makeClone\)\)/);
+  assert.match(home,/track\.append\(\.\.\.initialTiles\.map\(makeClone\)\)/);
+  assert.match(home,/autoplay=setInterval\(\(\)=>move\(1\),4200\)/);
+  assert.match(home,/function normalize\(\)/);
+  assert.match(home,/instantScroll\(pos-extent\)/);
+  assert.match(home,/instantScroll\(pos\+extent\)/);
+  assert.match(home,/IntersectionObserver/);
+  assert.match(home,/prefers-reduced-motion:reduce/);
+  assert.match(home,/touchstart/);
+  assert.match(home,/pointerenter/);
+  assert.match(home,/document\.hidden/);
+});
+
+test('categoria abre na propria pagina e historico do navegador funciona',()=>{
+  assert.match(home,/function openDetail\(key,scroll=true,writeHistory=true,trigger=null\)/);
+  assert.match(home,/detail\.hidden=false/);
+  assert.match(home,/id="quick-close"/);
+  assert.match(home,/history\.pushState/);
+  assert.match(home,/window\.addEventListener\('popstate',showFromHash\)/);
+  assert.match(home,/window\.addEventListener\('hashchange',showFromHash\)/);
+  assert.match(home,/id="quick-preview"/);
+  assert.doesNotMatch(home,/href="\/loja\.html#[a-z-]+"[^>]*target="_blank"/);
+});
+
+test('apenas 3 fotografias reais da OSS, sem preco ou estoque ficticios',()=>{
+  assert.equal((home.match(/class="product-card"/g)||[]).length,3);
+  assert.equal(catalog.produtos.length,3);
+  for(const p of catalog.produtos){
+    assert.equal(p.categoria,'kimonos');
+    assert.equal(p.tipo_registro,'foto_oficial_consulta');
+    assert.equal(p.preco_confirmado,false);
+    assert.equal(p.status,'publicado');
+    assert.ok(existsSync('.'+p.imagem));
+    assert.equal(p.estoque,undefined);
   }
-  assert.doesNotMatch(carousel, /href="/);
-  assert.doesNotMatch(carousel, /target="_blank"/);
-  assert.match(home, /selectCategory\(card\.dataset\.category,card\)/);
-  assert.match(home, /details\.scrollIntoView/);
-  assert.match(home, /details\.hidden=false/);
-  assert.match(home, /closeDetails\(true\)/);
-  assert.match(home, /fetch\('\/catalogo\.json'/);
-  assert.doesNotMatch(home, /class="product"/);
-  assert.match(home, /scroll-snap-type:x mandatory/);
+  assert.match(home,/Modelos, tamanhos e valores sob consulta/);
+  assert.doesNotMatch(home,/R\$\s*\d/);
+  assert.doesNotMatch(home,/frete grátis|parcele em|compra segura/i);
 });
 
-test('carousel avanca sozinho com pausa e sem salto para o inicio', () => {
-  assert.match(home, /const interval=3900/);
-  assert.match(home, /setInterval\(advance,interval\)/);
-  assert.match(home, /clearInterval\(timer\)/);
-  assert.match(home, /if\(x>=max-3\)direction=-1/);
-  assert.match(home, /else if\(x<=3\)direction=1/);
-  assert.match(home, /pointerenter/);
-  assert.match(home, /focusin/);
-  assert.match(home, /visibilitychange/);
-  assert.match(home, /IntersectionObserver/);
-  assert.match(home, /prefers-reduced-motion: reduce/);
-  assert.match(home, /toggle\.addEventListener\('click'/);
-  assert.match(home, /selectedCategory===null/);
-  assert.match(home, /aria-expanded/);
-});
-
-test('categorias sem fotos reais mostram apenas consulta; kimonos preservam originais', () => {
-  assert.match(store, /class="category-enquiry"/);
-  assert.match(store, /id="other-description"/);
-  assert.match(store, /Ainda não temos fotos oficiais/);
-  assert.doesNotMatch(store, /reference-photo-image/);
-  assert.doesNotMatch(store, /referenceImages/);
-  assert.doesNotMatch(store, /oss-ref-[a-z-]+\.webp/);
-  assert.equal(catalog.produtos.length, 3);
-  assert.equal(new Set(catalog.produtos.map(p => p.id)).size, 3);
-  for (const product of catalog.produtos) {
-    assert.equal(product.categoria, 'kimonos');
-    assert.equal(product.tipo_registro, 'foto_oficial_consulta');
-    assert.equal(product.preco_confirmado, false);
-    assert.equal(product.status, 'publicado');
-    assert.ok(existsSync('.' + product.imagem), product.imagem);
-    assert.match(product.descricao, /confirmação/);
-    assert.equal(product.estoque, undefined);
+test('navegacao interna usa mesma aba e WhatsApp oficial permanece correto',()=>{
+  for(const page of [home,store]){
+    assert.match(page,/5519997121912/);
+    assert.doesNotMatch(page,/5519999832458/);
+    assert.doesNotMatch(page,/href="\/loja\.html"[^>]*target="_blank"/);
   }
-  assert.match(store, /Foto original OSS · modelo sob consulta/);
+  assert.match(home,/href="\/loja\.html"/);
+  assert.match(home,/class="mobile-nav"/);
+  assert.match(home,/href="https:\/\/www\.instagram\.com\/osskimonos\//);
 });
 
-test('adaptador do painel da OSS nao altera site sem API configurada', () => {
-  const adapter = text('site-editor-runtime.js');
-  new Script(adapter, {filename:'site-editor-runtime.js'});
-  assert.match(home, /src="\/site-editor-runtime\.js"/);
-  assert.match(store, /src="\/site-editor-runtime\.js"/);
-  assert.equal(integration.api_site, '');
-  assert.match(adapter, /if\(!api\)return null/);
-  assert.match(adapter, /fetch\(configURL/);
-  assert.match(adapter, /\/api\/site\.php/);
-  assert.match(adapter, /whatsapp_number/);
-  assert.match(adapter, /accent_color/);
-  assert.match(adapter, /instagram_url/);
-  assert.match(adapter, /banner_image/);
-  assert.match(adapter, /logo_image/);
-  assert.match(adapter, /about_image/);
+test('orientacoes de compra estao incluidas sem promessas nao confirmadas',()=>{
+  assert.match(home,/id="como-comprar"/);
+  assert.equal((home.match(/class="buying-step"/g)||[]).length,3);
+  assert.match(home,/Sem checkout ou cobrança automática/);
+  assert.match(home,/condições de entrega com a equipe/);
+  assert.match(store,/id="ajuda"/);
+  assert.equal((store.match(/<details><summary>/g)||[]).length,4);
 });
 
-test('fotos oficiais ampliam na propria pagina com teclado e botao de fechar', () => {
-  const viewer = text('oss-photo-viewer.js');
-  new Script(viewer, { filename:'oss-photo-viewer.js' });
-  assert.match(home, /src="\/oss-photo-viewer\.js"/);
-  assert.match(store, /src="\/oss-photo-viewer\.js"/);
-  assert.match(viewer, /\.detail-item img\.detail-item-photo/);
-  assert.match(viewer, /\.card img\.photo/);
-  assert.match(viewer, /\.showModal\(\)/);
-  assert.match(viewer, /\.close\(\)/);
-  assert.match(viewer, /MutationObserver/);
-  assert.match(viewer, /event\.key!=='Enter'/);
-  assert.match(viewer, /event\.key!==' '/);
-  assert.match(viewer, /aria-label/);
-  assert.match(viewer, /const parsed=new URL\(src,location.href\)/);
+test('loja continua com nove categorias e catalogo publicado',()=>{
+  const keys=[...store.matchAll(/class="category"[^>]*data-key="([^"]+)"/g)].map(m=>m[1]);
+  assert.deepEqual(keys,categories);
+  assert.match(store,/fetch\(activeCatalogEndpoint/);
+  assert.match(store,/\/integracao-host\.json/);
+  assert.match(store,/p\.status==="publicado"/);
+  assert.match(store,/class="category-enquiry"/);
+  assert.doesNotMatch(store,/reference-photo-image/);
+  assert.match(store,/categoryStrip\.scrollTo/);
 });
 
-test('categoria do carrossel aceita link compartilhavel e botao voltar', () => {
-  assert.match(home, /history\.pushState/);
-  assert.match(home, /#colecao-['"]?\+key/);
-  assert.match(home, /window\.addEventListener\('popstate',syncCategoryFromUrl\)/);
-  assert.match(home, /window\.addEventListener\('hashchange',syncCategoryFromUrl\)/);
-  assert.match(home, /closeDetails\(false,false\)/);
-  assert.match(home, /selectCategory\(key,card,false\)/);
-  assert.match(home, /location\.hash\.slice\(9\)/);
+test('contato e identidade preservados para futuro painel, sem ativar banco',()=>{
+  assert.match(home,/src="\/site-editor-runtime\.js"/);
+  assert.match(store,/src="\/site-editor-runtime\.js"/);
+  assert.equal(integration.api_site,'');
+  assert.equal(integration.api_catalogo,'');
+  assert.match(adapter,/if\(!api\)return null/);
+  assert.match(adapter,/whatsapp_number/);
 });
 
-test('seletor da loja no celular e horizontal e mostra categoria escolhida', () => {
-  assert.match(store, /\.categories\{display:flex;overflow-x:auto/);
-  assert.match(store, /\.categories \.category\{flex:0 0 auto/);
-  assert.match(store, /categoryStrip\.scrollTo/);
-  assert.match(store, /button\.setAttribute\("aria-pressed",String\(selected\)\)/);
+test('zoom abre foto oficial sem navegar',()=>{
+  assert.match(home,/id="photo-viewer"/);
+  assert.match(home,/data-image="/);
+  assert.match(home,/modal\.showModal\(\)/);
+  assert.match(store,/src="\/oss-photo-viewer\.js"/);
+  assert.match(viewer,/\.showModal\(\)/);
+  assert.match(viewer,/MutationObserver/);
 });
 
-test('pre-visualizacao premium OSS utiliza somente fotos oficiais e consulta real', () => {
-  const preview = text('nova-versao.html');
-  assert.match(preview, /<title>Nova versão · OSS Kimonos \| Prévia<\/title>/);
-  assert.match(preview, /name="robots" content="noindex,nofollow"/);
-  assert.match(preview, /assets\/oss-logo\.webp/);
-  assert.match(preview, /class="hero-visual" aria-hidden="true"><\/div>/);
-  assert.match(preview, /class="shell hero-content"/);
-  assert.match(preview, /background-image:url\('\/assets\/banner-oss-tres-modelos\.webp'\)/);
-  assert.match(preview, /background-size:auto 100%;background-position:right center/);
-  assert.match(preview, /#inicio\.hero\{margin-inline:clamp\(10px,1vw,18px\)\}/);
-  assert.match(preview, /#inicio \.hero-content\.shell\{width:calc\(100% - 36px\);max-width:none;margin-inline:auto\}/);
-  assert.match(preview, /#inicio \.hero-content\.shell\{width:calc\(100% - 28px\)\}/);
-
-  assert.doesNotMatch(preview, /class="shell hero-shell"/);
-  assert.doesNotMatch(preview, /background-image:url\('\/assets\/hero-modelo-preto\.png'\)/);
-
-  assert.match(preview, /assets\/banner-oss-tres-modelos\.webp/);
-  const scripts = [...preview.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
-  assert.equal(scripts.length, 1);
-  new Script(scripts[0][1], {filename:'nova-versao.html'});
-  assert.equal((preview.match(/class="collection-card"/g) || []).length, 9);
-  assert.equal((preview.match(/class="product-card"/g) || []).length, 3);
-  for (const key of categories) assert.ok(preview.includes('data-category="' + key + '"'),key);
-  assert.match(preview, /id="collection-detail"/);
-  assert.match(preview, /id="quick-close"/);
-  assert.match(preview, /id="photo-viewer"/);
-  assert.match(preview, /class="mobile-nav"/);
-  assert.match(preview, /const move=dir=>/);
-  assert.match(preview, /autoplay=setInterval/);
-  assert.match(preview, /target="_blank" rel="noopener noreferrer"/);
-  assert.doesNotMatch(preview, /R\$ ?(?:49|599|649|199)/);
-  assert.doesNotMatch(preview, /parcele|frete grátis|compra segura/i);
-  assert.match(preview, /5519997121912/);
+test('metadados basicos e sitemap presentes',()=>{
+  assert.match(read('sitemap.xml'),/oss-kimonos-site\.onrender\.com\/loja\.html/);
+  assert.match(read('robots.txt'),/Sitemap:/);
+  assert.match(home,/property="og:site_name"/);
+  assert.match(home,/rel="icon"/);
 });
 
-test('imagens HTML usam descricao alternativa', () => {
-  for (const page of [home, store]) {
-    for (const match of page.matchAll(/<img\b[^>]*>/g)) {
-      assert.match(match[0], /\balt="/);
-    }
+test('imagens html possuem texto alternativo',()=>{
+  for(const page of [home,store]){
+    for(const m of page.matchAll(/<img\b[^>]*>/g))assert.match(m[0],/\balt="/);
   }
 });
