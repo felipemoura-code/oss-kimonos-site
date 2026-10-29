@@ -169,6 +169,23 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  .mobile-nav-links a{display:block;min-height:44px;padding:12px 14px;border-radius:4px;font-size:14px}
  .mobile-nav-links a:hover{background:#302922}
 }
+
+/* Seletor compacto de categorias no celular, sem esconder nenhuma categoria */
+@media(max-width:620px){
+ .categories{display:flex;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#776046 transparent;gap:8px;margin:17px 0 24px;padding:2px 1px 11px}
+ .categories .category{flex:0 0 auto;white-space:nowrap;min-width:94px;min-height:45px;padding:10px 13px;border-radius:7px;scroll-snap-align:center;font-size:12px}
+ .sectionhead{align-items:center}
+ .sectionhead .badge{white-space:normal;max-width:145px;text-align:right;line-height:1.25}
+}
+.card img.photo[data-oss-zoom-ready="1"]{cursor:zoom-in;transition:filter .18s}
+.card img.photo[data-oss-zoom-ready="1"]:hover{filter:brightness(1.08)}
+.card img.photo[data-oss-zoom-ready="1"]:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.oss-image-viewer{width:min(94vw,920px);max-height:94dvh;max-width:920px;border:1px solid #8f7453;border-radius:9px;background:#141416;color:#f5f2ec;padding:12px;box-shadow:0 20px 80px #000d;overflow:auto}
+.oss-image-viewer::backdrop{background:#000d;backdrop-filter:blur(5px)}
+.oss-viewer-wrap{display:flex;flex-direction:column;gap:10px;align-items:center}
+.oss-viewer-close{align-self:flex-end;border:1px solid #6a5845;border-radius:5px;padding:8px 14px;background:#2c241e;color:#f1d0a2;font-weight:800;cursor:pointer;min-height:42px}
+.oss-viewer-image{display:block;max-width:100%;max-height:min(73dvh,750px);width:auto;height:auto;object-fit:contain;background:#222124;border-radius:3px}
+.oss-viewer-caption{margin:0 0 6px;color:#c6c0b8;font-size:12px;text-align:center}
 </style>
 </head>
 <body>
@@ -201,7 +218,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
    <button class="category" type="button" data-key="mochilas" aria-pressed="false">Mochilas</button>
   </div>
   <section id="kimonos-panel" aria-labelledby="kimono-title">
-   <div class="sectionhead"><div><p class="eyebrow">OSS no tatame</p><h3 id="kimono-title">Kimonos OSS</h3></div><span class="badge">Fotos originais</span></div>
+   <div class="sectionhead"><div><p class="eyebrow">OSS no tatame</p><h3 id="kimono-title">Kimonos OSS</h3></div><span class="badge">Fotos originais · toque para ampliar</span></div>
    <div class="cards">
     <article class="card">
      <img class="photo" src="/assets/kimono-branco-detalhe.webp" loading="lazy" decoding="async" alt="Detalhes de kimono branco OSS Kimonos" width="580" height="440">
@@ -260,6 +277,7 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
   "bermuda":"Bermuda","moletom":"Moletom","mochilas":"Mochilas"
  };
  const buttons=Array.from(document.querySelectorAll(".category"));
+ const categoryStrip=document.querySelector(".categories");
  const panelKimonos=document.getElementById("kimonos-panel");
  const panelOther=document.getElementById("other-panel");
  const productsPanel=document.getElementById("products-panel");
@@ -338,7 +356,16 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
  function showCategory(key,writeHistory){
    if(!Object.prototype.hasOwnProperty.call(categories,key))return;
    activeKey=key;
-   for(const button of buttons)button.setAttribute("aria-pressed",String(button.dataset.key===key));
+   let activeButton=null;
+   for(const button of buttons){
+     const selected=button.dataset.key===key;
+     button.setAttribute("aria-pressed",String(selected));
+     if(selected)activeButton=button;
+   }
+   if(activeButton&&categoryStrip&&categoryStrip.scrollWidth>categoryStrip.clientWidth){
+     const left=categoryStrip.scrollLeft+activeButton.getBoundingClientRect().left-categoryStrip.getBoundingClientRect().left-(categoryStrip.clientWidth-activeButton.clientWidth)/2;
+     categoryStrip.scrollTo({left:Math.max(0,left),behavior:writeHistory?"smooth":"auto"});
+   }
    const products=publishedProducts.filter(p=>p.categoria===key);
    const hasProducts=products.length>0;
    panelKimonos.hidden=hasProducts||key!=="kimonos";
@@ -402,4 +429,5 @@ footer{border-top:1px solid #2a2a2b;padding:32px 0;color:#a6a3a0}
 })();
 </script>
 <script src="/site-editor-runtime.js" defer></script>
+<script src="/oss-photo-viewer.js" defer></script>
 </body></html>
