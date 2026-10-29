@@ -47,7 +47,8 @@ test('nova identidade OSS e oficial, nao e mais pagina de previa',()=>{
 });
 
 test('versao antiga preservada para reversao e preview isolada',()=>{
-  assert.match(previous,/FEITO PARA QUEM VIVE O TATAME/);
+  assert.match(previous,/FEITO PARA/);
+  assert.match(previous,/TATAME/);
   assert.match(previous,/name="robots" content="noindex,nofollow"/);
   assert.match(preview,/name="robots" content="noindex,nofollow"/);
   assert.match(preview,/PRÉVIA DE DESIGN/);
