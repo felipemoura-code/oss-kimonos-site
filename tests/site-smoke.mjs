@@ -191,6 +191,10 @@ test('pre-visualizacao premium OSS utiliza somente fotos oficiais e consulta rea
   assert.match(preview, /class="shell hero-content"/);
   assert.match(preview, /background-image:url\('\/assets\/banner-oss-tres-modelos\.webp'\)/);
   assert.match(preview, /background-size:auto 100%;background-position:right center/);
+  assert.match(preview, /#inicio\.hero\{margin-inline:clamp\(10px,1vw,18px\)\}/);
+  assert.match(preview, /#inicio \.hero-content\.shell\{width:calc\(100% - 36px\);max-width:none;margin-inline:auto\}/);
+  assert.match(preview, /#inicio \.hero-content\.shell\{width:calc\(100% - 28px\)\}/);
+
   assert.doesNotMatch(preview, /class="shell hero-shell"/);
   assert.doesNotMatch(preview, /background-image:url\('\/assets\/hero-modelo-preto\.png'\)/);
 
