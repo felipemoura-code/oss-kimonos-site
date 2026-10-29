@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://oss-kimonos-site.onrender.com/sitemap.xml
+Disallow: /
