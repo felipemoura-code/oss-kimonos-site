@@ -187,12 +187,12 @@ test('pre-visualizacao premium OSS utiliza somente fotos oficiais e consulta rea
   assert.match(preview, /<title>Nova versão · OSS Kimonos \| Prévia<\/title>/);
   assert.match(preview, /name="robots" content="noindex,nofollow"/);
   assert.match(preview, /assets\/oss-logo\.webp/);
-  assert.match(preview, /assets\/hero-modelo-preto\.png/);
-  assert.match(preview, /class="shell hero-shell"/);
-  assert.match(preview, /class="hero-visual" aria-hidden="true"><img src="\/assets\/hero-modelo-preto\.png"/);
-  assert.match(preview, /\.hero-visual img\{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom/);
+  assert.match(preview, /class="hero-visual" aria-hidden="true"><\/div>/);
+  assert.match(preview, /class="shell hero-content"/);
+  assert.match(preview, /background-image:url\('\/assets\/banner-oss-tres-modelos\.webp'\)/);
+  assert.match(preview, /background-size:auto 100%;background-position:right center/);
+  assert.doesNotMatch(preview, /class="shell hero-shell"/);
   assert.doesNotMatch(preview, /background-image:url\('\/assets\/hero-modelo-preto\.png'\)/);
-  assert.match(preview, /\.hero-shell\{display:flex;flex-direction:column/);
 
   assert.match(preview, /assets\/banner-oss-tres-modelos\.webp/);
   const scripts = [...preview.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)];
