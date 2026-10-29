@@ -125,6 +125,14 @@ button,input{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:
 @media(max-width:700px){.shell{width:min(var(--max),calc(100% - 34px))}.topline .shell{justify-content:center}.topline .shell span:last-child{display:none}.header-row{min-height:69px}.brand img{height:59px;width:124px}.hero{min-height:650px;align-items:flex-start}.hero-content{padding:75px 0 85px}.hero h1{font-size:clamp(44px,11vw,72px)}.hero-visual{background-position:right center;background-size:contain;opacity:.72}.hero::before{background:linear-gradient(90deg,#0a0a0aef 0%,#0a0a0ad9 65%,#0a0a0a58),linear-gradient(0deg,#090909c8,transparent 70%)}.hero-proof{flex-wrap:wrap;margin-top:45px}.hero-side{display:none}.section{padding-block:55px}.section-head{align-items:start;flex-direction:column;gap:11px}.collections-section{padding-top:52px}.collection-card{flex-basis:calc((100% - 13px)/2);aspect-ratio:1;min-height:170px}.collection-name{font-size:26px}.product-grid{gap:9px}.product-photo-open img{height:230px}.product-body{padding:14px}.product-body h3{font-size:20px}.quick-preview img{height:145px}.brand-story{grid-template-columns:1fr}.story-image{min-height:315px;background-position:center 42%}.story-copy{padding:44px 22px 52px}.contact-strip .shell{flex-direction:column;align-items:stretch}.footer-row{flex-wrap:wrap}}
 @media(max-width:490px){.hero{min-height:675px}.hero-content{padding-top:65px}.hero-sub{max-width:325px}.collection-card{flex-basis:77%;min-height:178px;max-height:225px;padding:17px}.collection-name{font-size:30px}.product-grid{grid-template-columns:1fr}.product-card{display:grid;grid-template-columns:42% 58%;min-height:225px}.product-photo-open img{height:100%;min-height:225px;max-height:300px}.product-body{padding:14px}.product-meta{font-size:9px}.product-body h3{font-size:18px}.product-body p{font-size:12px}.quick-preview{grid-template-columns:1fr 1fr}.quick-preview img{height:120px}.quick-top h3{font-size:24px}.contact-strip .btn{width:100%}.footer-row{justify-content:center;text-align:center;flex-direction:column}.footer-links{justify-content:center}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+/* Margens discretas na vitrine — preserva texto, fotografia e composicao original */
+#inicio.hero{margin-inline:clamp(10px,1vw,18px)}
+#inicio .hero-content.shell{width:calc(100% - 36px);max-width:none;margin-inline:auto}
+@media(max-width:700px){
+ #inicio.hero{margin-inline:10px}
+ #inicio .hero-content.shell{width:calc(100% - 28px)}
+}
 </style>
 </head>
 <body>
