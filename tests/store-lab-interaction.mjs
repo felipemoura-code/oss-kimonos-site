@@ -36,8 +36,6 @@ class Node {
 function mockBrowser(){
  const ids=new Map();
  for(const m of html.matchAll(/<([a-z][\w-]*)([^>]*\sid="([^"]+)"[^>]*)>/gi)){const n=new Node(m[1]);n.id=m[3];ids.set(m[3],n);}
- const filters=ids.get('filters');
- for(const m of html.matchAll(/<button[^>]*data-filter="([^"]+)"[^>]*>/g)){const n=new Node('button');n.dataset.filter=m[1];filters.append(n);}
  const document={
   getElementById(id){const n=ids.get(id);if(!n)throw Error('Missing required element #'+id);return n;},
   createElement(tag){return new Node(tag);}
@@ -103,13 +101,11 @@ test('search actually filters products and empty state appears for unrelated ter
  ids.get('search').emit('input',{target:{value:''}});
  assert.equal(ids.get('products').children.length,3);
 });
-test('category filter updates pressed state and photo gallery is authentic',async()=>{
- const app=await boot(),ids=app.ids;
- const btn=ids.get('filters').children[1];
- ids.get('filters').emit('click',{target:btn});
- assert.equal(btn.getAttribute('aria-pressed'),'true');
- assert.equal(ids.get('products').children.length,3);
- for(const card of ids.get('products').children){
+test('storefront offers only actual kimonos, with genuine product photos and no duplicate filters',async()=>{
+ const app=await boot();
+ assert.equal(app.ids.get('products').children.length,3);
+ assert.equal(app.ids.has('filters'),false);
+ for(const card of app.ids.get('products').children){
   const image=card.children.find(x=>x.className==='product-visual').children[0];
   assert.match(image.src,/^\/assets\/[a-z0-9-]+\.webp$/);
   assert.match(image.alt,/oficial OSS/);
