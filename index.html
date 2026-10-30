@@ -148,6 +148,8 @@ dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}
 @media(min-width:560px) and (max-width:970px){.products{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:410px){.journey-steps{grid-template-columns:1fr}.line-links a{flex:1;min-width:130px}.header-bag{padding:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.product-visual img{transition:none}}
+.category-label{color:#8a7560;font-size:12px;font-weight:800;letter-spacing:.03em}
+@media(max-width:770px){.catalog-tools{gap:10px}.category-label{font-size:11px}}
 </style>
 </head>
 <body>
@@ -166,7 +168,7 @@ dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}
 </div></section>
 <section class="section" id="catalogo"><div class="wrap">
  <div class="section-head"><div><div class="eyebrow">COLEÇÃO OSS</div><h2>Kimonos em destaque</h2></div><p>Encontre a linha que combina com seu treino. As fotos são da OSS; os detalhes de cada modelo são confirmados no atendimento.</p></div>
- <div class="catalog-tools"><div class="filters" id="filters" role="group" aria-label="Filtrar produtos"><button type="button" class="filter" data-filter="todos" aria-pressed="true">Todos</button><button type="button" class="filter" data-filter="kimonos" aria-pressed="false">Kimonos</button></div><div class="search"><label for="search">Buscar</label><input id="search" type="search" placeholder="Nome ou cor do kimono" autocomplete="off"></div></div>
+ <div class="catalog-tools"><span class="category-label">Coleção de kimonos OSS</span><div class="search"><label for="search">Buscar</label><input id="search" type="search" placeholder="Nome ou cor do kimono" autocomplete="off"></div></div>
  <div class="count" id="catalogCount" role="status" aria-live="polite">Carregando a coleção...</div>
  <div id="products" class="products"></div>
  <div class="empty" id="emptyState" hidden><strong>Nenhum produto encontrado.</strong><span>Tente outra palavra ou consulte a OSS pelo WhatsApp.</span></div>
@@ -196,7 +198,7 @@ dialog::backdrop{background:#0009;backdrop-filter:blur(3px)}
 'use strict';
 const $=id=>document.getElementById(id);
 const grid=$('products'),counter=$('catalogCount'),error=$('catalogError'),drawer=$('bagDialog'),details=$('detailDialog');
-const state={products:[],cart:{},filter:'todos',query:'',selected:null};
+const state={products:[],cart:{},query:'',selected:null};
 const storageKey='oss-shop-favorites-v1';
 function make(tag,cls,text){
  const el=document.createElement(tag);
@@ -223,8 +225,7 @@ function photo(p){
 }
 function renderProducts(){
  grid.replaceChildren();
- const matches=state.products.filter(p=>(state.filter==='todos'||p.categoria===state.filter)&&
- (p.nome+' '+p.descricao).toLocaleLowerCase('pt-BR').includes(state.query));
+ const matches=state.products.filter(p=>(p.nome+' '+p.descricao).toLocaleLowerCase('pt-BR').includes(state.query));
  counter.textContent=matches.length===1?'1 modelo em destaque':matches.length+' modelos em destaque';
  $('emptyState').hidden=matches.length!==0;
  for(const p of matches){
@@ -294,12 +295,6 @@ async function loadCatalog(){
   renderProducts();renderCart();
  }
 }
-$('filters').addEventListener('click',e=>{
- const b=e.target.closest('[data-filter]');if(!b)return;
- state.filter=b.dataset.filter;
- for(const button of $('filters').querySelectorAll('[data-filter]'))button.setAttribute('aria-pressed',String(button===b));
- renderProducts();
-});
 $('search').addEventListener('input',e=>{
  state.query=String(e.target.value).trim().toLocaleLowerCase('pt-BR');renderProducts();
 });
